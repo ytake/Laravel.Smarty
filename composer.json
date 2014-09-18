@@ -1,0 +1,32 @@
+{
+    "name": "ytake/laravel-smarty",
+    "description": "smarty template engine for laravel4",
+    "keywords": ["laravel", "smarty", "template", "view"],
+    "authors": [
+        {
+            "name": "Yuuki Takezawa",
+            "email": "yuuki.takezawa@comnect.jp.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "illuminate/view": "4.2.*",
+        "illuminate/config": "4.2.*",
+        "illuminate/console": "4.2.*",
+        "smarty/smarty": "3.*"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": "2.*",
+        "symfony/console": "2.*",
+        "phpunit/phpunit": "4.*",
+        "mockery/mockery": "0.*",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ytake\\LaravelSmarty\\": "src/Smarty"
+        }
+    },
+    "minimum-stability": "stable"
+}

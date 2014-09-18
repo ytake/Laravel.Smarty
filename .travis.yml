@@ -1,0 +1,21 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - hhvm
+
+before_script:
+  - composer self-update
+  - composer install
+  - chmod -R 777 tests/storage
+script:
+  - mkdir -p build/logs
+  - chmod -R 777 build/logs
+  - phpunit
+after_script:
+  - php vendor/bin/coveralls -v
+notifications:
+emails:
+  - yuuki.takezawa@comnect.jp.net
