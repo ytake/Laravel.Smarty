@@ -121,7 +121,6 @@ class SmartyServiceProvider extends ServiceProvider
     protected function registerSmartyPlugins()
     {
         IlluminateEvent::listen("creating:*", function ($view) {
-                echo 'create';
                 /** @var  \Illuminate\View\View $view */
                 if($view->getEngine() instanceof \Ytake\LaravelSmarty\Engines\SmartyEngine) {
                     return new SmartyPlugin($this->app['form'], $this->app['view']->getSmarty());
