@@ -15,7 +15,7 @@
         "illuminate/view": "4.2.*",
         "illuminate/config": "4.2.*",
         "illuminate/console": "4.2.*",
-	    "illuminate/html": "4.2.*",
+        "illuminate/html": "4.2.*",
         "smarty/smarty": "3.*"
     },
     "require-dev": {

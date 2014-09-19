@@ -23,6 +23,7 @@ class CompiledCommand extends Command
 
     /**
      * @param Smarty $smarty
+     * @param Repository $config
      */
     public function __construct(Smarty $smarty, Repository $config)
     {
