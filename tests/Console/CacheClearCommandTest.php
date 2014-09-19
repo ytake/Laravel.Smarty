@@ -37,4 +37,10 @@ class CacheClearCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("Flush the smarty cache", $this->command->getDescription());
         $this->assertSame('ytake:smarty-clear-cache [-f|--file[="..."]] [-t|--time[="..."]] [-cache|--cache_id[="..."]]', $this->command->getSynopsis());
     }
+
+    public function testCommandFile()
+    {
+        $this->command->run(new \Symfony\Component\Console\Input\ArrayInput(['--file' => 'aa']), new \Symfony\Component\Console\Output\NullOutput);
+        $this->assertInstanceOf("Symfony\Component\Console\Output\NullOutput", $this->command->getOutput());
+    }
 }
