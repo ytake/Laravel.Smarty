@@ -29,5 +29,5 @@ return [
     'config_paths' => [
         base_path() . '/app/config/smarty',
     ],
-    'force_compile' => false
+    'force_compile' => true
 ];
