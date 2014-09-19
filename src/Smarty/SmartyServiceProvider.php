@@ -3,6 +3,7 @@ namespace Ytake\LaravelSmarty;
 
 use Smarty;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event as IlluminateEvent;
 
 /**
  * Class LaravelSmartyServiceProvider
@@ -28,6 +29,8 @@ class SmartyServiceProvider extends ServiceProvider
         $this->package('ytake/laravel-smarty');
         // register commands
         $this->registerCommands();
+
+        $this->registerSmartyPlugins();
     }
 
     /**
@@ -37,7 +40,6 @@ class SmartyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
         $this->app['config']->package('ytake/laravel-smarty', __DIR__ . '/../config');
 
         $this->app['view'] = $this->app->share(
@@ -78,9 +80,9 @@ class SmartyServiceProvider extends ServiceProvider
     }
 
     /**
-     *
+     * @return void
      */
-    public function registerCommands()
+    protected function registerCommands()
     {
         // Package Info command
         $this->app['command.ytake.laravel-smarty.info'] = $this->app->share(
@@ -110,6 +112,21 @@ class SmartyServiceProvider extends ServiceProvider
                 'command.ytake.laravel-smarty.optimize',
                 'command.ytake.laravel-smarty.info',
             ]
+        );
+    }
+
+    /**
+     * @return void
+     */
+    protected function registerSmartyPlugins()
+    {
+        IlluminateEvent::listen("creating:*", function ($view) {
+                echo 'create';
+                /** @var  \Illuminate\View\View $view */
+                if($view->getEngine() instanceof \Ytake\LaravelSmarty\Engines\SmartyEngine) {
+                    return new SmartyPlugin($this->app['form'], $this->app['view']->getSmarty());
+                }
+            }
         );
     }
 }
