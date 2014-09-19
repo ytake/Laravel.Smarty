@@ -39,7 +39,7 @@ class SmartyManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testVersion()
     {
-        $this->assertSame('1.2.0', $this->manager->getVersion());
+        $this->assertSame('1.1.0', $this->manager->getVersion());
     }
 
     public function testConfigure()

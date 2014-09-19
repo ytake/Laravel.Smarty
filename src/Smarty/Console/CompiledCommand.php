@@ -23,6 +23,7 @@ class CompiledCommand extends Command
 
     /**
      * @param Smarty $smarty
+     * @param Repository $config
      */
     public function __construct(Smarty $smarty, Repository $config)
     {
@@ -66,9 +67,9 @@ class CompiledCommand extends Command
      */
     protected function getOptions()
     {
-        return [
-            ['extension', 'e', InputOption::VALUE_OPTIONAL, 'specified smarty file extension'],
-            ['force', null, InputOption::VALUE_NONE, 'compiles template files found in views directory'],
-        ];
+        return array(
+            array('extension', 'e', InputOption::VALUE_OPTIONAL, 'specified smarty file extension'),
+            array('force', null, InputOption::VALUE_NONE, 'compiles template files found in views directory'),
+        );
     }
 }

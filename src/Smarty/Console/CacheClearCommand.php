@@ -64,10 +64,10 @@ class CacheClearCommand extends Command
      */
     protected function getOptions()
     {
-        return [
-            ['file', 'f', InputOption::VALUE_OPTIONAL, 'specify file'],
-            ['time', 't', InputOption::VALUE_OPTIONAL, 'clear all of the files that are specified duration time'],
-            ['cache_id', 'cache', InputOption::VALUE_OPTIONAL, 'specified cache_id groups'],
-        ];
+        return array(
+            array('file', 'f', InputOption::VALUE_OPTIONAL, 'specify file'),
+            array('time', 't', InputOption::VALUE_OPTIONAL, 'clear all of the files that are specified duration time'),
+            array('cache_id', 'cache', InputOption::VALUE_OPTIONAL, 'specified cache_id groups'),
+        );
     }
 }
