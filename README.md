@@ -2,15 +2,16 @@ Laravel.Smarty
 ==============
 smarty template engine for laravel
 
-[![Build Status](https://travis-ci.org/ytake/Laravel.Smarty.svg?branch=master)](https://travis-ci.org/ytake/Laravel.Smarty)
-[![Coverage Status](https://coveralls.io/repos/ytake/Laravel.Smarty/badge.png?branch=master)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=develop)
+[![Build Status](http://img.shields.io/travis/ytake/Laravel.Smarty/master.svg?style=flat)](https://travis-ci.org/ytake/Laravel.Smarty)
+[![Coverage Status](http://img.shields.io/coveralls/ytake/Laravel.Smarty/master.svg?style=flat)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/541bfc296936193b68000060/badge.svg?style=flat)](https://www.versioneye.com/user/projects/541bfc296936193b68000060)
-[![Code Climate](https://codeclimate.com/github/ytake/Laravel.Smarty/badges/gpa.svg)](https://codeclimate.com/github/ytake/Laravel.Smarty)
-[![HHVM Status](http://hhvm.h4cc.de/badge/ytake/laravel-smarty.svg)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)  
+[![Code Climate](http://img.shields.io/codeclimate/github/ytake/Laravel.Smarty.svg?style=flat)](https://codeclimate.com/github/ytake/Laravel.Smarty)
 
-[![License](https://poser.pugx.org/ytake/laravel-smarty/license.svg)](https://packagist.org/packages/ytake/laravel-smarty)
-[![Latest Stable Version](https://poser.pugx.org/ytake/laravel-smarty/v/stable.svg)](https://packagist.org/packages/ytake/laravel-smarty)
-[![Total Downloads](https://poser.pugx.org/ytake/laravel-smarty/downloads.svg)](https://packagist.org/packages/ytake/laravel-smarty)
+[![License](http://img.shields.io/packagist/l/ytake/laravel-smarty.svg?style=flat)](https://packagist.org/packages/ytake/laravel-smarty)
+[![Latest Version](http://img.shields.io/packagist/v/ytake/laravel-smarty.svg?style=flat)](https://packagist.org/packages/ytake/laravel-smarty)
+[![Total Downloads](http://img.shields.io/packagist/dt/ytake/laravel-smarty.svg?style=flat)](https://packagist.org/packages/ytake/laravel-smarty)
+
+[![HHVM Status](http://hhvm.h4cc.de/badge/ytake/laravel-smarty.svg?style=flat)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)  
 [![Latest Unstable Version](https://poser.pugx.org/ytake/laravel-smarty/v/unstable.svg)](https://packagist.org/packages/ytake/laravel-smarty)
 
 ##Basic
