@@ -25,7 +25,7 @@ return array(
     'compile_path' => base_path() . '/app/storage/smarty/compile',
     'plugins_paths' => array(
         base_path() . '/app/views/smarty/plugins',
-        ),
+    ),
     'config_paths' => array(
         base_path() . '/app/config/smarty',
     ),
