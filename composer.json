@@ -1,6 +1,6 @@
 {
     "name": "ytake/laravel-smarty",
-    "description": "smarty template engine for laravel4",
+    "description": "smarty template engine for laravel",
     "keywords": ["laravel", "smarty", "template", "view"],
     "authors": [
         {
