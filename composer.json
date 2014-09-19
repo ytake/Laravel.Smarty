@@ -1,6 +1,6 @@
 {
     "name": "ytake/laravel-smarty",
-    "description": "smarty template engine for laravel4",
+    "description": "smarty template engine for laravel",
     "keywords": ["laravel", "smarty", "template", "view"],
     "authors": [
         {
@@ -10,12 +10,12 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "4.2.*",
-        "illuminate/view": "4.2.*",
-        "illuminate/config": "4.2.*",
-        "illuminate/console": "4.2.*",
-	    "illuminate/html": "4.2.*",
+        "php": ">=5.3.7",
+        "illuminate/support": "4.1.*",
+        "illuminate/view": "4.1.*",
+        "illuminate/config": "4.1.*",
+        "illuminate/console": "4.1.*",
+        "illuminate/html": "4.1.*",
         "smarty/smarty": "3.*"
     },
     "require-dev": {

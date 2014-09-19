@@ -23,11 +23,11 @@ return [
 	'template_path' => base_path() . '/app/views',
 	'cache_path' => base_path() . '/app/storage/smarty/cache',
 	'compile_path' => base_path() . '/app/storage/smarty/compile',
-	'plugins_paths' => [
+	'plugins_paths' => array(
         base_path() . '/app/views/smarty/plugins',
-	],
-    'config_paths' => [
+    ),
+    'config_paths' => array(
         base_path() . '/app/config/smarty',
-    ],
+    ),
     'force_compile' => false
 ];

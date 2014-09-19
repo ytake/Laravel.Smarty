@@ -69,12 +69,12 @@ class SmartyServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [
+        return array(
             'command.ytake.laravel-smarty.clear.compiled',
             'command.ytake.laravel-smarty.clear.cache',
             'command.ytake.laravel-smarty.optimize',
             'command.ytake.laravel-smarty.info',
-        ];
+        );
     }
 
     /**
@@ -104,12 +104,12 @@ class SmartyServiceProvider extends ServiceProvider
             }
         );
         $this->commands(
-            [
+            array(
                 'command.ytake.laravel-smarty.clear.compiled',
                 'command.ytake.laravel-smarty.clear.cache',
                 'command.ytake.laravel-smarty.optimize',
                 'command.ytake.laravel-smarty.info',
-            ]
+            )
         );
     }
 }

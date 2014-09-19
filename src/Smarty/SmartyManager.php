@@ -3,13 +3,12 @@ namespace Ytake\LaravelSmarty;
 
 use Smarty;
 use ReflectionClass;
-use Illuminate\View\Factory;
+use Illuminate\View\Environment;
 use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\View\ViewFinderInterface;
 use Illuminate\View\Engines\EngineResolver;
 use Ytake\LaravelSmarty\Exception\MethodNotFoundException;
-use Ytake\LaravelSmarty\Plugins\Block\Form;
 
 /**
  * Class SmartyManager
@@ -17,13 +16,13 @@ use Ytake\LaravelSmarty\Plugins\Block\Form;
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class SmartyManager extends Factory
+class SmartyManager extends Environment
 {
 
     /**
      * @var string  version
      */
-    const VERSION = '1.2.0';
+    const VERSION = '1.1.0';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -79,8 +78,9 @@ class SmartyManager extends Factory
         $this->smarty->setTemplateDir($this->config->get('laravel-smarty::template_path'));
         $this->smarty->setCompileDir($this->config->get('laravel-smarty::compile_path'));
         $this->smarty->setCacheDir($this->config->get('laravel-smarty::cache_path'));
+        $this->smarty->setConfigDir($this->config->get('laravel-smarty::config_paths'));
 
-        foreach($this->config->get('laravel-smarty::plugins_paths', []) as $plugins) {
+        foreach($this->config->get('laravel-smarty::plugins_paths', array()) as $plugins) {
             $this->smarty->addPluginsDir($plugins);
         }
 
@@ -90,8 +90,6 @@ class SmartyManager extends Factory
         $this->smarty->compile_check = $this->config->get('laravel-smarty::compile_check');
         $this->smarty->force_compile = $this->config->get('laravel-smarty::force_compile', false);
         $this->smarty->error_reporting = E_ALL &~ E_NOTICE;
-
-        $this->smarty->config_dir = $this->config->get('laravel-smarty::config_paths');
     }
 
     /**

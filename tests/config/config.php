@@ -19,8 +19,11 @@ return [
 	'template_path' => PATH . '/views',
 	'cache_path' => PATH . '/storage/smarty/cache',
 	'compile_path' => PATH . '/storage/smarty/compile',
-	'plugins_paths' => [
+	'plugins_paths' => array(
         PATH . '/views/plugins',
-	],
+    ),
+    'config_paths' => array(
+        PATH . '/app/config/smarty',
+    ),
     'force_compile' => true
 ];
