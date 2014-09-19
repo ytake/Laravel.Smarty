@@ -91,10 +91,8 @@ class SmartyManagerTest extends \PHPUnit_Framework_TestCase
     {
         $files = [];
         $dir = opendir(PATH . '/storage/smarty/compile');
-        while($file = readdir($dir))
-        {
-            if($file != '.' && $file != '..' && $file != '.gitkeep')
-            {
+        while($file = readdir($dir)) {
+            if($file != '.' && $file != '..' && $file != '.gitignore') {
                 $files[] = $file;
             }
         }

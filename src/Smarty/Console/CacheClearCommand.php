@@ -51,7 +51,7 @@ class CacheClearCommand extends Command
         }
         $this->smarty->getTemplateDir(0);
         if(!$this->smarty->clearCache($this->option('file'), $this->option('cache_id'), null, $this->option('time'))) {
-            $this->info('specified file not be found');
+            $this->error('specified file not be found');
             return;
         }
         $this->info('specified file was cache cleared!');

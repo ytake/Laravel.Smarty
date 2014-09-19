@@ -9,6 +9,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\View\ViewFinderInterface;
 use Illuminate\View\Engines\EngineResolver;
 use Ytake\LaravelSmarty\Exception\MethodNotFoundException;
+use Ytake\LaravelSmarty\Plugins\Block\Form;
 
 /**
  * Class SmartyManager
@@ -79,7 +80,7 @@ class SmartyManager extends Factory
         $this->smarty->setCompileDir($this->config->get('laravel-smarty::compile_path'));
         $this->smarty->setCacheDir($this->config->get('laravel-smarty::cache_path'));
 
-        foreach($this->config->get('laravel-smarty::plugins_paths') as $plugins) {
+        foreach($this->config->get('laravel-smarty::plugins_paths', []) as $plugins) {
             $this->smarty->addPluginsDir($plugins);
         }
 

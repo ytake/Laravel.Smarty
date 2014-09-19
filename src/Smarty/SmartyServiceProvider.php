@@ -70,8 +70,10 @@ class SmartyServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'view',
-            'command.ytake.laravel-smarty.info'
+            'command.ytake.laravel-smarty.clear.compiled',
+            'command.ytake.laravel-smarty.clear.cache',
+            'command.ytake.laravel-smarty.optimize',
+            'command.ytake.laravel-smarty.info',
         ];
     }
 

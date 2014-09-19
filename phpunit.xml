@@ -18,6 +18,9 @@
     <filter>
         <whitelist>
             <directory>./src/Smarty</directory>
+            <exclude>
+                <file>./src/Smarty/SmartyServiceProvider.php</file>
+            </exclude>
         </whitelist>
     </filter>
     <logging>
