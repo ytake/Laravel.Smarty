@@ -16,7 +16,7 @@
         "illuminate/config": "4.2.*",
         "illuminate/console": "4.2.*",
         "illuminate/html": "4.2.*",
-        "smarty/smarty": "3.*"
+        "smarty/smarty": "3.*@stable"
     },
     "require-dev": {
         "symfony/framework-bundle": "2.*",
