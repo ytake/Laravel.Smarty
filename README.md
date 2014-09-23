@@ -47,6 +47,12 @@ easily use all the methods of smarty
         "ytake/laravel-smarty": "1.1.*"
     },
 ```
+###for Laravel5(develop)
+```json
+    "require": {
+        "ytake/laravel-smarty": "dev-develop-5"
+    },
+```
 
 ##Artisan
 キャッシュクリア、コンパイルファイルの削除がコマンドラインから行えます。  
