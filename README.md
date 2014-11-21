@@ -13,6 +13,7 @@ smarty template engine for laravel
 
 [![HHVM Status](http://hhvm.h4cc.de/badge/ytake/laravel-smarty.svg?style=flat)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)  
 [![Latest Unstable Version](https://poser.pugx.org/ytake/laravel-smarty/v/unstable.svg)](https://packagist.org/packages/ytake/laravel-smarty)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5/mini.png)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
 
 ##Basic
 laravel4でsmartyを使用できます。  
