@@ -13,6 +13,7 @@ smarty template engine for laravel
 
 [![HHVM Status](http://hhvm.h4cc.de/badge/ytake/laravel-smarty.svg?style=flat)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)  
 [![Latest Unstable Version](https://poser.pugx.org/ytake/laravel-smarty/v/unstable.svg)](https://packagist.org/packages/ytake/laravel-smarty)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5/mini.png)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
 
 ##Basic
 laravel4でsmartyを使用できます。  
@@ -37,15 +38,21 @@ easily use all the methods of smarty
 
 ###for Laravel4.2.*
 ```json
-    "require": {
-        "ytake/laravel-smarty": "1.2.*"
-    },
+"require": {
+  "ytake/laravel-smarty": "1.2.*"
+},
 ```
 ###for Laravel4.1.*
 ```json
-    "require": {
-        "ytake/laravel-smarty": "1.1.*"
-    },
+"require": {
+  "ytake/laravel-smarty": "1.1.*"
+},
+```
+###for Laravel5(develop)
+```json
+"require": {
+  "ytake/laravel-smarty": "dev-develop-5"
+},
 ```
 ###for Laravel5(develop)
 ```json
@@ -95,7 +102,7 @@ app/config配下のapp.phpのproviders配列に以下のnamespaceを追加して
 add providers
 ```php
 'providers' => [
-    'Ytake\LaravelSmarty\SmartyServiceProvider'
+'Ytake\LaravelSmarty\SmartyServiceProvider'
 ]
 ```
 

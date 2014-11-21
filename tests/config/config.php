@@ -22,5 +22,26 @@ return [
 	'plugins_paths' => [
         PATH . '/views/plugins',
 	],
-    'force_compile' => true
+    'force_compile' => true,
+
+	// smarty cache driver "file", "memcached", "redis"
+	'cache_driver' => 'file',
+
+	// memcached servers
+	'memcached' => [
+		[
+			'host' => '127.0.0.1',
+			'port' => 11211,
+			'weight' => 100
+		],
+	],
+
+	// redis configure
+	'redis' => [
+		[
+			'host' => '127.0.0.1',
+			'port' => 6379,
+			'database' => 0,
+		],
+	],
 ];

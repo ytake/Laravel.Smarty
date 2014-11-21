@@ -20,6 +20,8 @@
             <directory>./src/Smarty</directory>
             <exclude>
                 <file>./src/Smarty/SmartyServiceProvider.php</file>
+                <file>./src/Smarty/Cache/Redis.php</file>
+                <file>./src/Smarty/Cache/Memcached.php</file>
             </exclude>
         </whitelist>
     </filter>
