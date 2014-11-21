@@ -38,15 +38,21 @@ easily use all the methods of smarty
 
 ###for Laravel4.2.*
 ```json
-    "require": {
-        "ytake/laravel-smarty": "1.2.*"
-    },
+"require": {
+  "ytake/laravel-smarty": "1.2.*"
+},
 ```
 ###for Laravel4.1.*
 ```json
-    "require": {
-        "ytake/laravel-smarty": "1.1.*"
-    },
+"require": {
+  "ytake/laravel-smarty": "1.1.*"
+},
+```
+###for Laravel5(develop)
+```json
+"require": {
+  "ytake/laravel-smarty": "dev-develop-5"
+},
 ```
 
 ##Artisan
@@ -90,7 +96,7 @@ app/config配下のapp.phpのproviders配列に以下のnamespaceを追加して
 add providers
 ```php
 'providers' => [
-    'Ytake\LaravelSmarty\SmartyServiceProvider'
+'Ytake\LaravelSmarty\SmartyServiceProvider'
 ]
 ```
 
