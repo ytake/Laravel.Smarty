@@ -5,8 +5,11 @@ php:
   - 5.5
   - 5.6
   - hhvm
-
+services:
+  - memcached
 before_script:
+  - "sudo apt-get install php5-memcached"
+  - "phpenv config-add travis.php.ini"
   - composer self-update
   - composer install
   - chmod -R 777 tests/storage
@@ -17,5 +20,5 @@ script:
 after_script:
   - php vendor/bin/coveralls -v
 notifications:
-emails:
-  - yuuki.takezawa@comnect.jp.net
+  emails:
+    - yuuki.takezawa@comnect.jp.net
