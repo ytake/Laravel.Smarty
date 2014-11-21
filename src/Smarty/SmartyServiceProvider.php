@@ -3,7 +3,7 @@ namespace Ytake\LaravelSmarty;
 
 use Smarty;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Event as IlluminateEvent;
+use Ytake\LaravelSmarty\Cache\Storage;
 
 /**
  * Class LaravelSmartyServiceProvider
@@ -16,7 +16,6 @@ class SmartyServiceProvider extends ServiceProvider
 
     /**
      * Indicates if loading of the provider is deferred.
-     *
      * @var bool
      */
     protected $defer = false;
@@ -27,10 +26,10 @@ class SmartyServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->package('ytake/laravel-smarty');
+	    //
+	    $this->registerCacheStorage();
         // register commands
         $this->registerCommands();
-
-        $this->registerSmartyPlugins();
     }
 
     /**
@@ -115,17 +114,11 @@ class SmartyServiceProvider extends ServiceProvider
         );
     }
 
-    /**
-     * @return void
-     */
-    protected function registerSmartyPlugins()
+	/**
+	 * @return Storage
+	 */
+    protected function registerCacheStorage()
     {
-        IlluminateEvent::listen("creating:*", function ($view) {
-                /** @var  \Illuminate\View\View $view */
-                if($view->getEngine() instanceof \Ytake\LaravelSmarty\Engines\SmartyEngine) {
-                    return new SmartyPlugin($this->app['form'], $this->app['view']->getSmarty());
-                }
-            }
-        );
+        return new Storage($this->app['view']->getSmarty(), $this->app['config']);
     }
 }
