@@ -27,12 +27,12 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
      * @param array $servers
      * @return \Memcached
      */
-    public function connection(MemcachedExtendion $memcached, array $servers)
+    protected function connection(MemcachedExtendion $memcached, array $servers)
     {
         foreach ($servers as $server) {
-	        $memcached->addServer($server['host'], $server['port'], $server['weight']);
+            $memcached->addServer($server['host'], $server['port'], $server['weight']);
         }
-	    return $memcached;
+        return $memcached;
     }
 
 

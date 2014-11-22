@@ -1,5 +1,5 @@
 <?php
-
+use Mockery as m;
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
 	/** @var  \Ytake\LaravelSmarty\Cache\Storage */
@@ -19,6 +19,11 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function tearDown()
+	{
+		m::close();
+	}
+
 	public function testInstance()
 	{
 		$this->assertInstanceOf("Ytake\LaravelSmarty\Cache\Storage", $this->storage);
@@ -32,8 +37,11 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
 	public function testMemcachedDriver()
 	{
-		$reflection = $this->getProtectMethod($this->storage, 'memcachedStorage');
-		$this->assertInstanceOf("Ytake\LaravelSmarty\Cache\Memcached", $reflection->invoke($this->storage));
+		$storageMock = m::mock($this->storage);
+		$storageMock->makePartial()->shouldAllowMockingProtectedMethods();
+		$storageMock->shouldReceive("memcachedStorage")->andReturn("Ytake\LaravelSmarty\Cache\Memcached");
+		$reflection = $this->getProtectMethod($storageMock, 'memcachedStorage');
+		$this->assertEquals("Ytake\LaravelSmarty\Cache\Memcached", $reflection->invoke($storageMock));
 	}
 
 	/**

@@ -26,30 +26,30 @@ class CompiledClearCommand extends Command
         $this->smarty = $smarty;
     }
 
-	/**
-	 * The console command name.
-	 * @var string
-	 */
-	protected $name = 'ytake:smarty-clear-compiled';
+    /**
+     * The console command name.
+     * @var string
+     */
+    protected $name = 'ytake:smarty-clear-compiled';
 
-	/**
-	 * The console command description.
-	 * @var string
-	 */
-	protected $description = 'Remove the compiled smarty file';
+    /**
+     * The console command description.
+     * @var string
+     */
+    protected $description = 'Remove the compiled smarty file';
 
-	/**
-	 * Execute the console command.
-	 * @return void
-	 */
-	public function fire()
-	{
+    /**
+     * Execute the console command.
+     * @return void
+     */
+    public function fire()
+    {
         if($this->smarty->clearCompiledTemplate($this->option('file'), $this->option('compile_id'))) {
             $this->info('done.');
             return;
         }
         return;
-	}
+    }
 
     /**
      * Get the console command options.

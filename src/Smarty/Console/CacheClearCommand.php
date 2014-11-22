@@ -25,24 +25,24 @@ class CacheClearCommand extends Command
         $this->smarty = $smarty;
     }
 
-	/**
-	 * The console command name.
-	 * @var string
-	 */
-	protected $name = 'ytake:smarty-clear-cache';
+    /**
+     * The console command name.
+     * @var string
+     */
+    protected $name = 'ytake:smarty-clear-cache';
 
-	/**
-	 * The console command description.
-	 * @var string
-	 */
-	protected $description = 'Flush the smarty cache';
+    /**
+     * The console command description.
+     * @var string
+     */
+    protected $description = 'Flush the smarty cache';
 
-	/**
-	 * Execute the console command.
-	 * @return void
-	 */
-	public function fire()
-	{
+    /**
+     * Execute the console command.
+     * @return void
+     */
+    public function fire()
+    {
         // clear all cache
         if(is_null($this->option('file'))) {
             $this->smarty->clearAllCache($this->option('time'));
@@ -56,7 +56,7 @@ class CacheClearCommand extends Command
         }
         $this->info('specified file was cache cleared!');
         return;
-	}
+    }
 
     /**
      * Get the console command options.
