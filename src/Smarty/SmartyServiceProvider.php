@@ -26,6 +26,8 @@ class SmartyServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->package('ytake/laravel-smarty');
+        // register cache driver
+        $this->registerCacheStorage();
         // register commands
         $this->registerCommands();
     }
@@ -111,5 +113,14 @@ class SmartyServiceProvider extends ServiceProvider
                 'command.ytake.laravel-smarty.info',
             )
         );
+    }
+
+
+    /**
+     * @return Storage
+     */
+    protected function registerCacheStorage()
+    {
+        return new Storage($this->app['view']->getSmarty(), $this->app['config']);
     }
 }

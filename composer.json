@@ -16,14 +16,19 @@
         "illuminate/config": "4.1.*",
         "illuminate/console": "4.1.*",
         "illuminate/html": "4.1.*",
-        "smarty/smarty": "3.*"
+        "smarty/smarty": "3.*@stable"
     },
     "require-dev": {
+        "predis/predis": "0.*",
         "symfony/framework-bundle": "2.*",
         "symfony/console": "2.*",
         "phpunit/phpunit": "4.*",
         "mockery/mockery": "0.*",
         "satooshi/php-coveralls": "dev-master"
+    },
+    "suggest": {
+        "ext-memcached": "memcached Template Cache Driver",
+        "predis/predis": "Redis Template Cache Driver"
     },
     "autoload": {
         "psr-4": {
