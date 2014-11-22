@@ -94,6 +94,36 @@ $ php artisan ytake:smarty-optimize
 | --extension (-e) | specified smarty file extension(default: *.tpl*) |
 | --force | compiles template files found in views directory  |
 
+Template Caching
+==================
+**choose file, memcached, Redis**  
+(default file cache driver)  
+
+テンプレートキャッシュドライバにファイルキャッシュ、memcached, Redisが選択できます  
+デフォルトは通常のファイルキャッシュになっています  
+```php
+// smarty cache driver "file", "memcached", "redis"
+'cache_driver' => 'file',
+
+// memcached servers
+'memcached' => [
+    [
+        'host' => '127.0.0.1',
+        'port' => 11211,
+        'weight' => 100
+    ],
+],
+
+// redis configure
+'redis' => [
+    [
+        'host' => '127.0.0.1',
+        'port' => 6379,
+        'database' => 0,
+    ],
+],
+```
+
 Usage
 ==================
 
@@ -102,7 +132,7 @@ app/config配下のapp.phpのproviders配列に以下のnamespaceを追加して
 add providers
 ```php
 'providers' => [
-'Ytake\LaravelSmarty\SmartyServiceProvider'
+    'Ytake\LaravelSmarty\SmartyServiceProvider'
 ]
 ```
 

@@ -30,19 +30,19 @@ return [
     // path info
     'template_path' => base_path() . '/app/views',
 
-	'cache_path' => base_path() . '/app/storage/smarty/cache',
+    'cache_path' => base_path() . '/app/storage/smarty/cache',
 
-	'compile_path' => base_path() . '/app/storage/smarty/compile',
+    'compile_path' => base_path() . '/app/storage/smarty/compile',
 
-	'plugins_paths' => [
+    'plugins_paths' => [
         base_path() . '/app/views/smarty/plugins',
     ],
 
-	'config_paths' => [
+    'config_paths' => [
         base_path() . '/app/config/smarty',
     ],
 
-	// production false
+    // production false
     'force_compile' => true,
 
     // smarty cache driver "file", "memcached", "redis"

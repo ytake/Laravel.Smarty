@@ -12,19 +12,19 @@ use Predis\Client;
 class Redis extends \Smarty_CacheResource_KeyValueStore
 {
 
-	/** @var Client  */
+    /** @var Client  */
     protected $redis;
 
-	/**
-	 * @param array $servers
-	 */
+    /**
+     * @param array $servers
+     */
     public function __construct(array $servers)
     {
-	    if(count($servers) === 1) {
-		    $this->redis = new Client($servers[0]);
-	    } else {
-		    $this->redis = new Client($servers);
-	    }
+        if(count($servers) === 1) {
+            $this->redis = new Client($servers[0]);
+        } else {
+            $this->redis = new Client($servers);
+        }
     }
 
     /**
@@ -42,9 +42,9 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
             $lookup[$_k] = $k;
         }
         $_res = [];
-	    foreach($_keys as $key) {
-		    $_res[$lookup[$key]] = $this->redis->get($key);
-	    }
+        foreach($_keys as $key) {
+            $_res[$lookup[$key]] = $this->redis->get($key);
+        }
         return $_res;
     }
 
@@ -58,7 +58,7 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
     {
         foreach ($keys as $k => $v) {
             $k = sha1($k);
-	        $this->redis->setex($k, $expire, $v);
+            $this->redis->setex($k, $expire, $v);
         }
         return true;
     }

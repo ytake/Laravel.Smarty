@@ -35,30 +35,30 @@ class Storage
      */
     protected function cacheStorageManaged()
     {
-	    $driver = $this->repository->get('laravel-smarty::cache_driver', 'file');
-	    if($driver !== 'file') {
-		    $storage = $driver . "Storage";
-		    $this->smarty->registerCacheResource($driver, $this->$storage());
-	    }
-	    $this->smarty->caching_type = $driver;
+        $driver = $this->repository->get('laravel-smarty::cache_driver', 'file');
+        if($driver !== 'file') {
+            $storage = $driver . "Storage";
+            $this->smarty->registerCacheResource($driver, $this->$storage());
+        }
+        $this->smarty->caching_type = $driver;
     }
 
-	/**
-	 * @return Redis
-	 */
-	protected function redisStorage()
+    /**
+     * @return Redis
+     */
+    protected function redisStorage()
     {
-	    return new Redis($this->repository->get('laravel-smarty::redis'));
+        return new Redis($this->repository->get('laravel-smarty::redis'));
     }
 
-	/**
-	 * @return Memcached
-	 */
-	protected function memcachedStorage()
+    /**
+     * @return Memcached
+     */
+    protected function memcachedStorage()
     {
         return new Memcached(
-	        new \Memcached(),
-	        $this->repository->get('laravel-smarty::memcached')
+            new \Memcached(),
+            $this->repository->get('laravel-smarty::memcached')
         );
     }
 }
