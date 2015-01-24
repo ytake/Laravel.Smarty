@@ -2,17 +2,16 @@ Laravel.Smarty
 ==============
 smarty template engine for laravel
 
-[![Build Status](http://img.shields.io/travis/ytake/Laravel.Smarty/master.svg?style=flat)](https://travis-ci.org/ytake/Laravel.Smarty)
-[![Coverage Status](http://img.shields.io/coveralls/ytake/Laravel.Smarty/master.svg?style=flat)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/541bfc296936193b68000060/badge.svg?style=flat)](https://www.versioneye.com/user/projects/541bfc296936193b68000060)
-[![Code Climate](http://img.shields.io/codeclimate/github/ytake/Laravel.Smarty.svg?style=flat)](https://codeclimate.com/github/ytake/Laravel.Smarty)
+[![Build Status](http://img.shields.io/travis/ytake/Laravel.Smarty/develop5.svg?style=flat-square)](https://travis-ci.org/ytake/Laravel.Smarty)
+[![Coverage Status](http://img.shields.io/coveralls/ytake/Laravel.Smarty/develop5.svg?style=flat-square)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/541bfc296936193b68000060/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/541bfc296936193b68000060)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ytake/Laravel.Smarty/develop5.svg?style=flat-square)](https://scrutinizer-ci.com/g/ytake/Laravel.Smarty/?branch=develop5)
 
-[![License](http://img.shields.io/packagist/l/ytake/laravel-smarty.svg?style=flat)](https://packagist.org/packages/ytake/laravel-smarty)
-[![Latest Version](http://img.shields.io/packagist/v/ytake/laravel-smarty.svg?style=flat)](https://packagist.org/packages/ytake/laravel-smarty)
-[![Total Downloads](http://img.shields.io/packagist/dt/ytake/laravel-smarty.svg?style=flat)](https://packagist.org/packages/ytake/laravel-smarty)
+[![License](http://img.shields.io/packagist/l/ytake/laravel-smarty.svg?style=flat-square)](https://packagist.org/packages/ytake/laravel-smarty)
+[![Latest Version](http://img.shields.io/packagist/v/ytake/laravel-smarty.svg?style=flat-square)](https://packagist.org/packages/ytake/laravel-smarty)
+[![Total Downloads](http://img.shields.io/packagist/dt/ytake/laravel-smarty.svg?style=flat-square)](https://packagist.org/packages/ytake/laravel-smarty)
 
-[![HHVM Status](http://hhvm.h4cc.de/badge/ytake/laravel-smarty.svg?style=flat)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)  
-[![Latest Unstable Version](https://poser.pugx.org/ytake/laravel-smarty/v/unstable.svg)](https://packagist.org/packages/ytake/laravel-smarty)
+[![HHVM Status](https://img.shields.io/hhvm/ytake/laravel-smarty.svg?style=flat-square)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5/mini.png)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
 
 ##Basic
@@ -51,7 +50,7 @@ easily use all the methods of smarty
 ###for Laravel5(develop)
 ```json
 "require": {
-  "ytake/laravel-smarty": "dev-develop-5"
+  "ytake/laravel-smarty": "dev-develop5"
 },
 ```
 
@@ -131,15 +130,22 @@ add providers
 ```
 
 configファイルをpublishします。  
-publish configure
+publish configure(for laravel4)
 ```bash
 $ php artisan config:publish ytake/laravel-smarty
 ```
 app/config/packages配下に追加されます。  
 publish to app/config/packages
 
+publish configure(for laravel5)
+```bash
+$ php artisan ytake:smarty-config-publish
+```
+config配下に追加されます。  
+publish to config directory
 
-views配下にsmartyファイルがあればそれをテンプレートと使用し、  
+
+views配下にsmartyファイルがあればそれをview templateとし、  
 なければ通常通りbladeテンプレートかphpファイルを使用します。  
 
 smartyテンプレート内にも*{{app_path()}}*等のヘルパーそのまま使用できます。  
