@@ -1,31 +1,16 @@
 <?php
 
-class CacheClearCommandTest extends \PHPUnit_Framework_TestCase
+class CacheClearCommandTest extends TestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\CacheClearCommand */
     protected $command;
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
-        $fileSystem = new \Illuminate\Filesystem\Filesystem;
-        $filePath = PATH;
-        $items[''] = $fileSystem->getRequire(PATH. '/config/config.php');
-        $fileLoad = new \Illuminate\Config\FileLoader($fileSystem, $filePath);
-        $repo = new \Illuminate\Config\Repository($fileLoad, 'config');
-        $repo->package('laravel-smarty', PATH, 'laravel-smarty');
-        $viewFinder = new \Illuminate\View\FileViewFinder(
-            $fileSystem,
-            [$filePath . '/views'],
-            ['.tpl']
+        $this->command = new \Ytake\LaravelSmarty\Console\CacheClearCommand(
+            $this->factory->getSmarty()
         );
-        $manager = new \Ytake\LaravelSmarty\SmartyManager(
-            new \Illuminate\View\Engines\EngineResolver,
-            $viewFinder,
-            new \Illuminate\Events\Dispatcher,
-            new Smarty,
-            $repo
-        );
-        $this->command = new \Ytake\LaravelSmarty\Console\CacheClearCommand($manager->getSmarty());
+        $this->command->setLaravel(new MockApplication());
     }
     public function testInstance()
     {

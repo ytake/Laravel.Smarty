@@ -16,7 +16,7 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class SmartyManager extends Factory
+class SmartyFactory extends Factory
 {
 
     /**
@@ -27,7 +27,7 @@ class SmartyManager extends Factory
     /** @var Smarty $smarty */
     protected $smarty;
 
-    /** @var Repository $config */
+    /** @var ConfigContract $config */
     protected $config;
 
     /**

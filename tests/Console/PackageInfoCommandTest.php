@@ -1,13 +1,14 @@
 <?php
 
-class PackageInfoCommandTest extends \PHPUnit_Framework_TestCase
+class PackageInfoCommandTest extends TestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\PackageInfoCommand */
     protected $command;
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         $this->command = new \Ytake\LaravelSmarty\Console\PackageInfoCommand;
+        $this->command->setLaravel(new MockApplication());
     }
     public function testInstance()
     {

@@ -1,7 +1,7 @@
 {
     "name": "ytake/laravel-smarty",
     "description": "smarty template engine for laravel",
-    "keywords": ["laravel", "smarty", "template", "view"],
+    "keywords": ["laravel", "smarty", "template", "view", "cache"],
     "authors": [
         {
             "name": "Yuuki Takezawa",
@@ -15,15 +15,16 @@
         "illuminate/view": "5.*",
         "illuminate/config": "5.*",
         "illuminate/console": "5.*",
+        "illuminate/events": "5.*",
         "smarty/smarty": "3.*@stable"
     },
     "require-dev": {
-        "predis/predis": "0.*",
-        "symfony/framework-bundle": "2.*",
-        "symfony/console": "2.*",
-        "phpunit/phpunit": "4.*",
-        "mockery/mockery": "0.*",
-        "satooshi/php-coveralls": "dev-master"
+        "predis/predis": "*@stable",
+        "symfony/framework-bundle": "2.*@stable",
+        "symfony/console": "2.*@stable",
+        "phpunit/phpunit": "4.*@stable",
+        "mockery/mockery": "0.*@stable",
+        "satooshi/php-coveralls": "*@stable"
     },
     "suggest": {
         "ext-memcached": "memcached Template Cache Driver",
@@ -33,6 +34,11 @@
         "psr-4": {
             "Ytake\\LaravelSmarty\\": "src/Smarty"
         }
+    },
+    "autoload-dev": {
+        "files": [
+            "tests/TestCase.php"
+        ]
     },
     "minimum-stability": "dev"
 }

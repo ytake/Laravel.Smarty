@@ -3,7 +3,7 @@ namespace Ytake\LaravelSmarty\Console;
 
 use Smarty;
 use Illuminate\Console\Command;
-use Ytake\LaravelSmarty\SmartyManager;
+use Ytake\LaravelSmarty\SmartyFactory;
 
 /**
  * Class SmartyInfoCommand
@@ -33,7 +33,7 @@ class PackageInfoCommand extends Command
     public function fire()
     {
         $this->line('<info>Smarty</info> version <comment>' . Smarty::SMARTY_VERSION . '</comment>');
-        $this->line('<info>ytake/laravel-smarty</info> version <comment>' . SmartyManager::VERSION . '</comment>');
+        $this->line('<info>ytake/laravel-smarty</info> version <comment>' . SmartyFactory::VERSION . '</comment>');
     }
 
 }

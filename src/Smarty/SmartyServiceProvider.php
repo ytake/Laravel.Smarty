@@ -1,12 +1,10 @@
 <?php
 namespace Ytake\LaravelSmarty;
 
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Smarty;
 use Illuminate\Support\ServiceProvider;
 use Ytake\LaravelSmarty\Cache\Storage;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
-use Illuminate\Filesystem\ClassFinder;
 
 /**
  * Class LaravelSmartyServiceProvider
@@ -81,6 +79,7 @@ class SmartyServiceProvider extends ServiceProvider
             'command.ytake.laravel-smarty.clear.cache',
             'command.ytake.laravel-smarty.optimize',
             'command.ytake.laravel-smarty.info',
+            'command.ytake.laravel-smarty.publish'
         ];
     }
 
@@ -146,7 +145,7 @@ class SmartyServiceProvider extends ServiceProvider
                     . "/" . str_replace('.', '/', $this->packageName) . "/config.php"
             );
             return append_config($configure);
-        } catch (FileNotFoundException $e) {
+        } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
             return append_config([]);
         }
     }

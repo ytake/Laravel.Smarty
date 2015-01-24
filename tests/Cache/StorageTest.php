@@ -1,20 +1,16 @@
 <?php
 use Mockery as m;
-class StorageTest extends \PHPUnit_Framework_TestCase
+class StorageTest extends TestCase
 {
 	/** @var  \Ytake\LaravelSmarty\Cache\Storage */
 	protected $storage;
 	/** @var  \Illuminate\Config\Repository */
 	protected $repositopry;
-	public function setUp()
+	protected function setUp()
 	{
 		parent::setUp();
-		$fileSystem = new \Illuminate\Filesystem\Filesystem;
-		$array['ytake.laravel-smarty'] = $fileSystem->getRequire(PATH . '/config/config.php');
-		$config = new \Illuminate\Config\Repository($array);
-		var_dump($config);
 		$this->storage = new \Ytake\LaravelSmarty\Cache\Storage(
-			new Smarty(), $config
+			new Smarty(), $this->config
 		);
 	}
 
@@ -43,28 +39,14 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals("Ytake\LaravelSmarty\Cache\Memcached", $reflection->invoke($storageMock));
 	}
 
-	/**
-	 * @param $class
-	 * @param $name
-	 * @return \ReflectionMethod
-	 */
-	protected function getProtectMethod($class, $name)
+	public function testCacheDriver()
 	{
-		$class = new \ReflectionClass($class);
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-		return $method;
+		$smarty = new Smarty();
+		$this->config->set('ytake.laravel-smarty.cache_driver', 'redis');
+		$storage = new \Ytake\LaravelSmarty\Cache\Storage(
+			$smarty, $this->config
+		);
+		$this->assertInstanceOf("Ytake\LaravelSmarty\Cache\Storage", $this->storage);
+		$this->assertSame($smarty->caching_type, 'redis');
 	}
-	/**
-	 * @param $class
-	 * @param $name
-	 * @return \ReflectionProperty
-	 */
-	protected function getProtectProperty($class, $name)
-	{
-		$class = new \ReflectionClass($class);
-		$property = $class->getProperty($name);
-		$property->setAccessible(true);
-		return $property;
-	}
-} 
+}

@@ -39,7 +39,7 @@ return [
     ],
 
     'config_paths' => [
-        base_path() . '/app/config/smarty',
+        base_path() . '/resources/smarty/config',
     ],
 
     // production false

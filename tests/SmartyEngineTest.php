@@ -1,30 +1,16 @@
 <?php
-class SmartyEngineTest extends \PHPUnit_Framework_TestCase
+
+class SmartyEngineTest extends TestCase
 {
-    /** @var \Ytake\LaravelSmarty\Engines\SmartyEngine  */
+    /** @var \Ytake\LaravelSmarty\Engines\SmartyEngine */
     protected $engine;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
-        $fileSystem = new \Illuminate\Filesystem\Filesystem;
-        $filePath = PATH;
-        $fileLoad = new \Illuminate\Config\FileLoader($fileSystem, $filePath);
-        $repo = new \Illuminate\Config\Repository($fileLoad, 'config');
-        $repo->package('laravel-smarty', PATH, 'laravel-smarty');
-        $viewFinder = new \Illuminate\View\FileViewFinder(
-            $fileSystem,
-            [$filePath . '/views'],
-            ['.tpl']
+        $this->engine = new \Ytake\LaravelSmarty\Engines\SmartyEngine(
+            $this->factory->getSmarty()
         );
-        $manager = new \Ytake\LaravelSmarty\SmartyManager(
-            new \Illuminate\View\Engines\EngineResolver,
-            $viewFinder,
-            new \Illuminate\Events\Dispatcher,
-            new Smarty,
-            $repo
-        );
-        $this->engine = new \Ytake\LaravelSmarty\Engines\SmartyEngine($manager->getSmarty());
     }
 
     public function testInstance()
