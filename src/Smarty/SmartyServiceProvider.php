@@ -1,9 +1,12 @@
 <?php
 namespace Ytake\LaravelSmarty;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Smarty;
 use Illuminate\Support\ServiceProvider;
 use Ytake\LaravelSmarty\Cache\Storage;
+use Illuminate\Contracts\Config\Repository as ConfigContract;
+use Illuminate\Filesystem\ClassFinder;
 
 /**
  * Class LaravelSmartyServiceProvider
@@ -14,18 +17,13 @@ use Ytake\LaravelSmarty\Cache\Storage;
 class SmartyServiceProvider extends ServiceProvider
 {
 
-    /**
-     * Indicates if loading of the provider is deferred.
-     * @var bool
-     */
-    protected $defer = false;
+    protected $packageName = "ytake.laravel-smarty";
 
     /**
      * boot process
      */
     public function boot()
     {
-        $this->package('ytake/laravel-smarty');
         // register template cache driver
         $this->registerCacheStorage();
         // register commands
@@ -39,8 +37,16 @@ class SmartyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['config']->package('ytake/laravel-smarty', __DIR__ . '/../config');
-
+        /** @var \Illuminate\Filesystem\Filesystem $fileSystem */
+        $fileSystem = $this->app['files'];
+        $this->app->instance('ytake.laravel-smarty.config', __DIR__ . '/config/config.php');
+        config([
+            $this->packageName => $fileSystem->getRequire(
+                $this->app->make('ytake.laravel-smarty.config')
+            )
+        ]);
+        /** @var ConfigContract $configure */
+        $this->app['config']->set($this->packageName, $this->getApplicationPackagePath());
         $this->app['view'] = $this->app->share(
             function ($app) {
                 return new SmartyManager(
@@ -55,9 +61,9 @@ class SmartyServiceProvider extends ServiceProvider
 
         // add smarty extension (.tpl)
         $this->app['view']->addExtension(
-            $this->app['config']->get('laravel-smarty::extension', 'tpl'),
+            $this->app['config']->get($this->packageName . '.extension', 'tpl'),
             'smarty',
-            function() {
+            function () {
                 return new Engines\SmartyEngine($this->app['view']->getSmarty());
             }
         );
@@ -89,26 +95,33 @@ class SmartyServiceProvider extends ServiceProvider
                 return new Console\PackageInfoCommand;
             }
         );
+        // Package Info command
+        $this->app['command.ytake.laravel-smarty.publish'] = $this->app->share(
+            function ($app) {
+                return new Console\PublishCommand($app);
+            }
+        );
         // cache clear
         $this->app['command.ytake.laravel-smarty.clear.cache'] = $this->app->share(function ($app) {
-                return new Console\CacheClearCommand($app['view']->getSmarty());
-            }
+            return new Console\CacheClearCommand($app['view']->getSmarty());
+        }
         );
         // clear compiled
         $this->app['command.ytake.laravel-smarty.clear.compiled'] = $this->app->share(function ($app) {
-                return new Console\CompiledClearCommand($app['view']->getSmarty());
-            }
+            return new Console\CompiledClearCommand($app['view']->getSmarty());
+        }
         );
         // clear compiled
         $this->app['command.ytake.laravel-smarty.optimize'] = $this->app->share(function ($app) {
-                return new Console\CompiledCommand($app['view']->getSmarty(), $app['config']);
-            }
+            return new Console\CompiledCommand($app['view']->getSmarty(), $app['config']);
+        }
         );
         $this->commands(
             [
                 'command.ytake.laravel-smarty.clear.compiled',
                 'command.ytake.laravel-smarty.clear.cache',
                 'command.ytake.laravel-smarty.optimize',
+                'command.ytake.laravel-smarty.publish',
                 'command.ytake.laravel-smarty.info',
             ]
         );
@@ -120,5 +133,21 @@ class SmartyServiceProvider extends ServiceProvider
     protected function registerCacheStorage()
     {
         return new Storage($this->app['view']->getSmarty(), $this->app['config']);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getApplicationPackagePath()
+    {
+        try {
+            $configure = $this->app['files']->getRequire(
+                $this->app->configPath()
+                    . "/" . str_replace('.', '/', $this->packageName) . "/config.php"
+            );
+            return append_config($configure);
+        } catch (FileNotFoundException $e) {
+            return append_config([]);
+        }
     }
 }

@@ -9,6 +9,7 @@ class CacheClearCommandTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $fileSystem = new \Illuminate\Filesystem\Filesystem;
         $filePath = PATH;
+        $items[''] = $fileSystem->getRequire(PATH. '/config/config.php');
         $fileLoad = new \Illuminate\Config\FileLoader($fileSystem, $filePath);
         $repo = new \Illuminate\Config\Repository($fileLoad, 'config');
         $repo->package('laravel-smarty', PATH, 'laravel-smarty');

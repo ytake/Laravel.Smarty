@@ -44,13 +44,15 @@ class CacheClearCommand extends Command
     public function fire()
     {
         // clear all cache
-        if(is_null($this->option('file'))) {
+        if (is_null($this->option('file'))) {
             $this->smarty->clearAllCache($this->option('time'));
             $this->info('smarty cache cleared!');
             return;
         }
         $this->smarty->getTemplateDir(0);
-        if(!$this->smarty->clearCache($this->option('file'), $this->option('cache_id'), null, $this->option('time'))) {
+        if (!$this->smarty->clearCache(
+            $this->option('file'), $this->option('cache_id'), null, $this->option('time'))
+        ) {
             $this->error('specified file not be found');
             return;
         }

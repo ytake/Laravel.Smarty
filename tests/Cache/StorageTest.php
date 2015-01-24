@@ -10,12 +10,11 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 		$fileSystem = new \Illuminate\Filesystem\Filesystem;
-		$filePath = PATH;
-		$fileLoad = new \Illuminate\Config\FileLoader($fileSystem, $filePath);
-		$this->repositopry = new \Illuminate\Config\Repository($fileLoad, 'config');
-		$this->repositopry->package('laravel-smarty', PATH, 'laravel-smarty');
+		$array['ytake.laravel-smarty'] = $fileSystem->getRequire(PATH . '/config/config.php');
+		$config = new \Illuminate\Config\Repository($array);
+		var_dump($config);
 		$this->storage = new \Ytake\LaravelSmarty\Cache\Storage(
-			new Smarty(), $this->repositopry
+			new Smarty(), $config
 		);
 	}
 

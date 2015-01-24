@@ -34,5 +34,5 @@
             "Ytake\\LaravelSmarty\\": "src/Smarty"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

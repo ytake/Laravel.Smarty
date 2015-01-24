@@ -28,14 +28,14 @@ return [
     'right_delimiter' => '}',
 
     // path info
-    'template_path' => base_path() . '/app/views',
+    'template_path' => base_path() . '/resources/views',
 
-    'cache_path' => base_path() . '/app/storage/smarty/cache',
+    'cache_path' => storage_path() . '/smarty/cache',
 
-    'compile_path' => base_path() . '/app/storage/smarty/compile',
+    'compile_path' => storage_path() . '/smarty/compile',
 
     'plugins_paths' => [
-        base_path() . '/app/views/smarty/plugins',
+        base_path() . '/resources/smarty/plugins',
     ],
 
     'config_paths' => [

@@ -3,8 +3,8 @@ namespace Ytake\LaravelSmarty\Console;
 
 use Smarty;
 use Illuminate\Console\Command;
-use Illuminate\Config\Repository;
 use Symfony\Component\Console\Input\InputOption;
+use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 /**
  * Class CompiledCommand
@@ -18,14 +18,14 @@ class CompiledCommand extends Command
     /** @var Smarty */
     protected $smarty;
 
-    /** @var Repository  */
+    /** @var ConfigContract  */
     protected $config;
 
     /**
      * @param Smarty $smarty
-     * @param Repository $config
+     * @param ConfigContract $config
      */
-    public function __construct(Smarty $smarty, Repository $config)
+    public function __construct(Smarty $smarty, ConfigContract $config)
     {
         parent::__construct();
         $this->smarty = $smarty;
@@ -50,7 +50,7 @@ class CompiledCommand extends Command
      */
     public function fire()
     {
-        $configureFileExtension = $this->config->get('laravel-smarty::extension', 'tpl');
+        $configureFileExtension = $this->config->get('ytake.laravel-smarty.extension', 'tpl');
         $fileExtension = (is_null($this->option('extension'))) ? $configureFileExtension : $this->option('extension');
         ob_start();
         $compileFiles = $this->smarty->compileAllTemplates($fileExtension, $this->option('force'));
