@@ -43,8 +43,7 @@ class SmartyServiceProvider extends ServiceProvider
                 $this->app->make('ytake.laravel-smarty.config')
             )
         ]);
-        /** @var ConfigContract $configure */
-        $this->app['config']->set($this->packageName, $this->getApplicationPackagePath());
+        $this->setApplicationSmartyConfigure();
         $this->app['view'] = $this->app->share(
             function ($app) {
                 return new SmartyFactory(
@@ -137,16 +136,16 @@ class SmartyServiceProvider extends ServiceProvider
     /**
      * @return mixed
      */
-    protected function getApplicationPackagePath()
+    protected function setApplicationSmartyConfigure()
     {
         try {
             $configure = $this->app['files']->getRequire(
                 $this->app->configPath()
                     . "/" . str_replace('.', '/', $this->packageName) . "/config.php"
             );
-            return append_config($configure);
+            $this->app['config']->set($this->packageName, $configure);
         } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
-            return append_config([]);
+            return ;
         }
     }
 }
