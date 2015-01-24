@@ -47,7 +47,7 @@ class SmartyServiceProvider extends ServiceProvider
         $this->app['config']->set($this->packageName, $this->getApplicationPackagePath());
         $this->app['view'] = $this->app->share(
             function ($app) {
-                return new SmartyManager(
+                return new SmartyFactory(
                     $app['view.engine.resolver'],
                     $app['view.finder'],
                     $app['events'],
