@@ -2,8 +2,8 @@
 namespace Ytake\LaravelSmarty;
 
 use Smarty;
-use Illuminate\Support\ServiceProvider;
 use Ytake\LaravelSmarty\Cache\Storage;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Class LaravelSmartyServiceProvider
@@ -15,17 +15,10 @@ class SmartyServiceProvider extends ServiceProvider
 {
 
     /**
-     * Indicates if loading of the provider is deferred.
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
      * boot process
      */
     public function boot()
     {
-        $this->package('ytake/laravel-smarty');
         // register template cache driver
         $this->registerCacheStorage();
         // register commands
@@ -39,11 +32,13 @@ class SmartyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['config']->package('ytake/laravel-smarty', __DIR__ . '/../config');
+        $configPath = __DIR__ . '/../config/ytake-laravel-smarty.php';
+        $this->mergeConfigFrom($configPath, 'ytake-laravel-smarty');
+        $this->publishes([$configPath => config_path('ytake-laravel-smarty.php')]);
 
         $this->app['view'] = $this->app->share(
             function ($app) {
-                return new SmartyManager(
+                return new SmartyFactory(
                     $app['view.engine.resolver'],
                     $app['view.finder'],
                     $app['events'],
@@ -55,9 +50,9 @@ class SmartyServiceProvider extends ServiceProvider
 
         // add smarty extension (.tpl)
         $this->app['view']->addExtension(
-            $this->app['config']->get('laravel-smarty::extension', 'tpl'),
+            $this->app['config']->get('laravel-smarty.extension', 'tpl'),
             'smarty',
-            function() {
+            function () {
                 return new Engines\SmartyEngine($this->app['view']->getSmarty());
             }
         );
@@ -101,7 +96,7 @@ class SmartyServiceProvider extends ServiceProvider
         );
         // clear compiled
         $this->app['command.ytake.laravel-smarty.optimize'] = $this->app->share(function ($app) {
-                return new Console\CompiledCommand($app['view']->getSmarty(), $app['config']);
+               return new Console\CompiledCommand($app['view']->getSmarty(), $app['config']);
             }
         );
         $this->commands(
@@ -121,4 +116,5 @@ class SmartyServiceProvider extends ServiceProvider
     {
         return new Storage($this->app['view']->getSmarty(), $this->app['config']);
     }
+
 }

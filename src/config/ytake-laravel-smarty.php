@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty configure
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
@@ -28,22 +27,22 @@ return [
     'right_delimiter' => '}',
 
     // path info
-    'template_path' => base_path() . '/app/views',
+    'template_path' => base_path() . '/resources/views',
 
-    'cache_path' => base_path() . '/app/storage/smarty/cache',
+    'cache_path' => storage_path() . '/smarty/cache',
 
-    'compile_path' => base_path() . '/app/storage/smarty/compile',
+    'compile_path' => storage_path() . '/smarty/compile',
 
     'plugins_paths' => [
-        base_path() . '/app/views/smarty/plugins',
+        base_path() . '/resources/smarty/plugins',
     ],
 
     'config_paths' => [
-        base_path() . '/app/config/smarty',
+        base_path() . '/resources/smarty/config',
     ],
 
     // production false
-    'force_compile' => true,
+    'force_compile' => false,
 
     // smarty cache driver "file", "memcached", "redis"
     'cache_driver' => 'file',

@@ -1,30 +1,16 @@
 <?php
 
-class CompiledCommandTest extends \PHPUnit_Framework_TestCase
+class CompiledCommandTest extends TestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\CompiledCommand */
     protected $command;
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
-        $fileSystem = new \Illuminate\Filesystem\Filesystem;
-        $filePath = PATH;
-        $fileLoad = new \Illuminate\Config\FileLoader($fileSystem, $filePath);
-        $repo = new \Illuminate\Config\Repository($fileLoad, 'config');
-        $repo->package('laravel-smarty', PATH, 'laravel-smarty');
-        $viewFinder = new \Illuminate\View\FileViewFinder(
-            $fileSystem,
-            [$filePath . '/views'],
-            ['.tpl']
+        $this->command = new \Ytake\LaravelSmarty\Console\CompiledCommand(
+            $this->factory->getSmarty(), $this->config
         );
-        $manager = new \Ytake\LaravelSmarty\SmartyManager(
-            new \Illuminate\View\Engines\EngineResolver,
-            $viewFinder,
-            new \Illuminate\Events\Dispatcher,
-            new Smarty,
-            $repo
-        );
-        $this->command = new \Ytake\LaravelSmarty\Console\CompiledCommand($manager->getSmarty(), $repo);
+        $this->command->setLaravel(new MockApplication());
     }
     public function testInstance()
     {

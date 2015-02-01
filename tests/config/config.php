@@ -22,6 +22,9 @@ return [
     'plugins_paths' => [
         PATH . '/views/plugins',
     ],
+    'config_paths' => [
+        null
+    ],
     'force_compile' => true,
 
     // smarty cache driver "file", "memcached", "redis"

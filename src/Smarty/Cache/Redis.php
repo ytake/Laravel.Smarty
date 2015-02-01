@@ -54,7 +54,7 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
      * @param  int   $expire expiration time
      * @return boolean true on success, false on failure
      */
-    protected function write(array $keys, $expire = null)
+    protected function write(array $keys, $expire = 1)
     {
         foreach ($keys as $k => $v) {
             $k = sha1($k);
