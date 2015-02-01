@@ -2,10 +2,10 @@ Laravel.Smarty
 ==============
 smarty template engine for laravel
 
-[![Build Status](http://img.shields.io/travis/ytake/Laravel.Smarty/develop5.svg?style=flat-square)](https://travis-ci.org/ytake/Laravel.Smarty)
-[![Coverage Status](http://img.shields.io/coveralls/ytake/Laravel.Smarty/develop5.svg?style=flat-square)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=master)
+[![Build Status](http://img.shields.io/travis/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://travis-ci.org/ytake/Laravel.Smarty)
+[![Coverage Status](http://img.shields.io/coveralls/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/541bfc296936193b68000060/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/541bfc296936193b68000060)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ytake/Laravel.Smarty/develop5.svg?style=flat-square)](https://scrutinizer-ci.com/g/ytake/Laravel.Smarty/?branch=develop5)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/ytake/Laravel.Smarty/?branch=master)
 
 [![License](http://img.shields.io/packagist/l/ytake/laravel-smarty.svg?style=flat-square)](https://packagist.org/packages/ytake/laravel-smarty)
 [![Latest Version](http://img.shields.io/packagist/v/ytake/laravel-smarty.svg?style=flat-square)](https://packagist.org/packages/ytake/laravel-smarty)
