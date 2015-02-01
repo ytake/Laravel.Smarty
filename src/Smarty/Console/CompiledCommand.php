@@ -50,7 +50,7 @@ class CompiledCommand extends Command
      */
     public function fire()
     {
-        $configureFileExtension = $this->config->get('ytake.laravel-smarty.extension', 'tpl');
+        $configureFileExtension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
         $fileExtension = (is_null($this->option('extension'))) ? $configureFileExtension : $this->option('extension');
         ob_start();
         $compileFiles = $this->smarty->compileAllTemplates($fileExtension, $this->option('force'));

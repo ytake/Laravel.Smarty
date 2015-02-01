@@ -22,7 +22,6 @@
                 <file>./src/Smarty/SmartyServiceProvider.php</file>
                 <file>./src/Smarty/Cache/Redis.php</file>
                 <file>./src/Smarty/Cache/Memcached.php</file>
-                <file>./src/Smarty/Console/PublishCommand.php</file>
                 <file>./src/Smarty/Exception/MethodNotFoundException.php</file>
             </exclude>
         </whitelist>

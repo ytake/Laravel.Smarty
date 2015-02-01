@@ -2,9 +2,8 @@
 namespace Ytake\LaravelSmarty;
 
 use Smarty;
-use Illuminate\Support\ServiceProvider;
 use Ytake\LaravelSmarty\Cache\Storage;
-use Illuminate\Contracts\Config\Repository as ConfigContract;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Class LaravelSmartyServiceProvider
@@ -14,8 +13,6 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
  */
 class SmartyServiceProvider extends ServiceProvider
 {
-
-    protected $packageName = "ytake.laravel-smarty";
 
     /**
      * boot process
@@ -35,15 +32,10 @@ class SmartyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        /** @var \Illuminate\Filesystem\Filesystem $fileSystem */
-        $fileSystem = $this->app['files'];
-        $this->app->instance('ytake.laravel-smarty.config', __DIR__ . '/config/config.php');
-        config([
-            $this->packageName => $fileSystem->getRequire(
-                $this->app->make('ytake.laravel-smarty.config')
-            )
-        ]);
-        $this->setApplicationSmartyConfigure();
+        $configPath = __DIR__ . '/../config/ytake-laravel-smarty.php';
+        $this->mergeConfigFrom($configPath, 'ytake-laravel-smarty');
+        $this->publishes([$configPath => config_path('ytake-laravel-smarty.php')]);
+
         $this->app['view'] = $this->app->share(
             function ($app) {
                 return new SmartyFactory(
@@ -58,7 +50,7 @@ class SmartyServiceProvider extends ServiceProvider
 
         // add smarty extension (.tpl)
         $this->app['view']->addExtension(
-            $this->app['config']->get($this->packageName . '.extension', 'tpl'),
+            $this->app['config']->get('laravel-smarty.extension', 'tpl'),
             'smarty',
             function () {
                 return new Engines\SmartyEngine($this->app['view']->getSmarty());
@@ -78,7 +70,6 @@ class SmartyServiceProvider extends ServiceProvider
             'command.ytake.laravel-smarty.clear.cache',
             'command.ytake.laravel-smarty.optimize',
             'command.ytake.laravel-smarty.info',
-            'command.ytake.laravel-smarty.publish'
         ];
     }
 
@@ -93,33 +84,26 @@ class SmartyServiceProvider extends ServiceProvider
                 return new Console\PackageInfoCommand;
             }
         );
-        // Package Info command
-        $this->app['command.ytake.laravel-smarty.publish'] = $this->app->share(
-            function ($app) {
-                return new Console\PublishCommand($app);
-            }
-        );
         // cache clear
         $this->app['command.ytake.laravel-smarty.clear.cache'] = $this->app->share(function ($app) {
-            return new Console\CacheClearCommand($app['view']->getSmarty());
-        }
+                return new Console\CacheClearCommand($app['view']->getSmarty());
+            }
         );
         // clear compiled
         $this->app['command.ytake.laravel-smarty.clear.compiled'] = $this->app->share(function ($app) {
-            return new Console\CompiledClearCommand($app['view']->getSmarty());
-        }
+                return new Console\CompiledClearCommand($app['view']->getSmarty());
+            }
         );
         // clear compiled
         $this->app['command.ytake.laravel-smarty.optimize'] = $this->app->share(function ($app) {
-            return new Console\CompiledCommand($app['view']->getSmarty(), $app['config']);
-        }
+               return new Console\CompiledCommand($app['view']->getSmarty(), $app['config']);
+            }
         );
         $this->commands(
             [
                 'command.ytake.laravel-smarty.clear.compiled',
                 'command.ytake.laravel-smarty.clear.cache',
                 'command.ytake.laravel-smarty.optimize',
-                'command.ytake.laravel-smarty.publish',
                 'command.ytake.laravel-smarty.info',
             ]
         );
@@ -133,19 +117,4 @@ class SmartyServiceProvider extends ServiceProvider
         return new Storage($this->app['view']->getSmarty(), $this->app['config']);
     }
 
-    /**
-     * @return mixed
-     */
-    protected function setApplicationSmartyConfigure()
-    {
-        try {
-            $configure = $this->app['files']->getRequire(
-                $this->app->configPath()
-                    . "/" . str_replace('.', '/', $this->packageName) . "/config.php"
-            );
-            $this->app['config']->set($this->packageName, $configure);
-        } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
-            return ;
-        }
-    }
 }

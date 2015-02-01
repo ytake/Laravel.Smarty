@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class CacheClearCommand extends Command
 {
+    
     /** @var Smarty */
     protected $smarty;
 

@@ -42,7 +42,7 @@ class StorageTest extends TestCase
 	public function testCacheDriver()
 	{
 		$smarty = new Smarty();
-		$this->config->set('ytake.laravel-smarty.cache_driver', 'redis');
+		$this->config->set('ytake-laravel-smarty.cache_driver', 'redis');
 		$storage = new \Ytake\LaravelSmarty\Cache\Storage(
 			$smarty, $this->config
 		);

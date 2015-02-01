@@ -35,7 +35,7 @@ class Storage
      */
     protected function cacheStorageManaged()
     {
-        $driver = $this->repository->get('ytake.laravel-smarty.cache_driver', 'file');
+        $driver = $this->repository->get('ytake-laravel-smarty.cache_driver', 'file');
         if($driver !== 'file') {
             $storage = $driver . "Storage";
             $this->smarty->registerCacheResource($driver, $this->$storage());
@@ -48,7 +48,7 @@ class Storage
      */
     protected function redisStorage()
     {
-        return new Redis($this->repository->get('ytake.laravel-smarty.redis'));
+        return new Redis($this->repository->get('ytake-laravel-smarty.redis'));
     }
 
     /**
@@ -58,7 +58,7 @@ class Storage
     {
         return new Memcached(
             new \Memcached(),
-            $this->repository->get('ytake.laravel-smarty.memcached')
+            $this->repository->get('ytake-laravel-smarty.memcached')
         );
     }
 }

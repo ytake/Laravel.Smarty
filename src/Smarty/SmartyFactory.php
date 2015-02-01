@@ -73,22 +73,22 @@ class SmartyFactory extends Factory
      */
     private function setConfigure()
     {
-        $this->smarty->left_delimiter = $this->config->get('ytake.laravel-smarty.left_delimiter');
-        $this->smarty->right_delimiter = $this->config->get('ytake.laravel-smarty.right_delimiter');
-        $this->smarty->setTemplateDir($this->config->get('ytake.laravel-smarty.template_path'));
-        $this->smarty->setCompileDir($this->config->get('ytake.laravel-smarty.compile_path'));
-        $this->smarty->setCacheDir($this->config->get('ytake.laravel-smarty.cache_path'));
-        $this->smarty->setConfigDir($this->config->get('ytake.laravel-smarty.config_paths'));
+        $this->smarty->left_delimiter = $this->config->get('ytake-laravel-smarty.left_delimiter');
+        $this->smarty->right_delimiter = $this->config->get('ytake-laravel-smarty.right_delimiter');
+        $this->smarty->setTemplateDir($this->config->get('ytake-laravel-smarty.template_path'));
+        $this->smarty->setCompileDir($this->config->get('ytake-laravel-smarty.compile_path'));
+        $this->smarty->setCacheDir($this->config->get('ytake-laravel-smarty.cache_path'));
+        $this->smarty->setConfigDir($this->config->get('ytake-laravel-smarty.config_paths'));
 
-        foreach($this->config->get('ytake.laravel-smarty.plugins_paths', []) as $plugins) {
+        foreach($this->config->get('ytake-laravel-smarty.plugins_paths', []) as $plugins) {
             $this->smarty->addPluginsDir($plugins);
         }
 
-        $this->smarty->debugging = $this->config->get('ytake.laravel-smarty.debugging');
-        $this->smarty->caching = $this->config->get('ytake.laravel-smarty.caching');
-        $this->smarty->cache_lifetime = $this->config->get('ytake.laravel-smarty.cache_lifetime');
-        $this->smarty->compile_check = $this->config->get('ytake.laravel-smarty.compile_check');
-        $this->smarty->force_compile = $this->config->get('ytake.laravel-smarty.force_compile', false);
+        $this->smarty->debugging = $this->config->get('ytake-laravel-smarty.debugging');
+        $this->smarty->caching = $this->config->get('ytake-laravel-smarty.caching');
+        $this->smarty->cache_lifetime = $this->config->get('ytake-laravel-smarty.cache_lifetime');
+        $this->smarty->compile_check = $this->config->get('ytake-laravel-smarty.compile_check');
+        $this->smarty->force_compile = $this->config->get('ytake-laravel-smarty.force_compile', false);
         $this->smarty->error_reporting = E_ALL &~ E_NOTICE;
     }
 

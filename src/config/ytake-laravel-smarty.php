@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty configure
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
@@ -43,7 +42,7 @@ return [
     ],
 
     // production false
-    'force_compile' => true,
+    'force_compile' => false,
 
     // smarty cache driver "file", "memcached", "redis"
     'cache_driver' => 'file',

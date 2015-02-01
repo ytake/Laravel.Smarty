@@ -13,7 +13,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $filesystem = new \Illuminate\Filesystem\Filesystem;
 
         $items = $filesystem->getRequire(__DIR__ . '/config/config.php');
-        $this->config->set("ytake.laravel-smarty", $items);
+        $this->config->set("ytake-laravel-smarty", $items);
 
         new \Illuminate\Config\Repository();
         $viewFinder = new \Illuminate\View\FileViewFinder(

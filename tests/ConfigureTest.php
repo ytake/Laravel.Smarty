@@ -8,14 +8,14 @@ class ConfigureTest extends TestCase
         parent::setUp();
         $filesystem = new \Illuminate\Filesystem\Filesystem;
 
-        $items = $filesystem->getRequire(__DIR__ . '/../src/Smarty/config/config.php');
-        $this->config->set('ytake.laravel-smarty', $items);
+        $items = $filesystem->getRequire(__DIR__ . '/../src/config/ytake-laravel-smarty.php');
+        $this->config->set('ytake-laravel-smarty', $items);
     }
 
     public function testHasConfigure()
     {
         $this->assertInternalType('array', $this->config->all());
-        $config = $this->config->get('ytake.laravel-smarty');
+        $config = $this->config->get('ytake-laravel-smarty');
         $this->assertInternalType('array', $config);
         $this->assertArrayHasKey('extension', $config);
         $this->assertArrayHasKey('debugging', $config);
