@@ -15,9 +15,9 @@ smarty template engine for laravel
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5/mini.png)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
 
 ##Basic
-laravel4でsmartyを使用できます。  
+laravelでbladeに加え、smartyを使用することができます。  
 bladeの構文をそのまま使用することができ、  
-それに加え、View Facadeを通じてsmartyのmethodはすべて利用可能です。  
+View Facadeを通じてsmartyのmethodすべてが利用可能です。  
 easily use all the methods of smarty  
 
 ```php
