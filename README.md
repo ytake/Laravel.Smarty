@@ -15,13 +15,16 @@ smarty template engine for laravel
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5/mini.png)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
 
 ##Basic
-laravel4でsmartyを使用できます。  
+laravelでbladeに加え、smartyを使用することができます。  
 bladeの構文をそのまま使用することができ、  
-それに加え、View Facadeを通じてsmartyのmethodはすべて利用可能です。  
+View Facadeを通じてsmartyのmethodすべてが利用可能です。  
 easily use all the methods of smarty  
 
 ```php
-// laravel blade template render
+// laravel5 view render
+view("template.name");
+
+// laravel blade template render(use Facades)
 \View::make('template', ['hello']);
 // use smarty method
 \View::assign('word', 'hello');  
@@ -35,6 +38,13 @@ easily use all the methods of smarty
 [layout.extends.sample](https://gist.github.com/ytake/11345614)
 ##Install
 
+###for Laravel5(for develop)
+```json
+"require": {
+  "ytake/laravel-smarty": "2.*@dev"
+},
+```
+
 ###for Laravel4.2.*
 ```json
 "require": {
@@ -45,12 +55,6 @@ easily use all the methods of smarty
 ```json
 "require": {
   "ytake/laravel-smarty": "1.1.*"
-},
-```
-###for Laravel5(develop)
-```json
-"require": {
-  "ytake/laravel-smarty": "dev-develop5"
 },
 ```
 
