@@ -21,7 +21,10 @@ View Facadeを通じてsmartyのmethodすべてが利用可能です。
 easily use all the methods of smarty  
 
 ```php
-// laravel blade template render
+// laravel5 view render
+view("template.name");
+
+// laravel blade template render(use Facades)
 \View::make('template', ['hello']);
 // use smarty method
 \View::assign('word', 'hello');  
