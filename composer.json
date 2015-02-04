@@ -19,12 +19,12 @@
         "smarty/smarty": "3.*@stable"
     },
     "require-dev": {
-        "predis/predis": "*@stable",
-        "symfony/framework-bundle": "2.*@stable",
-        "symfony/console": "2.*@stable",
-        "phpunit/phpunit": "4.*@stable",
-        "mockery/mockery": "0.*@stable",
-        "satooshi/php-coveralls": "*@stable"
+        "predis/predis": "~1.0",
+        "symfony/framework-bundle": "2.*",
+        "symfony/console": "2.*",
+        "phpunit/phpunit": "4.*",
+        "mockery/mockery": "*",
+        "satooshi/php-coveralls": "*"
     },
     "suggest": {
         "ext-memcached": "memcached Template Cache Driver",
@@ -40,5 +40,5 @@
             "tests/TestCase.php"
         ]
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
