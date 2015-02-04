@@ -30,33 +30,22 @@ view("template.name");
 \View::assign('word', 'hello');  
 \View::clearAllAssign(); // smarty method
 ```
+##Install
+###for Laravel5
+```json
+"require": {
+  "ytake/laravel-smarty": "2.*"
+},
+```
+### for Laravel4
+[Laravel4.2 / Laravel4.1](https://github.com/ytake/Laravel.Smarty/tree/master-4.2)
 
 ###example
 [registerFilter in ServiceProvider](https://gist.github.com/ytake/e8c834e88473ea3f10e7)  
 [registerFilter in Controller](https://gist.github.com/ytake/1a6f1d5312b552bc83ff)  
 [layout.sample](https://gist.github.com/ytake/11345539)  
 [layout.extends.sample](https://gist.github.com/ytake/11345614)
-##Install
 
-###for Laravel5(for develop)
-```json
-"require": {
-  "ytake/laravel-smarty": "2.*@dev"
-},
-```
-
-###for Laravel4.2.*
-```json
-"require": {
-  "ytake/laravel-smarty": "1.2.*"
-},
-```
-###for Laravel4.1.*
-```json
-"require": {
-  "ytake/laravel-smarty": "1.1.*"
-},
-```
 
 ##Artisan
 キャッシュクリア、コンパイルファイルの削除がコマンドラインから行えます。  
@@ -126,26 +115,17 @@ Usage
 
 install後、
 app/config配下のapp.phpのproviders配列に以下のnamespaceを追加してください。  
-add providers
+## add providers
 ```php
 'providers' => [
     'Ytake\LaravelSmarty\SmartyServiceProvider'
 ]
 ```
 
-configファイルをpublishします。  
-publish configure(for laravel4)
+## publish configure(for laravel5)
 ```bash
-$ php artisan config:publish ytake/laravel-smarty
+$ php artisan vendo:publish
 ```
-app/config/packages配下に追加されます。  
-publish to app/config/packages
-
-publish configure(for laravel5)
-```bash
-$ php artisan vendor:publish
-```
-config配下に追加されます。  
 publish to config directory
 
 
