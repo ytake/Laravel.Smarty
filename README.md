@@ -143,7 +143,7 @@ publish to app/config/packages
 
 publish configure(for laravel5)
 ```bash
-$ php artisan vendor/publish
+$ php artisan vendor:publish
 ```
 config配下に追加されます。  
 publish to config directory
