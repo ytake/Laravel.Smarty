@@ -38,13 +38,18 @@ class SmartyServiceProvider extends ServiceProvider
 
         $this->app['view'] = $this->app->share(
             function ($app) {
-                return new SmartyFactory(
+                $factory = new SmartyFactory(
                     $app['view.engine.resolver'],
                     $app['view.finder'],
                     $app['events'],
                     new Smarty,
                     $this->app['config']
                 );
+
+                // Pass the container to the factory so it can be used to resolve view composers.
+                $factory->setContainer($app);
+
+                return $factory;
             }
         );
 
