@@ -19,11 +19,6 @@ class SmartyManagerFactory extends TestCase
         $this->assertInstanceOf("Smarty", $this->factory->getSmarty());
     }
 
-    public function testVersion()
-    {
-        $this->assertSame('2.0.0-dev', $this->factory->getVersion());
-    }
-
     public function testConfigure()
     {
         $reflectionMethod = $this->getProtectMethod($this->factory, 'setConfigure');
