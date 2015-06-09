@@ -3,7 +3,6 @@
 class SmartyManagerFactory extends TestCase
 {
 
-
     protected function setUp()
     {
         parent::setUp();
@@ -17,11 +16,6 @@ class SmartyManagerFactory extends TestCase
     public function testSmarty()
     {
         $this->assertInstanceOf("Smarty", $this->factory->getSmarty());
-    }
-
-    public function testVersion()
-    {
-        $this->assertSame('2.0.0-dev', $this->factory->getVersion());
     }
 
     public function testConfigure()

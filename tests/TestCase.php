@@ -158,6 +158,35 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
         // TODO: Implement booted() method.
     }
 
+    /**
+     * Get the base path of the Laravel installation.
+     *
+     * @return string
+     */
+    public function basePath()
+    {
+        // TODO: Implement basePath() method.
+    }
+
+    /**
+     * Get the path to the cached "compiled.php" file.
+     *
+     * @return string
+     */
+    public function getCachedCompilePath()
+    {
+        // TODO: Implement getCachedCompilePath() method.
+    }
+
+    /**
+     * Get the path to the cached services.json file.
+     *
+     * @return string
+     */
+    public function getCachedServicesPath()
+    {
+        // TODO: Implement getCachedServicesPath() method.
+    }
 }
 
 function base_path()
