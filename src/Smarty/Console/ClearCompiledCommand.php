@@ -6,12 +6,12 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class CompiledClearCommand
+ * Class ClearCompiledCommand
  * @package Ytake\LaravelSmarty\Console
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class CompiledClearCommand extends Command
+class ClearCompiledCommand extends Command
 {
 
     /** @var Smarty */

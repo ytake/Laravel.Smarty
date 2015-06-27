@@ -14,15 +14,18 @@ use Illuminate\Support\ServiceProvider;
 class SmartyServiceProvider extends ServiceProvider
 {
 
+    /** @var Storage $instance */
+    protected static $instance;
+
     /**
-     * boot process
+     * Register the service provider.
+     *
+     * @return void
      */
     public function boot()
     {
         // register template cache driver
         $this->registerCacheStorage();
-        // register commands
-        $this->registerCommands();
     }
 
     /**
@@ -60,57 +63,6 @@ class SmartyServiceProvider extends ServiceProvider
             function () {
                 return new Engines\SmartyEngine($this->app['view']->getSmarty());
             }
-        );
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [
-            'command.ytake.laravel-smarty.clear.compiled',
-            'command.ytake.laravel-smarty.clear.cache',
-            'command.ytake.laravel-smarty.optimize',
-            'command.ytake.laravel-smarty.info',
-        ];
-    }
-
-    /**
-     * @return void
-     */
-    protected function registerCommands()
-    {
-        // Package Info command
-        $this->app['command.ytake.laravel-smarty.info'] = $this->app->share(
-            function () {
-                return new Console\PackageInfoCommand;
-            }
-        );
-        // cache clear
-        $this->app['command.ytake.laravel-smarty.clear.cache'] = $this->app->share(function ($app) {
-                return new Console\CacheClearCommand($app['view']->getSmarty());
-            }
-        );
-        // clear compiled
-        $this->app['command.ytake.laravel-smarty.clear.compiled'] = $this->app->share(function ($app) {
-                return new Console\CompiledClearCommand($app['view']->getSmarty());
-            }
-        );
-        // clear compiled
-        $this->app['command.ytake.laravel-smarty.optimize'] = $this->app->share(function ($app) {
-               return new Console\CompiledCommand($app['view']->getSmarty(), $app['config']);
-            }
-        );
-        $this->commands(
-            [
-                'command.ytake.laravel-smarty.clear.compiled',
-                'command.ytake.laravel-smarty.clear.cache',
-                'command.ytake.laravel-smarty.optimize',
-                'command.ytake.laravel-smarty.info',
-            ]
         );
     }
 

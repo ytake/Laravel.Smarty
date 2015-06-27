@@ -19,14 +19,12 @@ class CacheClearCommandTest extends TestCase
     public function testCommand()
     {
         $this->command->run(new \Symfony\Component\Console\Input\ArrayInput([]), new \Symfony\Component\Console\Output\NullOutput);
-        $this->assertInstanceOf("Symfony\Component\Console\Output\NullOutput", $this->command->getOutput());
+        $this->assertSame('ytake:smarty-clear-cache', $this->command->getName());
         $this->assertSame("Flush the smarty cache", $this->command->getDescription());
-        $this->assertSame('ytake:smarty-clear-cache [-f|--file[="..."]] [-t|--time[="..."]] [-cache|--cache_id[="..."]]', $this->command->getSynopsis());
     }
 
     public function testCommandFile()
     {
-        $this->command->run(new \Symfony\Component\Console\Input\ArrayInput(['--file' => 'aa']), new \Symfony\Component\Console\Output\NullOutput);
-        $this->assertInstanceOf("Symfony\Component\Console\Output\NullOutput", $this->command->getOutput());
+        $this->command->run(new \Symfony\Component\Console\Input\ArrayInput(['--file' => 'test']), new \Symfony\Component\Console\Output\NullOutput);
     }
 }

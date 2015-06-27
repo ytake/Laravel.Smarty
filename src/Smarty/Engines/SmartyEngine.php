@@ -46,7 +46,6 @@ class SmartyEngine implements EngineInterface
     {
         ob_start();
         try {
-            unset($data['__env']);
             if(!$this->smarty->isCached($path)) {
                 foreach ($data as $var => $val) {
                     $this->smarty->assign($var, $val);
