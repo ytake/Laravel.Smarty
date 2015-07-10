@@ -32,11 +32,8 @@ class StorageTest extends TestCase
 
 	public function testMemcachedDriver()
 	{
-		$storageMock = m::mock($this->storage);
-		$storageMock->makePartial()->shouldAllowMockingProtectedMethods();
-		$storageMock->shouldReceive("memcachedStorage")->andReturn("Ytake\LaravelSmarty\Cache\Memcached");
-		$reflection = $this->getProtectMethod($storageMock, 'memcachedStorage');
-		$this->assertEquals("Ytake\LaravelSmarty\Cache\Memcached", $reflection->invoke($storageMock));
+		$reflection = $this->getProtectMethod($this->storage, 'memcachedStorage');
+		$this->assertInstanceOf("Ytake\LaravelSmarty\Cache\Memcached", $reflection->invoke($this->storage));
 	}
 
 	public function testCacheDriver()

@@ -14,9 +14,6 @@ use Illuminate\Support\ServiceProvider;
 class SmartyServiceProvider extends ServiceProvider
 {
 
-    /** @var Storage $instance */
-    protected static $instance;
-
     /**
      * Register the service provider.
      *

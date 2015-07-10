@@ -16,6 +16,7 @@ class SmartyManagerFactory extends TestCase
     public function testSmarty()
     {
         $this->assertInstanceOf("Smarty", $this->factory->getSmarty());
+        $this->assertNotTrue($this->factory->getVersion());
     }
 
     public function testConfigure()
