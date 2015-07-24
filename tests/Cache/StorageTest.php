@@ -43,6 +43,7 @@ class StorageTest extends TestCase
 		$storage = new \Ytake\LaravelSmarty\Cache\Storage(
 			$smarty, $this->config
 		);
+		$storage->cacheStorageManaged();
 		$this->assertInstanceOf("Ytake\LaravelSmarty\Cache\Storage", $this->storage);
 		$this->assertSame($smarty->caching_type, 'redis');
 	}

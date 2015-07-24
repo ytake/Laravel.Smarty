@@ -64,11 +64,13 @@ class SmartyServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return Storage
+     * @return void
      */
     protected function registerCacheStorage()
     {
-        return new Storage($this->app['view']->getSmarty(), $this->app['config']);
+        $cacheStorage = new Storage($this->app['view']->getSmarty(), $this->app['config']);
+        $cacheStorage->cacheStorageManaged();
     }
+
 
 }

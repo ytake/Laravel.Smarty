@@ -27,13 +27,12 @@ class Storage
     {
         $this->smarty = $smarty;
         $this->repository = $repository;
-        $this->cacheStorageManaged();
     }
 
     /**
      * @return void
      */
-    protected function cacheStorageManaged()
+    public function cacheStorageManaged()
     {
         $driver = $this->repository->get('ytake-laravel-smarty.cache_driver', 'file');
         if($driver !== 'file') {

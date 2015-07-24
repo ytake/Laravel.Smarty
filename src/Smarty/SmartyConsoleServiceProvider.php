@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
  * Class SmartyConsoleServiceProvider
  * @package Ytake\LaravelSmarty
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class SmartyConsoleServiceProvider extends ServiceProvider
 {
@@ -50,26 +51,26 @@ class SmartyConsoleServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         // Package Info command
-        $this->app['command.ytake.laravel-smarty.info'] = $this->app->share(
-            function () {
-                return new Console\PackageInfoCommand;
-            }
-        );
+        $this->app->singleton('command.ytake.laravel-smarty.info', function () {
+            return new Console\PackageInfoCommand;
+        });
+
         // cache clear
-        $this->app['command.ytake.laravel-smarty.clear.cache'] = $this->app->share(function ($app) {
+        $this->app->singleton('command.ytake.laravel-smarty.clear.cache', function ($app) {
             return new Console\CacheClearCommand($app['view']->getSmarty());
-        }
-        );
+
+        });
+
         // clear compiled
-        $this->app['command.ytake.laravel-smarty.clear.compiled'] = $this->app->share(function ($app) {
+        $this->app->singleton('command.ytake.laravel-smarty.clear.compiled', function ($app) {
             return new Console\ClearCompiledCommand($app['view']->getSmarty());
-        }
-        );
+        });
+
         // clear compiled
-        $this->app['command.ytake.laravel-smarty.optimize'] = $this->app->share(function ($app) {
+        $this->app->singleton('command.ytake.laravel-smarty.optimize', function ($app) {
             return new Console\OptimizeCommand($app['view']->getSmarty(), $app['config']);
-        }
-        );
+        });
+
         $this->commands(
             [
                 'command.ytake.laravel-smarty.clear.compiled',
