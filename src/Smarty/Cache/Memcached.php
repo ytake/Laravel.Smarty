@@ -1,7 +1,7 @@
 <?php
 namespace Ytake\LaravelSmarty\Cache;
 
-use Memcached as MemcachedExtendion;
+use Memcached as MemcachedExtension;
 
 /**
  * Class Memcached
@@ -12,13 +12,13 @@ use Memcached as MemcachedExtendion;
 class Memcached extends \Smarty_CacheResource_KeyValueStore
 {
 
-    /** @var MemcachedExtendion */
+    /** @var MemcachedExtension */
     protected $memcached;
 
     /**
-     * @param \Memcached $memcached
+     * @param MemcachedExtension $memcached
      */
-    public function __construct(MemcachedExtendion $memcached, array $servers)
+    public function __construct(MemcachedExtension $memcached, array $servers)
     {
         $this->memcached = $this->connection($memcached, $servers);
     }
@@ -27,7 +27,7 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
      * @param array $servers
      * @return \Memcached
      */
-    protected function connection(MemcachedExtendion $memcached, array $servers)
+    protected function connection(MemcachedExtension $memcached, array $servers)
     {
         foreach ($servers as $server) {
             $memcached->addServer($server['host'], $server['port'], $server['weight']);

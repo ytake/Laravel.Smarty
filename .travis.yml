@@ -1,19 +1,18 @@
 language: php
-
 php:
   - 5.5
   - 5.6
   - hhvm
-
-before_script:
+services:
+  - memcached
+install:
   - composer self-update
   - composer install
-  - chmod -R 777 tests/storage
-
+before_script:
+  - chmod -R 755 tests/bin/memcached.sh
+  - tests/bin/memcached.sh
 script:
-  - mkdir -p build/logs
-  - chmod -R 777 build/logs
+  - chmod -R 777 tests/logs
   - phpunit
-
 after_script:
-  - php vendor/bin/coveralls -v
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then php vendor/bin/coveralls -v; fi

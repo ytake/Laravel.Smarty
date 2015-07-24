@@ -7,12 +7,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 /**
- * Class CompiledCommand
+ * Class OptimizeCommand
  * @package Ytake\LaravelSmarty\Console
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class CompiledCommand extends Command
+class OptimizeCommand extends Command
 {
 
     /** @var Smarty */
@@ -51,9 +51,12 @@ class CompiledCommand extends Command
     public function fire()
     {
         $configureFileExtension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
-        $fileExtension = (is_null($this->option('extension'))) ? $configureFileExtension : $this->option('extension');
+        $fileExtension = (is_null($this->option('extension')))
+            ? $configureFileExtension : $this->option('extension');
         ob_start();
-        $compileFiles = $this->smarty->compileAllTemplates($fileExtension, $this->option('force'));
+        $compileFiles = $this->smarty->compileAllTemplates(
+            $fileExtension, $this->option('force')
+        );
         $contents = ob_get_contents();
         ob_get_clean();
         $this->info("{$compileFiles} template files recompiled");

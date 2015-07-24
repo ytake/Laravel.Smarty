@@ -13,7 +13,7 @@ return [
     'debugging' => false,
 
     // use cache
-    'caching' => true,
+    'caching' => false,
 
     //
     'cache_lifetime' => 120,
@@ -29,9 +29,9 @@ return [
     // path info
     'template_path' => base_path() . '/resources/views',
 
-    'cache_path' => storage_path() . '/smarty/cache',
+    'cache_path' => storage_path() . '/framework/smarty/cache',
 
-    'compile_path' => storage_path() . '/smarty/compile',
+    'compile_path' => storage_path() . '/framework/smarty/compile',
 
     'plugins_paths' => [
         base_path() . '/resources/smarty/plugins',
@@ -41,8 +41,11 @@ return [
         base_path() . '/resources/smarty/config',
     ],
 
-    // production false
-    'force_compile' => false,
+    /**
+     * for develop true
+     * for production false
+     */
+    'force_compile' => true,
 
     // smarty cache driver "file", "memcached", "redis"
     'cache_driver' => 'file',

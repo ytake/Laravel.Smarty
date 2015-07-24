@@ -6,6 +6,7 @@ use ReflectionClass;
 use Illuminate\View\Factory;
 use Illuminate\View\ViewFinderInterface;
 use Illuminate\View\Engines\EngineResolver;
+use Ytake\LaravelSmarty\Cache\Storage;
 use Ytake\LaravelSmarty\Exception\MethodNotFoundException;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
@@ -22,13 +23,14 @@ class SmartyFactory extends Factory
     /**
      * @var string  version
      */
-    const VERSION = '2.1.0';
+    const VERSION = '2.1.1';
 
     /** @var Smarty $smarty */
     protected $smarty;
 
     /** @var ConfigContract $config */
     protected $config;
+
 
     /**
      * @param EngineResolver $engines
@@ -47,7 +49,6 @@ class SmartyFactory extends Factory
         parent::__construct($engines, $finder, $events);
         $this->smarty = $smarty;
         $this->config = $config;
-        $this->setConfigure();
     }
 
     /**
@@ -67,11 +68,31 @@ class SmartyFactory extends Factory
     }
 
     /**
+     * @return void
+     */
+    public function addSmartyExtension()
+    {
+        $extension = $this->config->get('laravel-smarty.extension', 'tpl');
+        $this->addExtension($extension, 'smarty', function () {
+            return new Engines\SmartyEngine($this->getSmarty());
+        });
+    }
+
+    /**
+     * @return void
+     */
+    public function resolveSmartyCache()
+    {
+        $cacheStorage = new Storage($this->getSmarty(), $this->config);
+        $cacheStorage->cacheStorageManaged();
+    }
+
+    /**
      * smarty configure
      * @access private
      * @return void
      */
-    private function setConfigure()
+    public function setSmartyConfigure()
     {
         $this->smarty->left_delimiter = $this->config->get('ytake-laravel-smarty.left_delimiter');
         $this->smarty->right_delimiter = $this->config->get('ytake-laravel-smarty.right_delimiter');
@@ -80,7 +101,7 @@ class SmartyFactory extends Factory
         $this->smarty->setCacheDir($this->config->get('ytake-laravel-smarty.cache_path'));
         $this->smarty->setConfigDir($this->config->get('ytake-laravel-smarty.config_paths'));
 
-        foreach($this->config->get('ytake-laravel-smarty.plugins_paths', []) as $plugins) {
+        foreach ($this->config->get('ytake-laravel-smarty.plugins_paths', []) as $plugins) {
             $this->smarty->addPluginsDir($plugins);
         }
 
@@ -89,7 +110,7 @@ class SmartyFactory extends Factory
         $this->smarty->cache_lifetime = $this->config->get('ytake-laravel-smarty.cache_lifetime');
         $this->smarty->compile_check = $this->config->get('ytake-laravel-smarty.compile_check');
         $this->smarty->force_compile = $this->config->get('ytake-laravel-smarty.force_compile', false);
-        $this->smarty->error_reporting = E_ALL &~ E_NOTICE;
+        $this->smarty->error_reporting = E_ALL & ~E_NOTICE;
     }
 
     /**
@@ -101,7 +122,7 @@ class SmartyFactory extends Factory
     public function __call($name, $arguments)
     {
         $reflectionClass = new ReflectionClass($this->smarty);
-        if(!$reflectionClass->hasMethod($name)) {
+        if (!$reflectionClass->hasMethod($name)) {
             throw new MethodNotFoundException("{$name} : Method Not Found");
         }
         return call_user_func_array([$this->smarty, $name], $arguments);
