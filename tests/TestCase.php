@@ -28,6 +28,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
             new Smarty,
             $this->config
         );
+        $this->factory->setSmartyConfigure();
+        $this->factory->addSmartyExtension();
+        $this->factory->resolveSmartyCache();
     }
 
     /**

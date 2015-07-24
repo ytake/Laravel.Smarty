@@ -14,6 +14,78 @@ smarty template engine for laravel
 [![HHVM Status](https://img.shields.io/hhvm/ytake/laravel-smarty.svg?style=flat-square)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5/mini.png)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
 
+Usage
+==================
+  
+## add providers
+config/app.php 
+```php
+'providers' => [
+    // add smarty extension
+    \Ytake\LaravelSmarty\SmartyServiceProvider::class, 
+    // add artisan commands  
+    \Ytake\LaravelSmarty\SmartyConsoleServiceProvider::class, 
+]
+```
+
+## publish configure(for laravel5)
+```bash
+$ php artisan vendor:publish
+```
+publish to config directory
+
+views配下にsmartyファイルがあればそれをview templateとし、  
+なければ通常通りbladeテンプレートかphpファイルを使用します。  
+
+smartyテンプレート内にも*{{app_path()}}*等のヘルパーそのまま使用できます。  
+その場合、delimiterをbladeと同じものを指定しない様にしてください。  
+
+### for production config
+example
+edit config/ytake-laravel-smarty.php (required artisan vendor:publish command)  
+
+```php
+    // enabled smarty template cache
+    'caching' => true, // default false
+    
+    // disabled smarty template compile
+    'force_compile' => false, // default true(for develop)
+```
+
+Or
+
+add .env file
+```
+SMARTY_CACHE=true
+SMARTY_COMPILE=false
+```
+next, edit config/ytake-laravel-smarty.php 
+```php
+    'caching' => env('SMARTY_CACHE', false),
+   
+    'force_compile' => env('SMARTY_COMPILE', false),
+```
+adn more..!
+
+## for optimize(production)
+**required config/compile.php**
+```php
+'providers' => [
+    //
+    \Ytake\LaravelSmarty\SmartyCompileServiceProvider::class
+],
+```
+###use optimize command
+for production
+```bash
+$ php artisan optimize
+```
+for develop/debug
+```bash
+$ php artisan optimize --force
+```
+
+
 ##Basic
 laravelでbladeに加え、smartyを使用することができます。  
 bladeの構文をそのまま使用することができ、  
@@ -39,13 +111,6 @@ view("template.name");
 ```
 ### for Laravel4
 [Laravel4.2 / Laravel4.1](https://github.com/ytake/Laravel.Smarty/tree/master-4.2)
-
-###example
-[registerFilter in ServiceProvider](https://gist.github.com/ytake/e8c834e88473ea3f10e7)  
-[registerFilter in Controller](https://gist.github.com/ytake/1a6f1d5312b552bc83ff)  
-[layout.sample](https://gist.github.com/ytake/11345539)  
-[layout.extends.sample](https://gist.github.com/ytake/11345614)
-
 
 ##Artisan
 キャッシュクリア、コンパイルファイルの削除がコマンドラインから行えます。  
@@ -110,27 +175,8 @@ Template Caching
 ],
 ```
 
-Usage
-==================
-
-install後、
-app/config配下のapp.phpのproviders配列に以下のnamespaceを追加してください。  
-## add providers
-```php
-'providers' => [
-    'Ytake\LaravelSmarty\SmartyServiceProvider'
-]
-```
-
-## publish configure(for laravel5)
-```bash
-$ php artisan vendo:publish
-```
-publish to config directory
-
-
-views配下にsmartyファイルがあればそれをview templateとし、  
-なければ通常通りbladeテンプレートかphpファイルを使用します。  
-
-smartyテンプレート内にも*{{app_path()}}*等のヘルパーそのまま使用できます。  
-その場合、delimiterをbladeと同じものを指定しない様にしてください。  
+###example
+[registerFilter in ServiceProvider](https://gist.github.com/ytake/e8c834e88473ea3f10e7)  
+[registerFilter in Controller](https://gist.github.com/ytake/1a6f1d5312b552bc83ff)  
+[layout.sample](https://gist.github.com/ytake/11345539)  
+[layout.extends.sample](https://gist.github.com/ytake/11345614)

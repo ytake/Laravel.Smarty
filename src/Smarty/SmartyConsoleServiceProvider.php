@@ -19,6 +19,12 @@ class SmartyConsoleServiceProvider extends ServiceProvider
      */
     protected $defer = true;
 
+    public function boot()
+    {
+        // register commands
+        $this->registerCommands();
+    }
+
     /**
      * Register the service provider.
      *
@@ -26,8 +32,7 @@ class SmartyConsoleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // register commands
-        $this->registerCommands();
+
     }
 
     /**
