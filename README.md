@@ -61,9 +61,9 @@ SMARTY_COMPILE=false
 ```
 next, edit config/ytake-laravel-smarty.php 
 ```php
-    'caching' => env('SMARTY_CACHE', false),
+    'caching' => env('SMARTY_CACHING', false),
    
-    'force_compile' => env('SMARTY_COMPILE', false),
+    'force_compile' => env('SMARTY_FORCE_COMPILE', true),
 ```
 adn more..!
 
