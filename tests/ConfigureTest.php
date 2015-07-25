@@ -8,7 +8,7 @@ class ConfigureTest extends TestCase
         parent::setUp();
         $filesystem = new \Illuminate\Filesystem\Filesystem;
 
-        $items = $filesystem->getRequire(__DIR__ . '/../src/config/ytake-laravel-smarty.php');
+        $items = $filesystem->getRequire(__DIR__ . '/config/config.php');
         $this->config->set('ytake-laravel-smarty', $items);
     }
 
