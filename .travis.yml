@@ -1,3 +1,4 @@
+sudo: false
 language: php
 php:
   - 5.5
@@ -5,10 +6,9 @@ php:
   - hhvm
 services:
   - memcached
-install:
-  - composer self-update
-  - composer install
 before_script:
+  - composer self-update
+  - composer install --prefer-source
   - chmod -R 755 tests/bin/memcached.sh
   - tests/bin/memcached.sh
 script:

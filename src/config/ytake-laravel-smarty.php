@@ -10,16 +10,16 @@ return [
     'extension' => 'tpl',
 
     //
-    'debugging' => false,
+    'debugging' => env('SMARTY_DEBUG',false),
 
     // use cache
-    'caching' => false,
+    'caching' => env('SMARTY_CACHING', false),
 
     //
-    'cache_lifetime' => 120,
+    'cache_lifetime' => env('SMARTY_CACHE_LIFE', 120),
 
     //
-    'compile_check' => false,
+    'compile_check' => env('SMARTY_COMPILE_CHECK', false),
 
     // delimiters
     // default "{$smarty}"
@@ -29,14 +29,18 @@ return [
     // path info
     'template_path' => base_path() . '/resources/views',
 
+    // smarty cache directory
     'cache_path' => storage_path() . '/framework/smarty/cache',
 
+    // smarty template compiler
     'compile_path' => storage_path() . '/framework/smarty/compile',
 
+    // smarty plugins
     'plugins_paths' => [
         base_path() . '/resources/smarty/plugins',
     ],
 
+    // somarty configure
     'config_paths' => [
         base_path() . '/resources/smarty/config',
     ],
@@ -45,10 +49,10 @@ return [
      * for develop true
      * for production false
      */
-    'force_compile' => true,
+    'force_compile' => env('SMARTY_FORCE_COMPILE', true),
 
     // smarty cache driver "file", "memcached", "redis"
-    'cache_driver' => 'file',
+    'cache_driver' => env('SMARTY_CACHE_DRIVER', 'file'),
 
     // memcached servers
     'memcached' => [
