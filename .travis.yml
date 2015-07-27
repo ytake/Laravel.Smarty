@@ -16,3 +16,6 @@ script:
   - phpunit
 after_script:
   - php vendor/bin/coveralls -v
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.5" ]]; then php ocular.phar code-coverage:upload --format=php-clover tests/build/clover.xml; fi
+  
