@@ -1,8 +1,18 @@
 filter:
+  paths:
+    - src/Smarty
   excluded_paths:
     - tests/*
     - src/config/*
+tools:
+    external_code_coverage:
+        timeout: 600
+    php_code_sniffer:
+        config:
+            standard: "PSR2"
+    php_cs_fixer:
+        config: { level: psr2 }
 checks:
-  php:
-    code_rating: true
-    duplication: true
+    php:
+        code_rating: true
+        duplication: true
