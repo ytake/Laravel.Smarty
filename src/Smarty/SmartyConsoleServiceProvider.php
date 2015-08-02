@@ -22,7 +22,6 @@ use Illuminate\Support\ServiceProvider;
  */
 class SmartyConsoleServiceProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -43,7 +42,6 @@ class SmartyConsoleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**
@@ -96,5 +94,4 @@ class SmartyConsoleServiceProvider extends ServiceProvider
             ]
         );
     }
-
 }

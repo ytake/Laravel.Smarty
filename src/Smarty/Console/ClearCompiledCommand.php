@@ -25,7 +25,6 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class ClearCompiledCommand extends Command
 {
-
     /** @var Smarty */
     protected $smarty;
 

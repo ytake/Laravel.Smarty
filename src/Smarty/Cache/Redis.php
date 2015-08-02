@@ -23,7 +23,6 @@ use Predis\Client;
  */
 class Redis extends \Smarty_CacheResource_KeyValueStore
 {
-
     /** @var Client */
     protected $redis;
 
@@ -105,4 +104,3 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
         $this->redis->flushdb();
     }
 }
-

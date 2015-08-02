@@ -22,7 +22,6 @@ use Illuminate\Support\ServiceProvider;
  */
 class SmartyCompileServiceProvider extends ServiceProvider
 {
-
     /**
      * Register the service provider.
      *
@@ -30,7 +29,6 @@ class SmartyCompileServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**

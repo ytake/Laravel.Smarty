@@ -26,7 +26,6 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
  */
 class OptimizeCommand extends Command
 {
-
     /** @var Smarty */
     protected $smarty;
 

@@ -23,7 +23,6 @@ use Illuminate\Support\ServiceProvider;
  */
 class SmartyServiceProvider extends ServiceProvider
 {
-
     /**
      * Register the service provider.
      *
@@ -57,7 +56,5 @@ class SmartyServiceProvider extends ServiceProvider
 
             return $factory;
         });
-
     }
-
 }

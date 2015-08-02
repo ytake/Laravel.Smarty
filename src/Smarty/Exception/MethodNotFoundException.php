@@ -20,5 +20,4 @@ namespace Ytake\LaravelSmarty\Exception;
  */
 class MethodNotFoundException extends \Exception
 {
-
 }

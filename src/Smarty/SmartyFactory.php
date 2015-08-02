@@ -30,7 +30,6 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
  */
 class SmartyFactory extends Factory
 {
-
     /**
      * @var string  version
      */

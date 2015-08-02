@@ -24,7 +24,6 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
  */
 class Storage
 {
-
     /** @var Smarty */
     protected $smarty;
 

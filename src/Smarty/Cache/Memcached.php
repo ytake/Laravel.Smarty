@@ -23,7 +23,6 @@ use Memcached as MemcachedExtension;
  */
 class Memcached extends \Smarty_CacheResource_KeyValueStore
 {
-
     /** @var MemcachedExtension */
     protected $memcached;
 
@@ -116,4 +115,3 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
         $this->memcached->flush();
     }
 }
-

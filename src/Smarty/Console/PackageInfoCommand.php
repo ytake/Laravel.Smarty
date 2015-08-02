@@ -25,7 +25,6 @@ use Ytake\LaravelSmarty\SmartyFactory;
  */
 class PackageInfoCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -50,5 +49,4 @@ class PackageInfoCommand extends Command
         $this->line('<info>Smarty</info> version <comment>' . Smarty::SMARTY_VERSION . '</comment>');
         $this->line('<info>ytake/laravel-smarty</info> version <comment>' . SmartyFactory::VERSION . '</comment>');
     }
-
 }

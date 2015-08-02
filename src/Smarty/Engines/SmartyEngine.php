@@ -23,7 +23,6 @@ use Illuminate\View\Engines\EngineInterface;
  */
 class SmartyEngine implements EngineInterface
 {
-
     /** @var Smarty $smarty */
     protected $smarty;
 
@@ -69,7 +68,6 @@ class SmartyEngine implements EngineInterface
             $cacheId = isset($data['smarty.cache_id']) ? $data['smarty.cache_id'] : null;
             $compileId = isset($data['smarty.compile_id']) ? $data['smarty.compile_id'] : null;
             $this->smarty->display($path, $cacheId, $compileId);
-
         } catch (\Exception $e) {
             $this->handleViewException($e);
         }
@@ -86,5 +84,4 @@ class SmartyEngine implements EngineInterface
         ob_get_clean();
         throw $e;
     }
-
 }
