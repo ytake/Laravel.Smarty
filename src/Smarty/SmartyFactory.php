@@ -72,7 +72,7 @@ class SmartyFactory extends Factory
      */
     public function addSmartyExtension()
     {
-        $extension = $this->config->get('laravel-smarty.extension', 'tpl');
+        $extension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
         $this->addExtension($extension, 'smarty', function () {
             return new Engines\SmartyEngine($this->getSmarty());
         });
