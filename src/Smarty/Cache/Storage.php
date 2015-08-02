@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -16,6 +17,7 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 /**
  * Class Storage
+ *
  * @package Ytake\LaravelSmarty\Cache
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
@@ -23,14 +25,14 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
 class Storage
 {
 
-    /** @var Smarty  */
+    /** @var Smarty */
     protected $smarty;
 
-    /** @var ConfigContract  */
+    /** @var ConfigContract */
     protected $repository;
 
     /**
-     * @param Smarty $smarty
+     * @param Smarty         $smarty
      * @param ConfigContract $repository
      */
     public function __construct(Smarty $smarty, ConfigContract $repository)
@@ -45,7 +47,7 @@ class Storage
     public function cacheStorageManaged()
     {
         $driver = $this->repository->get('ytake-laravel-smarty.cache_driver', 'file');
-        if($driver !== 'file') {
+        if ($driver !== 'file') {
             $storage = $driver . "Storage";
             $this->smarty->registerCacheResource($driver, $this->$storage());
         }

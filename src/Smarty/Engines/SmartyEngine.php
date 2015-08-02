@@ -16,6 +16,7 @@ use Illuminate\View\Engines\EngineInterface;
 
 /**
  * Class SmartyEngine
+ *
  * @package Ytake\LaravelSmarty\Engines
  * @author yuuki.takezawa <yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
@@ -36,8 +37,10 @@ class SmartyEngine implements EngineInterface
 
     /**
      * Get the evaluated contents of the view.
-     * @param  string  $path
-     * @param  array   $data
+     *
+     * @param  string $path
+     * @param  array  $data
+     *
      * @return string
      */
     public function get($path, array $data = [])
@@ -49,14 +52,15 @@ class SmartyEngine implements EngineInterface
      * Get the evaluated contents of the view at the given path.
      *
      * @param string $path
-     * @param array $data
+     * @param array  $data
+     *
      * @return string
      */
     protected function evaluatePath($path, array $data = [])
     {
         ob_start();
         try {
-            if(!$this->smarty->isCached($path)) {
+            if (!$this->smarty->isCached($path)) {
                 foreach ($data as $var => $val) {
                     $this->smarty->assign($var, $val);
                 }
@@ -74,6 +78,7 @@ class SmartyEngine implements EngineInterface
 
     /**
      * @param \Exception $e
+     *
      * @throws \Exception
      */
     protected function handleViewException(\Exception $e)
