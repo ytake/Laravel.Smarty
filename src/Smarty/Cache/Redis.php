@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,14 +16,14 @@ use Predis\Client;
 
 /**
  * Class Redis
+ *
  * @package Ytake\LaravelSmarty\Cache
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 class Redis extends \Smarty_CacheResource_KeyValueStore
 {
-
-    /** @var Client  */
+    /** @var Client */
     protected $redis;
 
     /**
@@ -30,7 +31,7 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
      */
     public function __construct(array $servers)
     {
-        if(count($servers) === 1) {
+        if (count($servers) === 1) {
             $this->redis = new Client($servers[0]);
         } else {
             $this->redis = new Client($servers);
@@ -39,7 +40,9 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
 
     /**
      * Read values for a set of keys from cache
+     *
      * @param  array $keys list of keys to fetch
+     *
      * @return array   list of values with the given keys used as indexes
      * @return boolean true on success, false on failure
      */
@@ -52,7 +55,7 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
             $lookup[$_k] = $k;
         }
         $_res = [];
-        foreach($_keys as $key) {
+        foreach ($_keys as $key) {
             $_res[$lookup[$key]] = $this->redis->get($key);
         }
         return $_res;
@@ -60,8 +63,10 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
 
     /**
      * Save values for a set of keys to cache
-     * @param  array $keys   list of values to save
+     *
+     * @param  array $keys list of values to save
      * @param  int   $expire expiration time
+     *
      * @return boolean true on success, false on failure
      */
     protected function write(array $keys, $expire = 1)
@@ -75,7 +80,9 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
 
     /**
      * Remove values from cache
+     *
      * @param  array $keys list of keys to delete
+     *
      * @return boolean true on success, false on failure
      */
     protected function delete(array $keys)
@@ -89,6 +96,7 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
 
     /**
      * Remove *all* values from cache
+     *
      * @return boolean true on success, false on failure
      */
     protected function purge()
@@ -96,4 +104,3 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
         $this->redis->flushdb();
     }
 }
-

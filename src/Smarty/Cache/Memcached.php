@@ -1,17 +1,28 @@
 <?php
+
+/**
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 namespace Ytake\LaravelSmarty\Cache;
 
 use Memcached as MemcachedExtension;
 
 /**
  * Class Memcached
+ *
  * @package Ytake\LaravelSmarty\Cache
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 class Memcached extends \Smarty_CacheResource_KeyValueStore
 {
-
     /** @var MemcachedExtension */
     protected $memcached;
 
@@ -25,6 +36,7 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
 
     /**
      * @param array $servers
+     *
      * @return \Memcached
      */
     protected function connection(MemcachedExtension $memcached, array $servers)
@@ -46,13 +58,13 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
      */
     protected function read(array $keys)
     {
-        $_keys = $lookup = array();
+        $_keys = $lookup = [];
         foreach ($keys as $k) {
             $_k = sha1($k);
             $_keys[] = $_k;
             $lookup[$_k] = $k;
         }
-        $_res = array();
+        $_res = [];
         $res = $this->memcached->getMulti($_keys);
         foreach ($res as $k => $v) {
             $_res[$lookup[$k]] = $v;
@@ -62,8 +74,10 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
 
     /**
      * Save values for a set of keys to cache
-     * @param  array $keys   list of values to save
+     *
+     * @param  array $keys list of values to save
      * @param  int   $expire expiration time
+     *
      * @return boolean true on success, false on failure
      */
     protected function write(array $keys, $expire = null)
@@ -93,6 +107,7 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
 
     /**
      * Remove *all* values from cache
+     *
      * @return boolean true on success, false on failure
      */
     protected function purge()
@@ -100,4 +115,3 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
         $this->memcached->flush();
     }
 }
-

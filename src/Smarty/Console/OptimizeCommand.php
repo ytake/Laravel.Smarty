@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -18,21 +19,21 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 /**
  * Class OptimizeCommand
+ *
  * @package Ytake\LaravelSmarty\Console
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 class OptimizeCommand extends Command
 {
-
     /** @var Smarty */
     protected $smarty;
 
-    /** @var ConfigContract  */
+    /** @var ConfigContract */
     protected $config;
 
     /**
-     * @param Smarty $smarty
+     * @param Smarty         $smarty
      * @param ConfigContract $config
      */
     public function __construct(Smarty $smarty, ConfigContract $config)
@@ -44,18 +45,21 @@ class OptimizeCommand extends Command
 
     /**
      * The console command name.
+     *
      * @var string
      */
     protected $name = 'ytake:smarty-optimize';
 
     /**
      * The console command description.
+     *
      * @var string
      */
     protected $description = 'compiles all known templates';
 
     /**
      * Execute the console command.
+     *
      * @return void
      */
     public function fire()
@@ -76,6 +80,7 @@ class OptimizeCommand extends Command
 
     /**
      * Get the console command options.
+     *
      * @return array
      */
     protected function getOptions()

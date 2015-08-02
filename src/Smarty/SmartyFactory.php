@@ -1,4 +1,14 @@
 <?php
+/**
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 namespace Ytake\LaravelSmarty;
 
 use Smarty;
@@ -13,17 +23,17 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 
 /**
  * Class SmartyManager
+ *
  * @package Ytake\LaravelSmarty
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 class SmartyFactory extends Factory
 {
-
     /**
      * @var string  version
      */
-    const VERSION = '2.1.1';
+    const VERSION = '2.1.3';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -33,11 +43,11 @@ class SmartyFactory extends Factory
 
 
     /**
-     * @param EngineResolver $engines
+     * @param EngineResolver      $engines
      * @param ViewFinderInterface $finder
-     * @param DispatcherContract $events
-     * @param Smarty $smarty
-     * @param ConfigContract $config
+     * @param DispatcherContract  $events
+     * @param Smarty              $smarty
+     * @param ConfigContract      $config
      */
     public function __construct(
         EngineResolver $engines,
@@ -89,6 +99,7 @@ class SmartyFactory extends Factory
 
     /**
      * smarty configure
+     *
      * @access private
      * @return void
      */
@@ -116,6 +127,7 @@ class SmartyFactory extends Factory
     /**
      * @param $name
      * @param $arguments
+     *
      * @return mixed
      * @throws MethodNotFoundException
      */

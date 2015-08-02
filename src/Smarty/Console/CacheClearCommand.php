@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -17,13 +18,13 @@ use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class CacheClearCommand
+ *
  * @package Ytake\LaravelSmarty\Console
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 class CacheClearCommand extends Command
 {
-
     /** @var Smarty */
     protected $smarty;
 
@@ -38,18 +39,21 @@ class CacheClearCommand extends Command
 
     /**
      * The console command name.
+     *
      * @var string
      */
     protected $name = 'ytake:smarty-clear-cache';
 
     /**
      * The console command description.
+     *
      * @var string
      */
     protected $description = 'Flush the smarty cache';
 
     /**
      * Execute the console command.
+     *
      * @return void
      */
     public function fire()
@@ -73,6 +77,7 @@ class CacheClearCommand extends Command
 
     /**
      * Get the console command options.
+     *
      * @return array
      */
     protected function getOptions()
