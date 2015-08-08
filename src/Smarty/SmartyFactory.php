@@ -41,6 +41,102 @@ class SmartyFactory extends Factory
     /** @var ConfigContract $config */
     protected $config;
 
+    /** @var array valid config keys */
+    protected $configKeys = [
+        'auto_literal',
+        'error_unassigned',
+        'use_include_path',
+        'joined_template_dir',
+        'joined_config_dir',
+        'default_template_handler_func',
+        'default_config_handler_func',
+        'default_plugin_handler_func',
+        'force_compile',
+        'compile_check',
+        'use_sub_dirs',
+        'allow_ambiguous_resources',
+        'merge_compiled_includes',
+        'inheritance_merge_compiled_includes',
+        'force_cache',
+        'left_delimiter',
+        'right_delimiter',
+        'security_class',
+        'php_handling',
+        'allow_php_templates',
+        'direct_access_security',
+        'debugging',
+        'debugging_ctrl',
+        'smarty_debug_id',
+        'debug_tpl',
+//            'error_reporting', added below with default value
+        'get_used_tags',
+        'config_overwrite',
+        'config_booleanize',
+        'config_read_hidden',
+        'compile_locking',
+        'cache_locking',
+        'locking_timeout',
+        'default_resource_type',
+        'caching_type',
+        'properties',
+        'default_config_type',
+        'source_objects',
+        'template_objects',
+        'resource_caching',
+        'template_resource_caching',
+        'cache_modified_check',
+        'registered_plugins',
+        'plugin_search_order',
+        'registered_objects',
+        'registered_classes',
+        'registered_filters',
+        'registered_resources',
+        '_resource_handlers',
+        'registered_cache_resources',
+        '_cacheresource_handlers',
+        'autoload_filters',
+        'default_modifiers',
+        'escape_html',
+        'start_time',
+        '_file_perms',
+        '_dir_perms',
+        '_tag_stack',
+        '_current_file',
+        '_parserdebug',
+        '_is_file_cache',
+        'cache_id',
+        'compile_id',
+        'caching',
+        'cache_lifetime',
+        'template_class',
+        'tpl_vars',
+        'parent',
+        'config_vars',
+        'enable_security'
+    ];
+
+    /** @var array valid security policy config keys */
+    protected $securityPolicyConfigKeys = [
+        'php_handling',
+        'secure_dir',
+        'trusted_dir',
+        'trusted_uri',
+        'trusted_constants',
+        'static_classes',
+        'trusted_static_methods',
+        'trusted_static_properties',
+        'php_functions',
+        'php_modifiers',
+        'allowed_tags',
+        'disabled_tags',
+        'allowed_modifiers',
+        'disabled_modifiers',
+        'disabled_special_smarty_vars',
+        'streams',
+        'allow_constants',
+        'allow_super_globals',
+        'max_template_nesting',
+    ];
 
     /**
      * @param EngineResolver      $engines
@@ -105,23 +201,38 @@ class SmartyFactory extends Factory
      */
     public function setSmartyConfigure()
     {
-        $this->smarty->left_delimiter = $this->config->get('ytake-laravel-smarty.left_delimiter');
-        $this->smarty->right_delimiter = $this->config->get('ytake-laravel-smarty.right_delimiter');
-        $this->smarty->setTemplateDir($this->config->get('ytake-laravel-smarty.template_path'));
-        $this->smarty->setCompileDir($this->config->get('ytake-laravel-smarty.compile_path'));
-        $this->smarty->setCacheDir($this->config->get('ytake-laravel-smarty.cache_path'));
-        $this->smarty->setConfigDir($this->config->get('ytake-laravel-smarty.config_paths'));
+        $config = $this->config->get('ytake-laravel-smarty');
 
-        foreach ($this->config->get('ytake-laravel-smarty.plugins_paths', []) as $plugins) {
-            $this->smarty->addPluginsDir($plugins);
+        $smarty = $this->smarty;
+
+        $smarty->setTemplateDir(array_get($config, 'template_path'));
+        $smarty->setCompileDir(array_get($config, 'compile_path'));
+        $smarty->setCacheDir(array_get($config, 'cache_path'));
+        $smarty->setConfigDir(array_get($config, 'config_paths'));
+
+        foreach(array_get($config, 'plugins_paths', []) as $plugins) {
+            $smarty->addPluginsDir($plugins);
         }
 
-        $this->smarty->debugging = $this->config->get('ytake-laravel-smarty.debugging');
-        $this->smarty->caching = $this->config->get('ytake-laravel-smarty.caching');
-        $this->smarty->cache_lifetime = $this->config->get('ytake-laravel-smarty.cache_lifetime');
-        $this->smarty->compile_check = $this->config->get('ytake-laravel-smarty.compile_check');
-        $this->smarty->force_compile = $this->config->get('ytake-laravel-smarty.force_compile', false);
-        $this->smarty->error_reporting = E_ALL & ~E_NOTICE;
+        $smarty->error_reporting = array_get($config, 'error_reporting', E_ALL & ~E_NOTICE);
+
+        foreach($config as $key => $value){
+            if(in_array($key, $this->configKeys)){
+                $this->smarty->{$key} = $value;
+            }
+        }
+
+        if(array_get($config, 'enable_security')){
+            $smarty->enableSecurity();
+
+            $securityPolicy = $smarty->security_policy;
+            $securityConfig = array_get($config, 'security_policy', []);
+            foreach($securityConfig as $key => $value){
+                if(in_array($key, $this->securityPolicyConfigKeys)) {
+                    $securityPolicy->{$key} = $value;
+                }
+            }
+        }
     }
 
     /**
