@@ -2,8 +2,8 @@ filter:
   paths:
     - src/Smarty
   excluded_paths:
-    - tests/*
-    - src/config/*
+    - tests
+    - src/config
 tools:
   php_code_sniffer:
     config:
