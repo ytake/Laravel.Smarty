@@ -69,7 +69,7 @@ class OptimizeCommand extends Command
             ? $configureFileExtension : $this->option('extension');
         ob_start();
         $compileFiles = $this->smarty->compileAllTemplates(
-            $fileExtension, $this->option('force')
+            $fileExtension, $this->forceCompile()
         );
         $contents = ob_get_contents();
         ob_get_clean();
@@ -89,5 +89,16 @@ class OptimizeCommand extends Command
             ['extension', 'e', InputOption::VALUE_OPTIONAL, 'specified smarty file extension'],
             ['force', null, InputOption::VALUE_NONE, 'compiles template files found in views directory'],
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    protected function forceCompile()
+    {
+        if ($this->option('force')) {
+            return true;
+        }
+        return false;
     }
 }

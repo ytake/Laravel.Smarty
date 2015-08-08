@@ -223,7 +223,7 @@ class SmartyFactory extends Factory
             }
         }
 
-        if ($res = array_get($config, 'enable_security')) {
+        if (array_get($config, 'enable_security')) {
             $smarty->enableSecurity();
 
             $securityPolicy = $smarty->security_policy;

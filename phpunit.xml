@@ -22,6 +22,7 @@
                 <file>./src/Smarty/SmartyServiceProvider.php</file>
                 <file>./src/Smarty/SmartyCompileServiceProvider.php</file>
                 <file>./src/Smarty/SmartyConsoleServiceProvider.php</file>
+                <file>./src/Smarty/Cache/KeyValueStorage.php</file>
                 <file>./src/Smarty/Cache/Redis.php</file>
                 <file>./src/Smarty/Cache/Memcached.php</file>
                 <file>./src/Smarty/Exception/MethodNotFoundException.php</file>
