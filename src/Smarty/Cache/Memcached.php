@@ -21,7 +21,7 @@ use Memcached as MemcachedExtension;
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Memcached extends \Smarty_CacheResource_KeyValueStore
+class Memcached extends KeyValueStorage
 {
     /** @var MemcachedExtension */
     protected $memcached;
@@ -59,11 +59,7 @@ class Memcached extends \Smarty_CacheResource_KeyValueStore
     protected function read(array $keys)
     {
         $_keys = $lookup = [];
-        foreach ($keys as $k) {
-            $_k = sha1($k);
-            $_keys[] = $_k;
-            $lookup[$_k] = $k;
-        }
+        list($_keys, $lookup) = $this->eachKeys($keys, $_keys, $lookup);
         $_res = [];
         $res = $this->memcached->getMulti($_keys);
         foreach ($res as $k => $v) {

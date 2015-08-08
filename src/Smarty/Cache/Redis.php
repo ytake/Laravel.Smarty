@@ -21,7 +21,7 @@ use Predis\Client;
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Redis extends \Smarty_CacheResource_KeyValueStore
+class Redis extends KeyValueStorage
 {
     /** @var Client */
     protected $redis;
@@ -49,11 +49,7 @@ class Redis extends \Smarty_CacheResource_KeyValueStore
     protected function read(array $keys)
     {
         $_keys = $lookup = [];
-        foreach ($keys as $k) {
-            $_k = sha1($k);
-            $_keys[] = $_k;
-            $lookup[$_k] = $k;
-        }
+        list($_keys, $lookup) = $this->eachKeys($keys, $_keys, $lookup);
         $_res = [];
         foreach ($_keys as $key) {
             $_res[$lookup[$key]] = $this->redis->get($key);

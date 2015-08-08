@@ -33,7 +33,7 @@ class SmartyFactory extends Factory
     /**
      * @var string  version
      */
-    const VERSION = '2.1.3';
+    const VERSION = '2.1.4';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -68,7 +68,7 @@ class SmartyFactory extends Factory
         'debugging_ctrl',
         'smarty_debug_id',
         'debug_tpl',
-//            'error_reporting', added below with default value
+//      'error_reporting', added below with default value
         'get_used_tags',
         'config_overwrite',
         'config_booleanize',
@@ -111,8 +111,7 @@ class SmartyFactory extends Factory
         'template_class',
         'tpl_vars',
         'parent',
-        'config_vars',
-        'enable_security'
+        'config_vars'
     ];
 
     /** @var array valid security policy config keys */
@@ -180,7 +179,9 @@ class SmartyFactory extends Factory
     {
         $extension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
         $this->addExtension($extension, 'smarty', function () {
+            // @codeCoverageIgnoreStart
             return new Engines\SmartyEngine($this->getSmarty());
+            // @codeCoverageIgnoreEnd
         });
     }
 
@@ -196,7 +197,7 @@ class SmartyFactory extends Factory
     /**
      * smarty configure
      *
-     * @access private
+     * @throws \SmartyException
      * @return void
      */
     public function setSmartyConfigure()
@@ -210,25 +211,25 @@ class SmartyFactory extends Factory
         $smarty->setCacheDir(array_get($config, 'cache_path'));
         $smarty->setConfigDir(array_get($config, 'config_paths'));
 
-        foreach(array_get($config, 'plugins_paths', []) as $plugins) {
+        foreach (array_get($config, 'plugins_paths', []) as $plugins) {
             $smarty->addPluginsDir($plugins);
         }
 
         $smarty->error_reporting = array_get($config, 'error_reporting', E_ALL & ~E_NOTICE);
 
-        foreach($config as $key => $value){
-            if(in_array($key, $this->configKeys)){
+        foreach ($config as $key => $value) {
+            if (in_array($key, $this->configKeys)) {
                 $this->smarty->{$key} = $value;
             }
         }
 
-        if(array_get($config, 'enable_security')){
+        if (array_get($config, 'enable_security')) {
             $smarty->enableSecurity();
 
             $securityPolicy = $smarty->security_policy;
             $securityConfig = array_get($config, 'security_policy', []);
-            foreach($securityConfig as $key => $value){
-                if(in_array($key, $this->securityPolicyConfigKeys)) {
+            foreach ($securityConfig as $key => $value) {
+                if (in_array($key, $this->securityPolicyConfigKeys)) {
                     $securityPolicy->{$key} = $value;
                 }
             }
