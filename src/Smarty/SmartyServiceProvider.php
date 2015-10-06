@@ -24,16 +24,15 @@ use Illuminate\Support\ServiceProvider;
 class SmartyServiceProvider extends ServiceProvider
 {
     /**
-     * Register the service provider.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function register()
     {
         $configPath = __DIR__ . '/../config/ytake-laravel-smarty.php';
         $this->mergeConfigFrom($configPath, 'ytake-laravel-smarty');
-        $this->publishes([$configPath => config_path('ytake-laravel-smarty.php')]);
-
+        $this->publishes([
+            $configPath => $this->resolveConfigurePath() . DIRECTORY_SEPARATOR . 'ytake-laravel-smarty.php'
+        ]);
         $this->app->singleton('view', function ($app) {
             $factory = new SmartyFactory(
                 $app['view.engine.resolver'],
@@ -56,5 +55,14 @@ class SmartyServiceProvider extends ServiceProvider
 
             return $factory;
         });
+    }
+
+    /**
+     * @return string
+     */
+    protected function resolveConfigurePath()
+    {
+        return (isset($this->app['path.config']))
+            ? $this->app['path.config'] : $this->app->basePath() . DIRECTORY_SEPARATOR . 'config';
     }
 }
