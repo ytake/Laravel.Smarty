@@ -1,6 +1,7 @@
-Laravel.Smarty
-==============
-smarty template engine for laravel
+# Laravel.Smarty
+
+Smarty Template Engine for Laravel  
+(Support for Laravel5.x and Lumen)
 
 [![Build Status](http://img.shields.io/travis/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://travis-ci.org/ytake/Laravel.Smarty)
 [![Coverage Status](http://img.shields.io/coveralls/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=master)
@@ -15,11 +16,24 @@ smarty template engine for laravel
 [![HHVM Status](https://img.shields.io/hhvm/ytake/laravel-smarty.svg?style=flat-square)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5/mini.png)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
 
-Usage
-==================
-  
-## add providers
-config/app.php 
+## Installation For Laravel
+Require this package with Composer
+
+```bash
+$ composer require ytake/laravel-smarty
+```
+
+or composer.json 
+
+```json
+"require": {
+  "ytake/laravel-smarty": "~2.0"
+},
+```
+
+add Laravel.Smarty Service Providers
+
+your config/app.php 
 ```php
 'providers' => [
     // add smarty extension
@@ -29,21 +43,51 @@ config/app.php
 ]
 ```
 
-## publish configure(for laravel5)
+## Installation For Lumen
+Require this package with Composer
+
+```bash
+$ composer require ytake/laravel-smarty
+```
+
+or composer.json 
+
+```json
+"require": {
+  "ytake/laravel-smarty": "~2.0"
+},
+```
+
+register Laravel.Smarty Service Providers
+
+your bootstrap/app.php 
+```php
+$app->configure('ytake-laravel-smarty');
+$app->register(Ytake\LaravelSmarty\SmartyServiceProvider::class);
+$app->register(Ytake\LaravelSmarty\SmartyConsoleServiceProvider::class);
+```
+
+## Configuration
+
+### publish configuration file (for Laravel5)
+
 ```bash
 $ php artisan vendor:publish
 ```
+
 publish to config directory
 
-views配下にsmartyファイルがあればそれをview templateとし、  
-なければ通常通りbladeテンプレートかphpファイルを使用します。  
+Of Course, Blade Template can also be used to Render Engine.
 
 smartyテンプレート内にも*{{app_path()}}*等のヘルパーそのまま使用できます。  
 その場合、delimiterをbladeと同じものを指定しない様にしてください。  
 
-### for production config
-example
-edit config/ytake-laravel-smarty.php (required artisan vendor:publish command)  
+### configuration file (for Lumen)
+
+Copy the `vendor/ytake/laravel-smarty/src/config/ytake-laravel-smarty.php` file to your local config directory
+
+### config for Production
+edit config/ytake-laravel-smarty.php
 
 ```php
     // enabled smarty template cache
@@ -60,63 +104,76 @@ add .env file
 SMARTY_CACHE=true
 SMARTY_COMPILE=false
 ```
-next, edit config/ytake-laravel-smarty.php 
+
+edit config/ytake-laravel-smarty.php
+ 
 ```php
     'caching' => env('SMARTY_CACHING', false),
    
     'force_compile' => env('SMARTY_FORCE_COMPILE', true),
 ```
-adn more..!
 
-## for optimize(production)
+and more..!
+
+## Laravel.Smarty Package Optimize (Optional for production)
 **required config/compile.php**
+
 ```php
 'providers' => [
     //
     \Ytake\LaravelSmarty\SmartyCompileServiceProvider::class
 ],
 ```
-###use optimize command
+
+### use optimize command
 for production
 ```bash
 $ php artisan optimize
 ```
+
 for develop/debug
 ```bash
 $ php artisan optimize --force
 ```
 
-
-##Basic
-laravelでbladeに加え、smartyを使用することができます。  
-bladeの構文をそのまま使用することができ、  
-View Facadeを通じてsmartyのmethodすべてが利用可能です。  
-easily use all the methods of smarty  
+## Basic
+easily use all the methods of Smarty  
 
 ```php
 // laravel5 view render
 view("template.name");
 
-// laravel blade template render(use Facades)
+// Laravel blade template render(use Facades)
 \View::make('template', ['hello']);
-// use smarty method
+// use Smarty method
+
 \View::assign('word', 'hello');  
 \View::clearAllAssign(); // smarty method
 ```
-##Install
-###for Laravel5
-```json
-"require": {
-  "ytake/laravel-smarty": "2.*"
-},
-```
-### for Laravel4
-[Laravel4.2 / Laravel4.1](https://github.com/ytake/Laravel.Smarty/tree/master-4.2)
 
-##Artisan
+## View Composer, and View Share
+
+```php
+$this->app['view']->composer('index', function (View $view) {
+    $view->with('message', 'enable smarty');
+});
+$this->app['view']->share('title', 'laravel-smarty');
+
+```
+
+```html
+Hello Laravel.Smarty
+
+{$title}
+
+{$message}
+```
+
+## Artisan
 キャッシュクリア、コンパイルファイルの削除がコマンドラインから行えます。  
-smarty's cacheclear, remove compile class from Artisan(cli)
-###cache clear
+smarty's cache clear, remove compile class from Artisan(cli)
+
+### Template cache clear
 ```bash
 $ php artisan ytake:smarty-clear-cache
 ```
@@ -127,7 +184,8 @@ $ php artisan ytake:smarty-clear-cache
 | --time (-t) | clear all of the files that are specified duration time |
 | --cache_id (-cache) | specified cache_id groups |
 
-###remove compile class
+### Remove compile file
+
 ```bash
 $ php artisan ytake:smarty-clear-compiled
 ```
@@ -137,22 +195,22 @@ $ php artisan ytake:smarty-clear-compiled
 | --file (-f) | specify file |
 | --compile_id (-compile) | specified compile_id |
 
-###compile
+### Template Compiler
+ 
 ```bash
 $ php artisan ytake:smarty-optimize
 ```
+
 | Options  | description |
 | ------------- | ------------- |
 | --extension (-e) | specified smarty file extension(default: *.tpl*) |
 | --force | compiles template files found in views directory  |
 
-Template Caching
-==================
+## Template Caching
+
 **choose file, memcached, Redis**  
 (default file cache driver)  
 
-テンプレートキャッシュドライバにファイルキャッシュ、memcached, Redisが選択できます  
-デフォルトは通常のファイルキャッシュになっています  
 ```php
 // smarty cache driver "file", "memcached", "redis"
 'cache_driver' => 'file',
@@ -176,7 +234,7 @@ Template Caching
 ],
 ```
 
-###example
+### example
 [registerFilter in ServiceProvider](https://gist.github.com/ytake/e8c834e88473ea3f10e7)  
 [registerFilter in Controller](https://gist.github.com/ytake/1a6f1d5312b552bc83ff)  
 [layout.sample](https://gist.github.com/ytake/11345539)  
