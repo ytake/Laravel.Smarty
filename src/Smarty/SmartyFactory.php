@@ -175,19 +175,6 @@ class SmartyFactory extends Factory
     /**
      * @return void
      */
-    public function addSmartyExtension()
-    {
-        $extension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
-        $this->addExtension($extension, 'smarty', function () {
-            // @codeCoverageIgnoreStart
-            return new Engines\SmartyEngine($this->getSmarty());
-            // @codeCoverageIgnoreEnd
-        });
-    }
-
-    /**
-     * @return void
-     */
     public function resolveSmartyCache()
     {
         $cacheStorage = new Storage($this->getSmarty(), $this->config);

@@ -29,8 +29,14 @@ class TestCase extends \PHPUnit_Framework_TestCase
             $this->config
         );
         $this->factory->setSmartyConfigure();
-        $this->factory->addSmartyExtension();
         $this->factory->resolveSmartyCache();
+
+        $extension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
+        $this->factory->addExtension($extension, 'smarty', function () {
+            // @codeCoverageIgnoreStart
+            return new \Ytake\LaravelSmarty\Engines\SmartyEngine($this->factory->getSmarty());
+            // @codeCoverageIgnoreEnd
+        });
     }
 
     /**

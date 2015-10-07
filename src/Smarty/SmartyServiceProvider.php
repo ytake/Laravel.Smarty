@@ -23,7 +23,9 @@ use Illuminate\Support\ServiceProvider;
  */
 class SmartyServiceProvider extends ServiceProvider
 {
-
+    /**
+     * boot
+     */
     public function boot()
     {
         // add Smarty Extension
