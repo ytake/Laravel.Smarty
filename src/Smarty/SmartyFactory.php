@@ -33,7 +33,7 @@ class SmartyFactory extends Factory
     /**
      * @var string  version
      */
-    const VERSION = '2.1.4';
+    const VERSION = '2.1.5';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -170,19 +170,6 @@ class SmartyFactory extends Factory
     public function getVersion()
     {
         return self::VERSION;
-    }
-
-    /**
-     * @return void
-     */
-    public function addSmartyExtension()
-    {
-        $extension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
-        $this->addExtension($extension, 'smarty', function () {
-            // @codeCoverageIgnoreStart
-            return new Engines\SmartyEngine($this->getSmarty());
-            // @codeCoverageIgnoreEnd
-        });
     }
 
     /**

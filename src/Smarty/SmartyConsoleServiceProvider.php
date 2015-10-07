@@ -22,13 +22,12 @@ use Illuminate\Support\ServiceProvider;
  */
 class SmartyConsoleServiceProvider extends ServiceProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
+    /** @var bool  */
     protected $defer = true;
 
+    /**
+     * @return void
+     */
     public function boot()
     {
         // register commands
@@ -36,9 +35,7 @@ class SmartyConsoleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function register()
     {
@@ -71,18 +68,17 @@ class SmartyConsoleServiceProvider extends ServiceProvider
 
         // cache clear
         $this->app->singleton('command.ytake.laravel-smarty.clear.cache', function ($app) {
-            return new Console\CacheClearCommand($app['view']->getSmarty());
-
+            return new Console\CacheClearCommand($app['smarty.view']->getSmarty());
         });
 
         // clear compiled
         $this->app->singleton('command.ytake.laravel-smarty.clear.compiled', function ($app) {
-            return new Console\ClearCompiledCommand($app['view']->getSmarty());
+            return new Console\ClearCompiledCommand($app['smarty.view']->getSmarty());
         });
 
         // clear compiled
         $this->app->singleton('command.ytake.laravel-smarty.optimize', function ($app) {
-            return new Console\OptimizeCommand($app['view']->getSmarty(), $app['config']);
+            return new Console\OptimizeCommand($app['smarty.view']->getSmarty(), $app['config']);
         });
 
         $this->commands(

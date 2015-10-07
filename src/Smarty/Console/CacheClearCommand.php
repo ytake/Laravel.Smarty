@@ -49,7 +49,7 @@ class CacheClearCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Flush the smarty cache';
+    protected $description = 'Flush the Smarty cache';
 
     /**
      * Execute the console command.
@@ -61,10 +61,10 @@ class CacheClearCommand extends Command
         // clear all cache
         if (is_null($this->option('file'))) {
             $this->smarty->clearAllCache($this->option('time'));
-            $this->info('smarty cache cleared!');
+            $this->info('Smarty cache cleared!');
             return;
         }
-        $this->smarty->getTemplateDir(0);
+        // file specified
         if (!$this->smarty->clearCache(
             $this->option('file'), $this->option('cache_id'), null, $this->option('time'))
         ) {

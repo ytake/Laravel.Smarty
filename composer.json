@@ -1,12 +1,13 @@
 {
   "name": "ytake/laravel-smarty",
-  "description": "smarty template engine for laravel",
+  "description": "Smarty template engine for Laravel and Lumen",
   "keywords": [
     "laravel",
     "smarty",
     "template",
     "view",
-    "cache"
+    "cache",
+    "lumen"
   ],
   "authors": [
     {
@@ -17,12 +18,12 @@
   "license": "MIT",
   "require": {
     "php": ">=5.4.0",
-    "illuminate/support": "5.*",
-    "illuminate/view": "5.*",
-    "illuminate/config": "5.*",
-    "illuminate/console": "5.*",
-    "illuminate/events": "5.*",
-    "smarty/smarty": "3.*",
+    "illuminate/support": "~5.0",
+    "illuminate/view": "~5.0",
+    "illuminate/config": "~5.0",
+    "illuminate/console": "~5.0",
+    "illuminate/events": "~5.0",
+    "smarty/smarty": "~3.0",
     "vlucas/phpdotenv": "~1.0"
   },
   "require-dev": {

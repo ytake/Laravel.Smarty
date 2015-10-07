@@ -23,18 +23,14 @@ use Illuminate\Support\ServiceProvider;
 class SmartyCompileServiceProvider extends ServiceProvider
 {
     /**
-     * Register the service provider.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function register()
     {
     }
 
     /**
-     * for Laravel performance optimize
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public static function compiles()
     {
