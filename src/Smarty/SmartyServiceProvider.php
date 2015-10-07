@@ -23,6 +23,19 @@ use Illuminate\Support\ServiceProvider;
  */
 class SmartyServiceProvider extends ServiceProvider
 {
+
+    public function boot()
+    {
+        // add Smarty Extension
+        $extension = $this->app['config']->get('ytake-laravel-smarty.extension', 'tpl');
+        $this->app['view']->addExtension($extension, 'smarty', function () {
+            // @codeCoverageIgnoreStart
+            $smarty = $this->app->make('smarty.view');
+            return new Engines\SmartyEngine($smarty->getSmarty());
+            // @codeCoverageIgnoreEnd
+        });
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -33,7 +46,8 @@ class SmartyServiceProvider extends ServiceProvider
         $this->publishes([
             $configPath => $this->resolveConfigurePath() . DIRECTORY_SEPARATOR . 'ytake-laravel-smarty.php'
         ]);
-        $this->app->singleton('view', function ($app) {
+
+        $this->app->singleton('smarty.view', function ($app) {
             $factory = new SmartyFactory(
                 $app['view.engine.resolver'],
                 $app['view.finder'],
@@ -46,8 +60,6 @@ class SmartyServiceProvider extends ServiceProvider
             $factory->setContainer($app);
 
             $factory->share('app', $app);
-            // add Smarty Extension
-            $factory->addSmartyExtension();
             // resolve cache storage
             $factory->resolveSmartyCache();
             // smarty configure(use ytake-laravel-smarty.php)
