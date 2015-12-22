@@ -57,7 +57,9 @@ class ClearCompiledCommand extends Command
      */
     public function fire()
     {
-        if ($this->smarty->clearCompiledTemplate($this->option('file'), $this->option('compile_id'))) {
+        $smartyExtension = $this->smarty->ext;
+        $class = $smartyExtension->clearCompiledTemplate;
+        if ($class->clearCompiledTemplate($this->smarty, $this->option('file'), $this->option('compile_id'))) {
             $this->info('done.');
             return;
         }

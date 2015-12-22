@@ -23,8 +23,7 @@
     "illuminate/config": "~5.0",
     "illuminate/console": "~5.0",
     "illuminate/events": "~5.0",
-    "smarty/smarty": "~3.0",
-    "vlucas/phpdotenv": "~1.0"
+    "smarty/smarty": "~3.0"
   },
   "require-dev": {
     "predis/predis": "~1.0",
