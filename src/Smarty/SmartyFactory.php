@@ -33,7 +33,7 @@ class SmartyFactory extends Factory
     /**
      * @var string  version
      */
-    const VERSION = '2.1.5';
+    const VERSION = '2.1.6';
 
     /** @var Smarty $smarty */
     protected $smarty;

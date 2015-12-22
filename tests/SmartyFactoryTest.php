@@ -44,7 +44,9 @@ class SmartyManagerFactory extends TestCase
 
     public function testClearFile()
     {
-        $this->factory->clearCompiledTemplate();
+        $smartyExtension = $this->factory->getSmarty()->ext;
+        $class = $smartyExtension->clearCompiledTemplate;
+        $class->clearCompiledTemplate($this->factory->getSmarty());
         $this->assertSame(0, count($this->scan()));
     }
 
