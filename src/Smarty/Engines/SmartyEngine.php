@@ -67,7 +67,7 @@ class SmartyEngine implements EngineInterface
             // render
             $cacheId = isset($data['smarty.cache_id']) ? $data['smarty.cache_id'] : null;
             $compileId = isset($data['smarty.compile_id']) ? $data['smarty.compile_id'] : null;
-            $this->smarty->display($path, $cacheId, $compileId);
+            echo $this->smarty->fetch($path, $cacheId, $compileId);
         } catch (\Exception $e) {
             $this->handleViewException($e);
         }
