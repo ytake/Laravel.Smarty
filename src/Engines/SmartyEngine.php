@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -7,18 +8,24 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the MIT license.
+ *
+ * Copyright (c) 2014-2016 Yuuki Takezawa
+ *
  */
-
 namespace Ytake\LaravelSmarty\Engines;
 
 use Smarty;
+use Throwable;
 use Illuminate\View\Engines\EngineInterface;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
  * Class SmartyEngine
  *
- * @package Ytake\LaravelSmarty\Engines
- * @author yuuki.takezawa <yuuki.takezawa@comnect.jp.net>
+ * @author  yuuki.takezawa <yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 class SmartyEngine implements EngineInterface
@@ -35,12 +42,7 @@ class SmartyEngine implements EngineInterface
     }
 
     /**
-     * Get the evaluated contents of the view.
-     *
-     * @param  string $path
-     * @param  array  $data
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function get($path, array $data = [])
     {
@@ -50,14 +52,15 @@ class SmartyEngine implements EngineInterface
     /**
      * Get the evaluated contents of the view at the given path.
      *
-     * @param string $path
-     * @param array  $data
+     * @param       $path
+     * @param array $data
      *
      * @return string
+     * @throws \Exception
      */
     protected function evaluatePath($path, array $data = [])
     {
-        ob_start();
+        extract($data, EXTR_SKIP);
         try {
             if (!$this->smarty->isCached($path)) {
                 foreach ($data as $var => $val) {
@@ -67,21 +70,25 @@ class SmartyEngine implements EngineInterface
             // render
             $cacheId = isset($data['smarty.cache_id']) ? $data['smarty.cache_id'] : null;
             $compileId = isset($data['smarty.compile_id']) ? $data['smarty.compile_id'] : null;
-            $this->smarty->display($path, $cacheId, $compileId);
+
+            return $this->smarty->fetch($path, $cacheId, $compileId);
+            // @codeCoverageIgnoreStart
         } catch (\Exception $e) {
             $this->handleViewException($e);
+        } catch (Throwable $e) {
+            $this->handleViewException(new FatalThrowableError($e));
         }
-        return ob_get_clean();
     }
+    // @codeCoverageIgnoreEnd
 
     /**
+     * @codeCoverageIgnore
      * @param \Exception $e
      *
      * @throws \Exception
      */
     protected function handleViewException(\Exception $e)
     {
-        ob_get_clean();
         throw $e;
     }
 }

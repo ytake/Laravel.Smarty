@@ -17,20 +17,21 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory>./src/Smarty</directory>
+            <directory>./src</directory>
             <exclude>
-                <file>./src/Smarty/SmartyServiceProvider.php</file>
-                <file>./src/Smarty/SmartyCompileServiceProvider.php</file>
-                <file>./src/Smarty/SmartyConsoleServiceProvider.php</file>
-                <file>./src/Smarty/Cache/KeyValueStorage.php</file>
-                <file>./src/Smarty/Cache/Redis.php</file>
-                <file>./src/Smarty/Cache/Memcached.php</file>
-                <file>./src/Smarty/Exception/MethodNotFoundException.php</file>
+                <directory>./src/config</directory>
+                <file>./src/SmartyServiceProvider.php</file>
+                <file>./src/SmartyCompileServiceProvider.php</file>
+                <file>./src/SmartyConsoleServiceProvider.php</file>
+                <file>./src/Cache/KeyValueStorage.php</file>
+                <file>./src/Cache/Redis.php</file>
+                <file>./src/Cache/Memcached.php</file>
+                <file>./src/Exception/MethodNotFoundException.php</file>
             </exclude>
         </whitelist>
     </filter>
     <logging>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-        <log type="coverage-clover" target="tests/logs/clover.xml"/>
+        <log type="coverage-clover" target="tests/build/clover.xml"/>
     </logging>
 </phpunit>
