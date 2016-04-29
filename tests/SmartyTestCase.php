@@ -1,6 +1,6 @@
 <?php
 
-class TestCase extends \PHPUnit_Framework_TestCase
+class SmartyTestCase extends \PHPUnit_Framework_TestCase
 {
     /** @var \Ytake\LaravelSmarty\SmartyFactory $factory */
     protected $factory;

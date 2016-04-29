@@ -1,6 +1,6 @@
 <?php
 use Mockery as m;
-class StorageTest extends TestCase
+class StorageTest extends SmartyTestCase
 {
 	/** @var  \Ytake\LaravelSmarty\Cache\Storage */
 	protected $storage;
