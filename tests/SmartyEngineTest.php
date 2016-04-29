@@ -1,6 +1,6 @@
 <?php
 
-class SmartyEngineTest extends TestCase
+class SmartyEngineTest extends SmartyTestCase
 {
     /** @var \Ytake\LaravelSmarty\Engines\SmartyEngine */
     protected $engine;

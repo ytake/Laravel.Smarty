@@ -1,6 +1,6 @@
 <?php
 
-class PackageInfoCommandTest extends TestCase
+class PackageInfoCommandTest extends SmartyTestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\PackageInfoCommand */
     protected $command;

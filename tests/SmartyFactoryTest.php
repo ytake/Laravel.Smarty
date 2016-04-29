@@ -1,6 +1,6 @@
 <?php
 
-class SmartyManagerFactory extends TestCase
+class SmartyManagerFactory extends SmartyTestCase
 {
 
     protected function setUp()

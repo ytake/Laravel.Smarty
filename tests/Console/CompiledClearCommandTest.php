@@ -1,6 +1,6 @@
 <?php
 
-class CompiledClearCommandTest extends TestCase
+class CompiledClearCommandTest extends SmartyTestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\ClearCompiledCommand */
     protected $command;

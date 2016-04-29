@@ -1,6 +1,6 @@
 <?php
 
-class ConfigureTest extends TestCase
+class ConfigureTest extends SmartyTestCase
 {
 
     protected function setUp()

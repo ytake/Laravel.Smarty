@@ -1,6 +1,6 @@
 <?php
 
-class CompiledCommandTest extends TestCase
+class CompiledCommandTest extends SmartyTestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\OptimizeCommand */
     protected $command;

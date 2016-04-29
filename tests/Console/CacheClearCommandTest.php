@@ -1,6 +1,6 @@
 <?php
 
-class CacheClearCommandTest extends TestCase
+class CacheClearCommandTest extends SmartyTestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\CacheClearCommand */
     protected $command;
