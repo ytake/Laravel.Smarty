@@ -8,13 +8,13 @@ class CompiledClearCommandTest extends SmartyTestCase
     {
         parent::setUp();
         $this->command = new \Ytake\LaravelSmarty\Console\ClearCompiledCommand(
-            $this->factory->getSmarty()
+            $this->factory
         );
         $this->command->setLaravel(new MockApplication());
     }
     public function testInstance()
     {
-        $this->assertInstanceOf("Ytake\LaravelSmarty\Console\ClearCompiledCommand", $this->command);
+        $this->assertInstanceOf("Ytake\\LaravelSmarty\\Console\\ClearCompiledCommand", $this->command);
     }
     public function testCommand()
     {
@@ -26,7 +26,7 @@ class CompiledClearCommandTest extends SmartyTestCase
         $this->assertNotNull($this->command->getSynopsis());
     }
 
-    public function testCleaCompile()
+    public function testClearCompile()
     {
         $smarty = $this->factory->getSmarty();
         $smarty->force_compile = true;
@@ -51,7 +51,23 @@ class CompiledClearCommandTest extends SmartyTestCase
             $output
         );
         $this->assertFileNotExists($pathName);
-        $this->assertSame('done.', trim($output->fetch()));
+        $this->assertSame('removed 1 file.', trim($output->fetch()));
+    }
+
+    public function testClearCompileMultipleFiles()
+    {
+        $smarty = $this->factory->getSmarty();
+        $smarty->force_compile = true;
+        ob_start();
+        $smarty->display('test.tpl');
+        $smarty->display('test2.tpl');
+        ob_get_clean();
+        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $this->command->run(
+            new \Symfony\Component\Console\Input\ArrayInput([]),
+            $output
+        );
+        $this->assertSame('removed 2 files.', trim($output->fetch()));
     }
 
     public function testNotExistsFiles()

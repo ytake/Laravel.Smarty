@@ -17,9 +17,9 @@
  */
 namespace Ytake\LaravelSmarty\Console;
 
-use Smarty;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
+use Ytake\LaravelSmarty\SmartyFactory;
 
 /**
  * Class ClearCompiledCommand
@@ -29,16 +29,16 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class ClearCompiledCommand extends Command
 {
-    /** @var Smarty */
-    protected $smarty;
+    /** @var SmartyFactory */
+    protected $smartyFactory;
 
     /**
-     * @param Smarty $smarty
+     * @param SmartyFactory $smartyFactory
      */
-    public function __construct(Smarty $smarty)
+    public function __construct(SmartyFactory $smartyFactory)
     {
         parent::__construct();
-        $this->smarty = $smarty;
+        $this->smartyFactory = $smartyFactory;
     }
 
     /**
@@ -58,17 +58,19 @@ class ClearCompiledCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
     public function fire()
     {
-        $smartyExtension = $this->smarty->ext;
-        $class = $smartyExtension->clearCompiledTemplate;
-        if ($class->clearCompiledTemplate($this->smarty, $this->option('file'), $this->option('compile_id'))) {
-            $this->info('done.');
-            return;
+        $removedFiles = $this->smartyFactory
+            ->getSmarty()
+            ->clearCompiledTemplate($this->option('file'), $this->option('compile_id'));
+
+        if ($removedFiles > 0) {
+            $this->info("removed $removedFiles file" . ($removedFiles > 1 ? 's' : '') . '.');
         }
-        return;
+
+        return 0;
     }
 
     /**
