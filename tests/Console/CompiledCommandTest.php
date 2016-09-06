@@ -56,7 +56,7 @@ class CompiledCommandTest extends SmartyTestCase
     protected function removeCompileFiles()
     {
         $command = new \Ytake\LaravelSmarty\Console\ClearCompiledCommand(
-            $this->factory->getSmarty()
+            $this->factory
         );
         $command->setLaravel(new MockApplication());
         $output = new \Symfony\Component\Console\Output\BufferedOutput();
