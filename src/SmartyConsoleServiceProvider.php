@@ -78,7 +78,7 @@ class SmartyConsoleServiceProvider extends ServiceProvider
 
         // clear compiled
         $this->app->singleton('command.ytake.laravel-smarty.clear.compiled', function ($app) {
-            return new Console\ClearCompiledCommand($app['smarty.view']->getSmarty());
+            return new Console\ClearCompiledCommand($app['smarty.view']);
         });
 
         // clear compiled
