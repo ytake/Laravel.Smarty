@@ -17,7 +17,7 @@
  */
 namespace Ytake\LaravelSmarty\Cache;
 
-use Smarty;
+use Ytake\LaravelSmarty\Smarty;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 /**

@@ -17,7 +17,7 @@
  */
 namespace Ytake\LaravelSmarty;
 
-use Smarty;
+use Ytake\LaravelSmarty\Smarty;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -56,22 +56,22 @@ class SmartyServiceProvider extends ServiceProvider
         ]);
 
         $this->app->singleton('smarty.view', function ($app) {
+            $smartyTemplate = new Smarty;
             $factory = new SmartyFactory(
                 $app['view.engine.resolver'],
                 $app['view.finder'],
                 $app['events'],
-                new Smarty,
+                $smartyTemplate,
                 $this->app['config']
             );
-
             // Pass the container to the factory so it can be used to resolve view composers.
             $factory->setContainer($app);
-
             $factory->share('app', $app);
             // resolve cache storage
             $factory->resolveSmartyCache();
             // smarty configure(use ytake-laravel-smarty.php)
             $factory->setSmartyConfigure();
+            $smartyTemplate->setViewFactory($factory);
 
             return $factory;
         });

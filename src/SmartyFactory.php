@@ -17,12 +17,13 @@
  */
 namespace Ytake\LaravelSmarty;
 
-use Smarty;
+use Ytake\LaravelSmarty\Smarty;
 use ReflectionClass;
 use Illuminate\View\Factory;
 use Illuminate\View\ViewFinderInterface;
 use Illuminate\View\Engines\EngineResolver;
 use Ytake\LaravelSmarty\Cache\Storage;
+use Ytake\LaravelSmarty\Engines\SmartyTemplate;
 use Ytake\LaravelSmarty\Exception\MethodNotFoundException;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
@@ -38,7 +39,7 @@ class SmartyFactory extends Factory
     /**
      * @var string  version
      */
-    const VERSION = '2.1.7';
+    const VERSION = '2.1.11';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -116,7 +117,7 @@ class SmartyFactory extends Factory
         'template_class',
         'tpl_vars',
         'parent',
-        'config_vars'
+        'config_vars',
     ];
 
     /** @var array valid security policy config keys */
@@ -162,7 +163,7 @@ class SmartyFactory extends Factory
     }
 
     /**
-     * @return \Smarty
+     * @return Smarty
      */
     public function getSmarty()
     {
@@ -208,7 +209,8 @@ class SmartyFactory extends Factory
         }
 
         $smarty->error_reporting = array_get($config, 'error_reporting', E_ALL & ~E_NOTICE);
-
+        // SmartyTemplate class for laravel
+        $smarty->template_class = SmartyTemplate::class;
         foreach ($config as $key => $value) {
             if (in_array($key, $this->configKeys)) {
                 $this->smarty->{$key} = $value;
@@ -217,7 +219,6 @@ class SmartyFactory extends Factory
 
         if (array_get($config, 'enable_security')) {
             $smarty->enableSecurity();
-
             $securityPolicy = $smarty->security_policy;
             $securityConfig = array_get($config, 'security_policy', []);
             foreach ($securityConfig as $key => $value) {
@@ -241,6 +242,7 @@ class SmartyFactory extends Factory
         if (!$reflectionClass->hasMethod($name)) {
             throw new MethodNotFoundException("{$name} : Method Not Found");
         }
+
         return call_user_func_array([$this->smarty, $name], $arguments);
     }
 }

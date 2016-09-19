@@ -15,42 +15,53 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
-namespace Ytake\LaravelSmarty\Console;
+namespace Ytake\LaravelSmarty;
 
-use Ytake\LaravelSmarty\Smarty;
-use Illuminate\Console\Command;
-use Ytake\LaravelSmarty\SmartyFactory;
+use Illuminate\Contracts\View\Factory;
 
 /**
- * Class SmartyInfoCommand
+ * Class Smarty
  *
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class PackageInfoCommand extends Command
+final class Smarty extends \Smarty
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected $name = 'ytake:smarty-package-info';
+    /** @var Factory */
+    protected $viewFactory;
+
+    /** @var array */
+    protected $laravelViewData = [];
 
     /**
-     * The console command description.
-     *
-     * @var string
+     * @param Factory $factory
      */
-    protected $description = 'information about ytake/laravel-smarty';
-
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function fire()
+    public function setViewFactory(Factory $factory)
     {
-        $this->line('<info>Smarty</info> version <comment>' . Smarty::SMARTY_VERSION . '</comment>');
-        $this->line('<info>ytake/laravel-smarty</info> version <comment>' . SmartyFactory::VERSION . '</comment>');
+        $this->viewFactory = $factory;
+    }
+
+    /**
+     * @return Factory
+     */
+    public function getViewFactory()
+    {
+        return $this->viewFactory;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function setLaravelViewData(array $data)
+    {
+        $this->laravelViewData = $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLaravelViewData()
+    {
+        return $this->laravelViewData;
     }
 }

@@ -17,8 +17,9 @@
  */
 namespace Ytake\LaravelSmarty\Engines;
 
-use Smarty;
+use Illuminate\Events\Dispatcher;
 use Throwable;
+use Ytake\LaravelSmarty\Smarty;
 use Illuminate\View\Engines\EngineInterface;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
@@ -83,6 +84,7 @@ class SmartyEngine implements EngineInterface
 
     /**
      * @codeCoverageIgnore
+     *
      * @param \Exception $e
      *
      * @throws \Exception

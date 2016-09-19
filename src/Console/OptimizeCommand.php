@@ -17,7 +17,7 @@
  */
 namespace Ytake\LaravelSmarty\Console;
 
-use Smarty;
+use Ytake\LaravelSmarty\Smarty;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
