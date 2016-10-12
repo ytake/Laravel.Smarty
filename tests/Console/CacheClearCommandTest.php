@@ -59,7 +59,7 @@ class CacheClearCommandTest extends SmartyTestCase
             $output
         );
         $this->assertFileNotExists($pathName);
-        $this->assertSame('specified file was cache cleared!', trim($output->fetch()));
+        $this->assertSame('Specified file was cache cleared!', trim($output->fetch()));
     }
 
     public function testNoCacheFile()
@@ -69,6 +69,6 @@ class CacheClearCommandTest extends SmartyTestCase
             new \Symfony\Component\Console\Input\ArrayInput(['--file' => 'test.tpl']),
             $output
         );
-        $this->assertSame('specified file not be found', trim($output->fetch()));
+        $this->assertSame('Specified file not found', trim($output->fetch()));
     }
 }

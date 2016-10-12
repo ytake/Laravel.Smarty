@@ -22,7 +22,7 @@ class CompiledClearCommandTest extends SmartyTestCase
             new \Symfony\Component\Console\Input\ArrayInput([]),
             new \Symfony\Component\Console\Output\NullOutput
         );
-        $this->assertSame("Remove the compiled smarty file", $this->command->getDescription());
+        $this->assertSame("Remove the compiled Smarty files.", $this->command->getDescription());
         $this->assertNotNull($this->command->getSynopsis());
     }
 
@@ -51,7 +51,7 @@ class CompiledClearCommandTest extends SmartyTestCase
             $output
         );
         $this->assertFileNotExists($pathName);
-        $this->assertSame('removed 1 file.', trim($output->fetch()));
+        $this->assertSame('Removed 1 compiled Smarty file.', trim($output->fetch()));
     }
 
     public function testClearCompileMultipleFiles()
@@ -67,7 +67,7 @@ class CompiledClearCommandTest extends SmartyTestCase
             new \Symfony\Component\Console\Input\ArrayInput([]),
             $output
         );
-        $this->assertSame('removed 2 files.', trim($output->fetch()));
+        $this->assertSame('Removed 2 compiled Smarty files.', trim($output->fetch()));
     }
 
     public function testNotExistsFiles()
