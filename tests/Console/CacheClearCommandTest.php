@@ -30,7 +30,7 @@ class CacheClearCommandTest extends SmartyTestCase
             $output
         );
         $this->assertSame('ytake:smarty-clear-cache', $this->command->getName());
-        $this->assertSame("Flush the Smarty cache", $this->command->getDescription());
+        $this->assertSame("Flush the Smarty cache.", $this->command->getDescription());
         $this->assertSame('Smarty cache cleared!', trim($output->fetch()));
     }
 
