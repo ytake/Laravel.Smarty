@@ -25,7 +25,7 @@ class CompiledCommandTest extends SmartyTestCase
             new \Symfony\Component\Console\Input\ArrayInput([]),
             new \Symfony\Component\Console\Output\NullOutput
         );
-        $this->assertSame("compiles all known templates", $this->command->getDescription());
+        $this->assertSame("Compile all known templates.", $this->command->getDescription());
         $this->assertNotNull($this->command->getSynopsis());
     }
 

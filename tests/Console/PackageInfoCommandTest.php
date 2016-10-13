@@ -17,7 +17,7 @@ class PackageInfoCommandTest extends SmartyTestCase
     public function testCommand()
     {
         $this->command->run(new \Symfony\Component\Console\Input\ArrayInput([]), new \Symfony\Component\Console\Output\NullOutput);
-        $this->assertSame("information about ytake/laravel-smarty", $this->command->getDescription());
+        $this->assertSame("Information about ytake/laravel-smarty", $this->command->getDescription());
         $this->assertSame("ytake:smarty-package-info", $this->command->getSynopsis());
     }
 }
