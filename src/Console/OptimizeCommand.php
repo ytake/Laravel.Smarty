@@ -77,8 +77,8 @@ class OptimizeCommand extends Command
         );
         $contents = ob_get_contents();
         ob_get_clean();
-        $this->info("{$compileFiles} template files recompiled.");
-        $this->comment(str_replace("<br>", "\n", trim($contents)));
+        $this->comment(str_replace("<br>", "", trim($contents)));
+        $this->info("{$compileFiles} template files recompiled");
         return;
     }
 
