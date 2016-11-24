@@ -53,7 +53,7 @@ class ClearCompiledCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Remove the compiled smarty file';
+    protected $description = 'Remove the compiled Smarty files.';
 
     /**
      * Execute the console command.
@@ -67,7 +67,7 @@ class ClearCompiledCommand extends Command
             ->clearCompiledTemplate($this->option('file'), $this->option('compile_id'));
 
         if ($removedFiles > 0) {
-            $this->info("removed $removedFiles file" . ($removedFiles > 1 ? 's' : '') . '.');
+            $this->info("Removed $removedFiles compiled Smarty file" . ($removedFiles > 1 ? 's' : '') . '.');
         }
 
         return 0;

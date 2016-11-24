@@ -59,7 +59,7 @@ class OptimizeCommand extends Command
      *
      * @var string
      */
-    protected $description = 'compiles all known templates';
+    protected $description = 'Compile all known templates.';
 
     /**
      * Execute the console command.
