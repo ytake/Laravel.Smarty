@@ -59,7 +59,7 @@ class OptimizeCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Compile all known templates.';
+    protected $description = 'compiles all known templates';
 
     /**
      * Execute the console command.
@@ -77,8 +77,8 @@ class OptimizeCommand extends Command
         );
         $contents = ob_get_contents();
         ob_get_clean();
-        $this->comment(str_replace("<br>", "", trim($contents)));
         $this->info("{$compileFiles} template files recompiled");
+        $this->comment(str_replace("<br>", "\n", trim($contents)));
         return;
     }
 
@@ -90,8 +90,8 @@ class OptimizeCommand extends Command
     protected function getOptions()
     {
         return [
-            ['extension', 'e', InputOption::VALUE_OPTIONAL, 'Specified smarty file extension'],
-            ['force', null, InputOption::VALUE_NONE, 'Compiles template files found in views directory'],
+            ['extension', 'e', InputOption::VALUE_OPTIONAL, 'specified smarty file extension'],
+            ['force', null, InputOption::VALUE_NONE, 'compiles template files found in views directory'],
         ];
     }
 

@@ -41,7 +41,7 @@ class PackageInfoCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Information about ytake/laravel-smarty';
+    protected $description = 'information about ytake/laravel-smarty';
 
     /**
      * Execute the console command.

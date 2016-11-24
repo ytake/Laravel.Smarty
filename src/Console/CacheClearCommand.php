@@ -53,7 +53,7 @@ class CacheClearCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Flush the Smarty cache.';
+    protected $description = 'Flush the Smarty cache';
 
     /**
      * Execute the console command.
@@ -72,10 +72,10 @@ class CacheClearCommand extends Command
         if (!$this->smarty->clearCache(
             $this->option('file'), $this->option('cache_id'), null, $this->option('time'))
         ) {
-            $this->error('Specified file not found');
+            $this->error('specified file not be found');
             return;
         }
-        $this->info('Specified file was cache cleared!');
+        $this->info('specified file was cache cleared!');
         return;
     }
 
@@ -87,9 +87,9 @@ class CacheClearCommand extends Command
     protected function getOptions()
     {
         return [
-            ['file', 'f', InputOption::VALUE_OPTIONAL, 'Specify file'],
-            ['time', 't', InputOption::VALUE_OPTIONAL, 'Clear all of the files that are specified duration time'],
-            ['cache_id', 'cache', InputOption::VALUE_OPTIONAL, 'Specified cache_id groups'],
+            ['file', 'f', InputOption::VALUE_OPTIONAL, 'specify file'],
+            ['time', 't', InputOption::VALUE_OPTIONAL, 'clear all of the files that are specified duration time'],
+            ['cache_id', 'cache', InputOption::VALUE_OPTIONAL, 'specified cache_id groups'],
         ];
     }
 }

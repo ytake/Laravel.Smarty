@@ -1,5 +1,7 @@
 <?php
 
+use Ytake\LaravelSmarty\Smarty;
+
 class SmartyTestCase extends \PHPUnit_Framework_TestCase
 {
     /** @var \Ytake\LaravelSmarty\SmartyFactory $factory */

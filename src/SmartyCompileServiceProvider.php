@@ -48,6 +48,7 @@ class SmartyCompileServiceProvider extends ServiceProvider
             base_path() . '/vendor/ytake/laravel-smarty/src/Console/OptimizeCommand.php',
             base_path() . '/vendor/ytake/laravel-smarty/src/SmartyFactory.php',
             base_path() . '/vendor/ytake/laravel-smarty/src/Engines/SmartyEngine.php',
+            base_path() . '/vendor/ytake/laravel-smarty/src/Engines/SmartyTemplate.php',
             base_path() . '/vendor/ytake/laravel-smarty/src/SmartyServiceProvider.php',
             base_path() . '/vendor/ytake/laravel-smarty/src/SmartyConsoleServiceProvider.php',
             base_path() . '/vendor/smarty/smarty/libs/Smarty.class.php',

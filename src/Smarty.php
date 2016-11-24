@@ -30,9 +30,6 @@ final class Smarty extends \Smarty
     /** @var Factory */
     protected $viewFactory;
 
-    /** @var array */
-    protected $laravelViewData = [];
-
     /**
      * @param Factory $factory
      */
@@ -47,21 +44,5 @@ final class Smarty extends \Smarty
     public function getViewFactory()
     {
         return $this->viewFactory;
-    }
-
-    /**
-     * @param array $data
-     */
-    public function setLaravelViewData(array $data)
-    {
-        $this->laravelViewData = $data;
-    }
-
-    /**
-     * @return array
-     */
-    public function getLaravelViewData()
-    {
-        return $this->laravelViewData;
     }
 }
