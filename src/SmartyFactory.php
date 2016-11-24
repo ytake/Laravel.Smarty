@@ -17,7 +17,6 @@
  */
 namespace Ytake\LaravelSmarty;
 
-use Ytake\LaravelSmarty\Smarty;
 use ReflectionClass;
 use Illuminate\View\Factory;
 use Illuminate\View\ViewFinderInterface;

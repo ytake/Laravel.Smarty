@@ -81,8 +81,8 @@ class ClearCompiledCommand extends Command
     protected function getOptions()
     {
         return [
-            ['file', 'f', InputOption::VALUE_OPTIONAL, 'specify file'],
-            ['compile_id', 'compile', InputOption::VALUE_OPTIONAL, 'specified compile_id'],
+            ['file', 'f', InputOption::VALUE_OPTIONAL, 'Specify file'],
+            ['compile_id', 'compile', InputOption::VALUE_OPTIONAL, 'Specified compile_id'],
         ];
     }
 }

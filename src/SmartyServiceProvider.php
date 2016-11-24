@@ -17,7 +17,6 @@
  */
 namespace Ytake\LaravelSmarty;
 
-use Ytake\LaravelSmarty\Smarty;
 use Illuminate\Support\ServiceProvider;
 
 /**
