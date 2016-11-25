@@ -4,8 +4,6 @@ php:
   - 5.5
   - 5.6
   - 7.0
-  - hhvm-3.12
-  - hhvm-nightly
 services:
   - redis-server
   - memcached
