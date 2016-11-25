@@ -15,9 +15,10 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Console;
 
-use Smarty;
+use Ytake\LaravelSmarty\Smarty;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
@@ -64,7 +65,6 @@ class OptimizeCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      */
     public function fire()
     {
@@ -79,7 +79,7 @@ class OptimizeCommand extends Command
         ob_get_clean();
         $this->comment(str_replace("<br>", "", trim($contents)));
         $this->info("{$compileFiles} template files recompiled");
-        return;
+        return 0;
     }
 
     /**

@@ -14,7 +14,7 @@ class CacheClearCommandTest extends SmartyTestCase
     }
     public function testInstance()
     {
-        $this->assertInstanceOf("Ytake\LaravelSmarty\Console\CacheClearCommand", $this->command);
+        $this->assertInstanceOf("Ytake\\LaravelSmarty\\Console\\CacheClearCommand", $this->command);
     }
 
     public function testCommand()

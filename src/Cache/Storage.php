@@ -15,9 +15,10 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Cache;
 
-use Smarty;
+use Ytake\LaravelSmarty\Smarty;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 /**
@@ -45,7 +46,6 @@ class Storage
     }
 
     /**
-     * @return void
      */
     public function cacheStorageManaged()
     {

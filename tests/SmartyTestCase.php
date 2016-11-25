@@ -1,36 +1,43 @@
 <?php
 
+use Ytake\LaravelSmarty\Smarty;
+
 class SmartyTestCase extends \PHPUnit_Framework_TestCase
 {
     /** @var \Ytake\LaravelSmarty\SmartyFactory $factory */
     protected $factory;
+
     /** @var \Illuminate\Config\Repository $config */
     protected $config;
+
+    /** @var Illuminate\Events\Dispatcher */
+    protected $events;
 
     protected function setUp()
     {
         $this->config = new \Illuminate\Config\Repository();
         $filesystem = new \Illuminate\Filesystem\Filesystem;
-
+        $this->events = new \Illuminate\Events\Dispatcher;
         $items = $filesystem->getRequire(__DIR__ . '/config/config.php');
         $this->config->set("ytake-laravel-smarty", $items);
 
         new \Illuminate\Config\Repository();
         $viewFinder = new \Illuminate\View\FileViewFinder(
             $filesystem,
-            ['views'],
+            [__DIR__ . '/views'],
             ['.tpl']
         );
+        $smarty = new Smarty;
         $this->factory = new \Ytake\LaravelSmarty\SmartyFactory(
             new \Illuminate\View\Engines\EngineResolver,
             $viewFinder,
-            new \Illuminate\Events\Dispatcher,
-            new Smarty,
+            $this->events,
+            $smarty,
             $this->config
         );
         $this->factory->setSmartyConfigure();
         $this->factory->resolveSmartyCache();
-
+        $smarty->setViewFactory($this->factory);
         $extension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
         $this->factory->addExtension($extension, 'smarty', function () {
             // @codeCoverageIgnoreStart

@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Cache;
 
 use Predis\Client;
@@ -48,17 +49,16 @@ class Redis extends KeyValueStorage
      * @param  array $keys list of keys to fetch
      *
      * @return array   list of values with the given keys used as indexes
-     * @return boolean true on success, false on failure
      */
     protected function read(array $keys)
     {
-        $_keys = $lookup = [];
-        list($_keys, $lookup) = $this->eachKeys($keys, $_keys, $lookup);
-        $_res = [];
-        foreach ($_keys as $key) {
-            $_res[$lookup[$key]] = $this->redis->get($key);
+        $map = $lookup = [];
+        list($map, $lookup) = $this->eachKeys($keys, $map, $lookup);
+        $result = [];
+        foreach ($map as $key) {
+            $result[$lookup[$key]] = $this->redis->get($key);
         }
-        return $_res;
+        return $result;
     }
 
     /**
@@ -67,7 +67,7 @@ class Redis extends KeyValueStorage
      * @param  array $keys list of values to save
      * @param  int   $expire expiration time
      *
-     * @return boolean true on success, false on failure
+     * @return bool true on success, false on failure
      */
     protected function write(array $keys, $expire = 1)
     {
@@ -83,7 +83,7 @@ class Redis extends KeyValueStorage
      *
      * @param  array $keys list of keys to delete
      *
-     * @return boolean true on success, false on failure
+     * @return bool true on success, false on failure
      */
     protected function delete(array $keys)
     {
@@ -97,7 +97,7 @@ class Redis extends KeyValueStorage
     /**
      * Remove *all* values from cache
      *
-     * @return boolean true on success, false on failure
+     * @return bool true on success, false on failure
      */
     protected function purge()
     {

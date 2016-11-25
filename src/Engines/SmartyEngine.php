@@ -15,10 +15,11 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Engines;
 
-use Smarty;
 use Throwable;
+use Ytake\LaravelSmarty\Smarty;
 use Illuminate\View\Engines\EngineInterface;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
@@ -55,8 +56,8 @@ class SmartyEngine implements EngineInterface
      * @param       $path
      * @param array $data
      *
-     * @return string
      * @throws \Exception
+     * @return string
      */
     protected function evaluatePath($path, array $data = [])
     {
@@ -83,6 +84,7 @@ class SmartyEngine implements EngineInterface
 
     /**
      * @codeCoverageIgnore
+     *
      * @param \Exception $e
      *
      * @throws \Exception

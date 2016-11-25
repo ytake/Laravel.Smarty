@@ -16,14 +16,34 @@
  *
  */
 
-namespace Ytake\LaravelSmarty\Exception;
+namespace Ytake\LaravelSmarty;
+
+use Illuminate\Contracts\View\Factory;
 
 /**
- * Class MethodNotFoundException
+ * Class Smarty
  *
- * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class MethodNotFoundException extends \Exception
+final class Smarty extends \Smarty
 {
+    /** @var Factory */
+    protected $viewFactory;
+
+    /**
+     * @param Factory $factory
+     */
+    public function setViewFactory(Factory $factory)
+    {
+        $this->viewFactory = $factory;
+    }
+
+    /**
+     * @return Factory
+     */
+    public function getViewFactory()
+    {
+        return $this->viewFactory;
+    }
 }

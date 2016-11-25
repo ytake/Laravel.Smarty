@@ -17,7 +17,7 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory>./src</directory>
+            <directory suffix=".php">./src/</directory>
             <exclude>
                 <directory>./src/config</directory>
                 <file>./src/SmartyServiceProvider.php</file>

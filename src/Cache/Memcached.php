@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Cache;
 
 use Memcached as MemcachedExtension;
@@ -39,9 +40,10 @@ class Memcached extends KeyValueStorage
     }
 
     /**
-     * @param array $servers
+     * @param MemcachedExtension $memcached
+     * @param array              $servers
      *
-     * @return \Memcached
+     * @return MemcachedExtension
      */
     protected function connection(MemcachedExtension $memcached, array $servers)
     {
@@ -58,18 +60,17 @@ class Memcached extends KeyValueStorage
      * @param  array $keys list of keys to fetch
      *
      * @return array   list of values with the given keys used as indexes
-     * @return boolean true on success, false on failure
      */
     protected function read(array $keys)
     {
-        $_keys = $lookup = [];
-        list($_keys, $lookup) = $this->eachKeys($keys, $_keys, $lookup);
-        $_res = [];
-        $res = $this->memcached->getMulti($_keys);
-        foreach ($res as $k => $v) {
-            $_res[$lookup[$k]] = $v;
+        $map = $lookup = [];
+        list($map, $lookup) = $this->eachKeys($keys, $map, $lookup);
+        $result = [];
+        $memcachedResult = $this->memcached->getMulti($map);
+        foreach ($memcachedResult as $k => $v) {
+            $result[$lookup[$k]] = $v;
         }
-        return $_res;
+        return $result;
     }
 
     /**
@@ -78,7 +79,7 @@ class Memcached extends KeyValueStorage
      * @param  array $keys list of values to save
      * @param  int   $expire expiration time
      *
-     * @return boolean true on success, false on failure
+     * @return bool true on success, false on failure
      */
     protected function write(array $keys, $expire = null)
     {
@@ -94,7 +95,7 @@ class Memcached extends KeyValueStorage
      *
      * @param  array $keys list of keys to delete
      *
-     * @return boolean true on success, false on failure
+     * @return bool true on success, false on failure
      */
     protected function delete(array $keys)
     {
@@ -108,10 +109,10 @@ class Memcached extends KeyValueStorage
     /**
      * Remove *all* values from cache
      *
-     * @return boolean true on success, false on failure
+     * @return bool true on success, false on failure
      */
     protected function purge()
     {
-        $this->memcached->flush();
+        return $this->memcached->flush();
     }
 }

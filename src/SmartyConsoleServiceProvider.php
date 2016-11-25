@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty;
 
 use Illuminate\Support\ServiceProvider;
@@ -31,7 +32,6 @@ class SmartyConsoleServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
-     * @return void
      */
     public function boot()
     {
@@ -62,7 +62,6 @@ class SmartyConsoleServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
      */
     protected function registerCommands()
     {

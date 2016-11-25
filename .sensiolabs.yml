@@ -1,0 +1,5 @@
+global_exclude_dirs:
+    - vendor
+    - tests
+exclude_patterns:
+    - src/Engines/SmartyTemplate.php
