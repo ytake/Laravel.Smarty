@@ -54,7 +54,7 @@ class CacheClearCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Flush the Smarty cache';
+    protected $description = 'Flush the Smarty cache.';
 
     /**
      * Execute the console command.
