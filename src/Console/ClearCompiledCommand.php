@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Console;
 
 use Illuminate\Console\Command;

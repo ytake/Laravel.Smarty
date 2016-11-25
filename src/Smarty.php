@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty;
 
 use Illuminate\Contracts\View\Factory;

@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Console;
 
 use Ytake\LaravelSmarty\Smarty;
@@ -24,7 +25,7 @@ use Symfony\Component\Console\Input\InputOption;
 /**
  * Class CacheClearCommand
  *
- * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 class CacheClearCommand extends Command
@@ -58,7 +59,6 @@ class CacheClearCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      */
     public function fire()
     {
@@ -66,17 +66,18 @@ class CacheClearCommand extends Command
         if (is_null($this->option('file'))) {
             $this->smarty->clearAllCache($this->option('time'));
             $this->info('Smarty cache cleared!');
-            return;
+
+            return 0;
         }
         // file specified
-        if (!$this->smarty->clearCache(
-            $this->option('file'), $this->option('cache_id'), null, $this->option('time'))
-        ) {
+        if (!$this->smarty->clearCache($this->option('file'), $this->option('cache_id'), null, $this->option('time'))) {
             $this->error('Specified file not found');
-            return;
+
+            return 1;
         }
         $this->info('Specified file was cache cleared!');
-        return;
+
+        return 0;
     }
 
     /**

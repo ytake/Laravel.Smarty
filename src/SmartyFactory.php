@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty;
 
 use ReflectionClass;
@@ -178,7 +179,6 @@ class SmartyFactory extends Factory
     }
 
     /**
-     * @return void
      */
     public function resolveSmartyCache()
     {
@@ -190,7 +190,6 @@ class SmartyFactory extends Factory
      * smarty configure
      *
      * @throws \SmartyException
-     * @return void
      */
     public function setSmartyConfigure()
     {
@@ -232,8 +231,8 @@ class SmartyFactory extends Factory
      * @param $name
      * @param $arguments
      *
-     * @return mixed
      * @throws MethodNotFoundException
+     * @return mixed
      */
     public function __call($name, $arguments)
     {

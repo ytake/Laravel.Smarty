@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Console;
 
 use Ytake\LaravelSmarty\Smarty;
@@ -64,7 +65,6 @@ class OptimizeCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      */
     public function fire()
     {
@@ -77,9 +77,9 @@ class OptimizeCommand extends Command
         );
         $contents = ob_get_contents();
         ob_get_clean();
-        $this->info("{$compileFiles} template files recompiled");
         $this->comment(str_replace("<br>", "", trim($contents)));
-        return;
+        $this->info("{$compileFiles} template files recompiled");
+        return 0;
     }
 
     /**

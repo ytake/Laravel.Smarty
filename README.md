@@ -79,9 +79,6 @@ publish to config directory
 
 Of Course, Blade Template can also be used to Render Engine.
 
-smartyテンプレート内にも*{{app_path()}}*等のヘルパーそのまま使用できます。  
-その場合、delimiterをbladeと同じものを指定しない様にしてください。  
-
 ### configuration file (for Lumen)
 
 Copy the `vendor/ytake/laravel-smarty/src/config/ytake-laravel-smarty.php` file to your local config directory
@@ -170,7 +167,6 @@ Hello Laravel.Smarty
 ```
 
 ## Artisan
-キャッシュクリア、コンパイルファイルの削除がコマンドラインから行えます。  
 smarty's cache clear, remove compile class from Artisan(cli)
 
 ### Template cache clear

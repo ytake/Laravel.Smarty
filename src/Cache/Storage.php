@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Cache;
 
 use Ytake\LaravelSmarty\Smarty;
@@ -45,7 +46,6 @@ class Storage
     }
 
     /**
-     * @return void
      */
     public function cacheStorageManaged()
     {

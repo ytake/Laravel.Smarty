@@ -15,30 +15,32 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Cache;
 
 /**
  * Class KeyValueStorage
  *
- * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 abstract class KeyValueStorage extends \Smarty_CacheResource_KeyValueStore
 {
     /**
      * @param array $keys
-     * @param       $_keys
-     * @param       $lookup
+     * @param array $map
+     * @param array $lookup
      *
      * @return array
      */
-    protected function eachKeys(array $keys, $_keys, $lookup)
+    protected function eachKeys(array $keys, array $map, array $lookup)
     {
         foreach ($keys as $k) {
-            $_k = sha1($k);
-            $_keys[] = $_k;
-            $lookup[$_k] = $k;
+            $hash = sha1($k);
+            $map[] = $hash;
+            $lookup[$hash] = $k;
         }
-        return array($_keys, $lookup);
+
+        return [$map, $lookup];
     }
 }

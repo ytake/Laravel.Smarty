@@ -15,9 +15,9 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Engines;
 
-use Illuminate\Events\Dispatcher;
 use Throwable;
 use Ytake\LaravelSmarty\Smarty;
 use Illuminate\View\Engines\EngineInterface;
@@ -56,8 +56,8 @@ class SmartyEngine implements EngineInterface
      * @param       $path
      * @param array $data
      *
-     * @return string
      * @throws \Exception
+     * @return string
      */
     protected function evaluatePath($path, array $data = [])
     {

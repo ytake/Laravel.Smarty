@@ -3,14 +3,9 @@
 class SmartyManagerFactory extends SmartyTestCase
 {
 
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
     public function testInstance()
     {
-        $this->assertInstanceOf("Ytake\LaravelSmarty\SmartyFactory", $this->factory);
+        $this->assertInstanceOf("Ytake\\LaravelSmarty\\SmartyFactory", $this->factory);
     }
 
     public function testSmarty()

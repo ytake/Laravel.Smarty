@@ -15,10 +15,11 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Engines;
 
-use Illuminate\View\Factory;
 use Illuminate\View\View;
+use Illuminate\View\Factory;
 
 /**
  * Class SmartyTemplate
@@ -29,7 +30,7 @@ use Illuminate\View\View;
 class SmartyTemplate extends \Smarty_Internal_Template
 {
     /**
-     * Get called sub-templates and save call count
+     * {@inheritdoc}
      */
     public function _subTemplateRegister()
     {

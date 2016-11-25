@@ -15,6 +15,7 @@
  * Copyright (c) 2014-2016 Yuuki Takezawa
  *
  */
+
 namespace Ytake\LaravelSmarty\Console;
 
 use Ytake\LaravelSmarty\Smarty;
@@ -46,11 +47,11 @@ class PackageInfoCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      */
     public function fire()
     {
         $this->line('<info>Smarty</info> version <comment>' . Smarty::SMARTY_VERSION . '</comment>');
         $this->line('<info>ytake/laravel-smarty</info> version <comment>' . SmartyFactory::VERSION . '</comment>');
+        return 0;
     }
 }
