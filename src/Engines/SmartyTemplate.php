@@ -19,7 +19,7 @@
 namespace Ytake\LaravelSmarty\Engines;
 
 use Illuminate\View\View;
-use Illuminate\View\Factory;
+use Ytake\LaravelSmarty\SmartyFactory;
 
 /**
  * Class SmartyTemplate
@@ -35,27 +35,30 @@ class SmartyTemplate extends \Smarty_Internal_Template
     public function _subTemplateRegister()
     {
         foreach ($this->compiled->includes as $name => $count) {
+            // @codeCoverageIgnoreStart
             if (isset($this->smarty->_cache['subTplInfo'][$name])) {
                 $this->smarty->_cache['subTplInfo'][$name] += $count;
             } else {
                 $this->smarty->_cache['subTplInfo'][$name] = $count;
             }
-            $this->dispatch($this->normalizeTemplateName($name));
+            // @codeCoverageIgnoreEnd
+            $this->dispatch(new self($name, $this->smarty));
         }
     }
 
     /**
-     * @param string $name
+     * @param \Smarty_Internal_Template $template
      */
-    protected function dispatch($name)
+    protected function dispatch(\Smarty_Internal_Template $template)
     {
-        /** @var Factory $viewFactory */
+        /** @var SmartyFactory $viewFactory */
         $viewFactory = $this->smarty->getViewFactory();
+        $name = $this->normalizeName($template, $viewFactory);
         $view = new View(
             $viewFactory,
             $viewFactory->getEngineResolver()->resolve('smarty'),
             $name,
-            null,
+            $template->source->filepath,
             []
         );
         $viewFactory->callCreator($view);
@@ -63,23 +66,21 @@ class SmartyTemplate extends \Smarty_Internal_Template
         foreach ($view->getData() as $key => $data) {
             $this->assign($key, $data);
         }
+        unset($template);
     }
 
     /**
-     * @param string $name
+     * @param \Smarty_Internal_Template $template
+     * @param SmartyFactory             $viewFactory
      *
-     * @return string
+     * @return mixed
      */
-    protected function normalizeTemplateName($name)
-    {
-        $name = "\"$name\"";
-        if (preg_match('/^([\'"])(([A-Za-z0-9_\-]{2,})[:])?(([^$()]+)|(.+))\1$/', $name, $match)) {
-            $name = !empty($match[5]) ? $match[5] : $match[6];
-        }
-        $fileInfo = new \SplFileInfo($name);
-        $path = ($fileInfo->getPath() === '') ? null : $fileInfo->getPath() . '/';
-        $viewPathInfo = $path . $fileInfo->getBasename('.' . $fileInfo->getExtension());
+    protected function normalizeName(
+        \Smarty_Internal_Template $template,
+        SmartyFactory $viewFactory
+    ) {
+        $name = str_replace('.' . $viewFactory->getSmartyFileExtension(), '', $template->source->name);
 
-        return trim(str_replace('/', '.', $viewPathInfo), '\'"');
+        return str_replace('/', '.', $name);
     }
 }
