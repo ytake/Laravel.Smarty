@@ -29,6 +29,29 @@ use Ytake\LaravelSmarty\SmartyFactory;
  */
 class SmartyTemplate extends \Smarty_Internal_Template
 {
+    /** @var string */
+    private $templateResourceName;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function _subTemplateRender(
+        $template,
+        $cache_id,
+        $compile_id,
+        $caching,
+        $cache_lifetime,
+        $data,
+        $scope,
+        $forceTplCache,
+        $uid = null,
+        $content_func = null
+    ) {
+        $this->templateResourceName = $template;
+        parent::_subTemplateRender($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope,
+            $forceTplCache, $uid, $content_func);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -42,18 +65,25 @@ class SmartyTemplate extends \Smarty_Internal_Template
                 $this->smarty->_cache['subTplInfo'][$name] = $count;
             }
             // @codeCoverageIgnoreEnd
-            $this->dispatch(new self($name, $this->smarty));
+        }
+        if ($this->templateResourceName) {
+            $parseResourceName = \Smarty_Resource::parseResourceName(
+                $this->templateResourceName,
+                $this->smarty->default_resource_type
+            );
+            $this->dispatch($this, $parseResourceName[0]);
         }
     }
 
     /**
      * @param \Smarty_Internal_Template $template
+     * @param string                    $name
      */
-    protected function dispatch(\Smarty_Internal_Template $template)
+    protected function dispatch(\Smarty_Internal_Template $template, $name)
     {
         /** @var SmartyFactory $viewFactory */
         $viewFactory = $this->smarty->getViewFactory();
-        $name = $this->normalizeName($template, $viewFactory);
+        $name = $this->normalizeName($name, $viewFactory);
         $view = new View(
             $viewFactory,
             $viewFactory->getEngineResolver()->resolve('smarty'),
@@ -70,16 +100,14 @@ class SmartyTemplate extends \Smarty_Internal_Template
     }
 
     /**
-     * @param \Smarty_Internal_Template $template
-     * @param SmartyFactory             $viewFactory
+     * @param string        $name
+     * @param SmartyFactory $viewFactory
      *
      * @return mixed
      */
-    protected function normalizeName(
-        \Smarty_Internal_Template $template,
-        SmartyFactory $viewFactory
-    ) {
-        $name = str_replace('.' . $viewFactory->getSmartyFileExtension(), '', $template->source->name);
+    protected function normalizeName($name, SmartyFactory $viewFactory)
+    {
+        $name = str_replace('.' . $viewFactory->getSmartyFileExtension(), '', $name);
 
         return str_replace('/', '.', $name);
     }
