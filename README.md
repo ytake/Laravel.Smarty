@@ -6,15 +6,15 @@ Smarty Template Engine for Laravel
 [![Build Status](http://img.shields.io/travis/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://travis-ci.org/ytake/Laravel.Smarty)
 [![Coverage Status](http://img.shields.io/coveralls/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/541bfc296936193b68000060/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/541bfc296936193b68000060)
-[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/ytake/Laravel.Smarty.svg?style=flat)](https://scrutinizer-ci.com/g/ytake/Laravel.Smarty/?branch=master)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/ytake/Laravel.Smarty.svg?style=flat-square)](https://scrutinizer-ci.com/g/ytake/Laravel.Smarty/?branch=master)
 
 [![License](http://img.shields.io/packagist/l/ytake/laravel-smarty.svg?style=flat-square)](https://packagist.org/packages/ytake/laravel-smarty)
 [![Latest Version](http://img.shields.io/packagist/v/ytake/laravel-smarty.svg?style=flat-square)](https://packagist.org/packages/ytake/laravel-smarty)
 [![Total Downloads](http://img.shields.io/packagist/dt/ytake/laravel-smarty.svg?style=flat-square)](https://packagist.org/packages/ytake/laravel-smarty)
 [![StyleCI](https://styleci.io/repos/24187404/shield)](https://styleci.io/repos/24187404)
 
-[![HHVM Status](https://img.shields.io/hhvm/ytake/laravel-smarty.svg?style=flat-square)](http://hhvm.h4cc.de/package/ytake/laravel-smarty)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5/mini.png)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
+[![Codacy Badge](https://img.shields.io/codacy/grade/9d96e9d8faae4302b3b7e534d0a24449.svg?style=flat-square)](https://www.codacy.com/app/yuuki-takezawa/Laravel-Smarty?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ytake/Laravel.Smarty&amp;utm_campaign=Badge_Grade)
+[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/3837c7b1-ea1e-4db1-8189-f556b14f2ce5.svg?style=flat-square)](https://insight.sensiolabs.com/projects/3837c7b1-ea1e-4db1-8189-f556b14f2ce5)
 
 ## Installation For Laravel
 Require this package with Composer
