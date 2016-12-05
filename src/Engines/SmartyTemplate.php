@@ -19,7 +19,7 @@
 namespace Ytake\LaravelSmarty\Engines;
 
 use Illuminate\View\View;
-use Illuminate\View\Factory;
+use Ytake\LaravelSmarty\SmartyFactory;
 
 /**
  * Class SmartyTemplate
@@ -29,33 +29,66 @@ use Illuminate\View\Factory;
  */
 class SmartyTemplate extends \Smarty_Internal_Template
 {
+    /** @var string */
+    private $templateResourceName;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function _subTemplateRender(
+        $template,
+        $cache_id,
+        $compile_id,
+        $caching,
+        $cache_lifetime,
+        $data,
+        $scope,
+        $forceTplCache,
+        $uid = null,
+        $content_func = null
+    ) {
+        $this->templateResourceName = $template;
+        parent::_subTemplateRender($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope,
+            $forceTplCache, $uid, $content_func);
+    }
+
     /**
      * {@inheritdoc}
      */
     public function _subTemplateRegister()
     {
         foreach ($this->compiled->includes as $name => $count) {
+            // @codeCoverageIgnoreStart
             if (isset($this->smarty->_cache['subTplInfo'][$name])) {
                 $this->smarty->_cache['subTplInfo'][$name] += $count;
             } else {
                 $this->smarty->_cache['subTplInfo'][$name] = $count;
             }
-            $this->dispatch($this->normalizeTemplateName($name));
+            // @codeCoverageIgnoreEnd
+        }
+        if ($this->templateResourceName) {
+            $parseResourceName = \Smarty_Resource::parseResourceName(
+                $this->templateResourceName,
+                $this->smarty->default_resource_type
+            );
+            $this->dispatch($this, $parseResourceName[0]);
         }
     }
 
     /**
-     * @param string $name
+     * @param \Smarty_Internal_Template $template
+     * @param string                    $name
      */
-    protected function dispatch($name)
+    protected function dispatch(\Smarty_Internal_Template $template, $name)
     {
-        /** @var Factory $viewFactory */
+        /** @var SmartyFactory $viewFactory */
         $viewFactory = $this->smarty->getViewFactory();
+        $name = $this->normalizeName($name, $viewFactory);
         $view = new View(
             $viewFactory,
             $viewFactory->getEngineResolver()->resolve('smarty'),
             $name,
-            null,
+            $template->source->filepath,
             []
         );
         $viewFactory->callCreator($view);
@@ -63,23 +96,19 @@ class SmartyTemplate extends \Smarty_Internal_Template
         foreach ($view->getData() as $key => $data) {
             $this->assign($key, $data);
         }
+        unset($template);
     }
 
     /**
-     * @param string $name
+     * @param string        $name
+     * @param SmartyFactory $viewFactory
      *
-     * @return string
+     * @return mixed
      */
-    protected function normalizeTemplateName($name)
+    protected function normalizeName($name, SmartyFactory $viewFactory)
     {
-        $name = "\"$name\"";
-        if (preg_match('/^([\'"])(([A-Za-z0-9_\-]{2,})[:])?(([^$()]+)|(.+))\1$/', $name, $match)) {
-            $name = !empty($match[5]) ? $match[5] : $match[6];
-        }
-        $fileInfo = new \SplFileInfo($name);
-        $path = ($fileInfo->getPath() === '') ? null : $fileInfo->getPath() . '/';
-        $viewPathInfo = $path . $fileInfo->getBasename('.' . $fileInfo->getExtension());
+        $name = str_replace('.' . $viewFactory->getSmartyFileExtension(), '', $name);
 
-        return trim(str_replace('/', '.', $viewPathInfo), '\'"');
+        return str_replace('/', '.', $name);
     }
 }

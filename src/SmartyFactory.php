@@ -39,7 +39,7 @@ class SmartyFactory extends Factory
     /**
      * @var string  version
      */
-    const VERSION = '2.1.11';
+    const VERSION = '2.1.12';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -143,6 +143,9 @@ class SmartyFactory extends Factory
         'max_template_nesting',
     ];
 
+    /** @var string  smarty template file extension */
+    protected $smartyFileExtension;
+
     /**
      * @param EngineResolver      $engines
      * @param ViewFinderInterface $finder
@@ -211,7 +214,7 @@ class SmartyFactory extends Factory
         $smarty->template_class = SmartyTemplate::class;
         foreach ($config as $key => $value) {
             if (in_array($key, $this->configKeys)) {
-                $this->smarty->{$key} = $value;
+                $smarty->{$key} = $value;
             }
         }
 
@@ -225,6 +228,15 @@ class SmartyFactory extends Factory
                 }
             }
         }
+        $this->smartyFileExtension = $config['extension'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getSmartyFileExtension()
+    {
+        return $this->smartyFileExtension;
     }
 
     /**
