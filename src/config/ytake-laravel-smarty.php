@@ -56,7 +56,7 @@ return [
         base_path() . '/resources/smarty/plugins',
     ],
 
-    // somarty configure
+    // smarty configure
     'config_paths'                        => [
         base_path() . '/resources/smarty/config',
     ],
