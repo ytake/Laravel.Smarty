@@ -12,7 +12,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2016 Yuuki Takezawa
+ * Copyright (c) 2014-2017 Yuuki Takezawa
  *
  */
 
@@ -66,7 +66,7 @@ class OptimizeCommand extends Command
      * Execute the console command.
      *
      */
-    public function fire()
+    public function handle()
     {
         $configureFileExtension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
         $fileExtension = (is_null($this->option('extension')))

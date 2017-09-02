@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -12,21 +13,21 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2016 Yuuki Takezawa
+ * Copyright (c) 2014-2017 Yuuki Takezawa
  *
  */
 
 namespace Ytake\LaravelSmarty;
 
-use ReflectionClass;
+use Illuminate\Contracts\Config\Repository as ConfigContract;
+use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
+use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\ViewFinderInterface;
-use Illuminate\View\Engines\EngineResolver;
+use ReflectionClass;
 use Ytake\LaravelSmarty\Cache\Storage;
 use Ytake\LaravelSmarty\Engines\SmartyTemplate;
 use Ytake\LaravelSmarty\Exception\MethodNotFoundException;
-use Illuminate\Contracts\Config\Repository as ConfigContract;
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 
 /**
  * Class SmartyManager
@@ -39,7 +40,7 @@ class SmartyFactory extends Factory
     /**
      * @var string  version
      */
-    const VERSION = '2.1.12';
+    const VERSION = '2.2.0';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -168,7 +169,7 @@ class SmartyFactory extends Factory
     /**
      * @return Smarty
      */
-    public function getSmarty()
+    public function getSmarty(): Smarty
     {
         return $this->smarty;
     }
@@ -176,13 +177,11 @@ class SmartyFactory extends Factory
     /**
      * @return string
      */
-    public function getVersion()
+    public function getVersion(): string
     {
         return self::VERSION;
     }
 
-    /**
-     */
     public function resolveSmartyCache()
     {
         $cacheStorage = new Storage($this->getSmarty(), $this->config);
@@ -234,7 +233,7 @@ class SmartyFactory extends Factory
     /**
      * @return string
      */
-    public function getSmartyFileExtension()
+    public function getSmartyFileExtension(): string
     {
         return $this->smartyFileExtension;
     }

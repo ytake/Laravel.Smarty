@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -12,16 +13,16 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2016 Yuuki Takezawa
+ * Copyright (c) 2014-2017 Yuuki Takezawa
  *
  */
 
 namespace Ytake\LaravelSmarty\Engines;
 
+use Illuminate\Contracts\View\Engine as EngineInterface;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 use Ytake\LaravelSmarty\Smarty;
-use Illuminate\View\Engines\EngineInterface;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
  * Class SmartyEngine
@@ -53,13 +54,13 @@ class SmartyEngine implements EngineInterface
     /**
      * Get the evaluated contents of the view at the given path.
      *
-     * @param       $path
-     * @param array $data
+     * @param string $path
+     * @param array  $data
      *
      * @throws \Exception
      * @return string
      */
-    protected function evaluatePath($path, array $data = [])
+    protected function evaluatePath(string $path, array $data = [])
     {
         extract($data, EXTR_SKIP);
         try {
@@ -74,7 +75,7 @@ class SmartyEngine implements EngineInterface
 
             return $this->smarty->fetch($path, $cacheId, $compileId);
             // @codeCoverageIgnoreStart
-        } catch (\Exception $e) {
+        } catch (\SmartyException $e) {
             $this->handleViewException($e);
         } catch (Throwable $e) {
             $this->handleViewException(new FatalThrowableError($e));

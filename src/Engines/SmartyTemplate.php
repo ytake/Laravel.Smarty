@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -12,7 +13,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2016 Yuuki Takezawa
+ * Copyright (c) 2014-2017 Yuuki Takezawa
  *
  */
 
@@ -79,7 +80,7 @@ class SmartyTemplate extends \Smarty_Internal_Template
      * @param \Smarty_Internal_Template $template
      * @param string                    $name
      */
-    protected function dispatch(\Smarty_Internal_Template $template, $name)
+    protected function dispatch(\Smarty_Internal_Template $template, string $name)
     {
         /** @var SmartyFactory $viewFactory */
         $viewFactory = $this->smarty->getViewFactory();
@@ -105,7 +106,7 @@ class SmartyTemplate extends \Smarty_Internal_Template
      *
      * @return mixed
      */
-    protected function normalizeName($name, SmartyFactory $viewFactory)
+    protected function normalizeName(string $name, SmartyFactory $viewFactory)
     {
         $name = str_replace('.' . $viewFactory->getSmartyFileExtension(), '', $name);
 

@@ -112,16 +112,6 @@ edit config/ytake-laravel-smarty.php
 
 and more..!
 
-## Laravel.Smarty Package Optimize (Optional for production)
-**required config/compile.php**
-
-```php
-'providers' => [
-    //
-    \Ytake\LaravelSmarty\SmartyCompileServiceProvider::class
-],
-```
-
 ### use optimize command
 for production
 ```bash

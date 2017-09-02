@@ -76,6 +76,16 @@ class SmartyTestCase extends \PHPUnit_Framework_TestCase
 
 class MockApplication extends \Illuminate\Container\Container implements \Illuminate\Contracts\Foundation\Application
 {
+    public function runningInConsole()
+    {
+        // TODO: Implement runningInConsole() method.
+    }
+
+    public function getCachedPackagesPath()
+    {
+        // TODO: Implement getCachedPackagesPath() method.
+    }
+
     /**
      * Get the version number of the application.
      *
