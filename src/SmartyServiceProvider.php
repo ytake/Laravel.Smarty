@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -12,7 +13,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2016 Yuuki Takezawa
+ * Copyright (c) 2014-2017 Yuuki Takezawa
  *
  */
 
@@ -81,9 +82,9 @@ class SmartyServiceProvider extends ServiceProvider
     /**
      * @return string
      */
-    protected function resolveConfigurePath()
+    protected function resolveConfigurePath(): string
     {
         return (isset($this->app['path.config']))
-            ? $this->app['path.config'] : $this->app->basePath() . DIRECTORY_SEPARATOR . 'config';
+            ? (string)$this->app['path.config'] : $this->app->basePath() . DIRECTORY_SEPARATOR . 'config';
     }
 }

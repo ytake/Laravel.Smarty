@@ -12,7 +12,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2016 Yuuki Takezawa
+ * Copyright (c) 2014-2017 Yuuki Takezawa
  *
  */
 
@@ -48,7 +48,7 @@ class PackageInfoCommand extends Command
      * Execute the console command.
      *
      */
-    public function fire()
+    public function handle()
     {
         $this->line('<info>Smarty</info> version <comment>' . Smarty::SMARTY_VERSION . '</comment>');
         $this->line('<info>ytake/laravel-smarty</info> version <comment>' . SmartyFactory::VERSION . '</comment>');

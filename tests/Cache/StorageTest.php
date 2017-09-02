@@ -1,6 +1,5 @@
 <?php
 
-use Mockery as m;
 use Ytake\LaravelSmarty\Smarty;
 
 class StorageTest extends SmartyTestCase
@@ -16,11 +15,6 @@ class StorageTest extends SmartyTestCase
         $this->storage = new \Ytake\LaravelSmarty\Cache\Storage(
             new Smarty(), $this->config
         );
-    }
-
-    public function tearDown()
-    {
-        m::close();
     }
 
     public function testInstance()
