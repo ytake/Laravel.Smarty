@@ -27,9 +27,11 @@ or composer.json
 
 ```json
 "require": {
-  "ytake/laravel-smarty": "~2.0"
+  "ytake/laravel-smarty": "^2.2"
 },
 ```
+
+*Supported Auto-Discovery(^Laravel5.5)*
 
 add Laravel.Smarty Service Providers
 
