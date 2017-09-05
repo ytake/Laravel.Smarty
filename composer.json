@@ -65,5 +65,13 @@
     "phpcs": "./vendor/bin/phpcs src/ --report-full --report-source --standard=PSR2 --colors",
     "sc": "security-checker security:check ./composer.lock"
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ytake\\LaravelSmarty\\SmartyServiceProvider",
+        "Ytake\\LaravelSmarty\\SmartyConsoleServiceProvider"
+      ]
+    }
+  },  
   "minimum-stability": "stable"
 }
