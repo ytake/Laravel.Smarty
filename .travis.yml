@@ -15,5 +15,3 @@ script:
   - chmod -R 777 tests/build
   - ./vendor/bin/phpunit --coverage-clover tests/build/clover.xml
   - chmod 777 tests/build/clover.xml
-after_script:
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then php vendor/bin/coveralls -v; fi
