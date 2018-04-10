@@ -114,17 +114,6 @@ edit config/ytake-laravel-smarty.php
 
 and more..!
 
-### use optimize command
-for production
-```bash
-$ php artisan optimize
-```
-
-for develop/debug
-```bash
-$ php artisan optimize --force
-```
-
 ## Basic
 easily use all the methods of Smarty  
 
