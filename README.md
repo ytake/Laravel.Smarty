@@ -39,9 +39,9 @@ your config/app.php
 ```php
 'providers' => [
     // add smarty extension
-    \Ytake\LaravelSmarty\SmartyServiceProvider::class, 
+    Ytake\LaravelSmarty\SmartyServiceProvider::class, 
     // add artisan commands  
-    \Ytake\LaravelSmarty\SmartyConsoleServiceProvider::class, 
+    Ytake\LaravelSmarty\SmartyConsoleServiceProvider::class, 
 ]
 ```
 
