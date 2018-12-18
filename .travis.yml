@@ -9,12 +9,11 @@ services:
   - redis-server
   - memcached
 before_install:
-  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - chmod -R 755 tests/bin/memcached.sh
+  - tests/bin/memcached.sh
 before_script:
   - composer self-update
   - composer install --prefer-source
-  - chmod -R 755 tests/bin/memcached.sh
-  - tests/bin/memcached.sh
 script:
   - chmod -R 777 tests/build
   - ./vendor/bin/phpunit --coverage-clover tests/build/clover.xml
