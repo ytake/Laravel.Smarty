@@ -8,6 +8,8 @@ php:
 services:
   - redis-server
   - memcached
+before_install:
+  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 before_script:
   - composer self-update
   - composer install --prefer-source
