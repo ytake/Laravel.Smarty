@@ -37,7 +37,7 @@
     "sebastian/phpcpd": "*",
     "phploc/phploc": "*",
     "pdepend/pdepend" : "^2.5.2",
-    "sensiolabs/security-checker": "^6.0.2"
+    "sensiolabs/security-checker": "^5.0|^6.0"
   },
   "suggest": {
     "ext-memcached": "memcached Template Cache Driver",
