@@ -1,8 +1,13 @@
 <?php
+declare(strict_types=1);
 
+use PHPUnit\Framework\TestCase;
 use Ytake\LaravelSmarty\Smarty;
 
-class SmartyTestCase extends \PHPUnit_Framework_TestCase
+/**
+ * Class SmartyTestCase
+ */
+class SmartyTestCase extends TestCase
 {
     /** @var \Ytake\LaravelSmarty\SmartyFactory $factory */
     protected $factory;
@@ -71,7 +76,6 @@ class SmartyTestCase extends \PHPUnit_Framework_TestCase
         $property->setAccessible(true);
         return $property;
     }
-
 }
 
 class MockApplication extends \Illuminate\Container\Container implements \Illuminate\Contracts\Foundation\Application
@@ -102,7 +106,7 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
      * @param  mixed
      * @return string
      */
-    public function environment()
+    public function environment(...$environments)
     {
         // TODO: Implement environment() method.
     }
@@ -189,7 +193,7 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
      *
      * @return string
      */
-    public function basePath()
+    public function basePath($path = '')
     {
         // TODO: Implement basePath() method.
     }
@@ -213,6 +217,133 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
     {
         // TODO: Implement getCachedServicesPath() method.
     }
+
+    public function bootstrapPath($path = '')
+    {
+        // TODO: Implement bootstrapPath() method.
+    }
+
+    public function configPath($path = '')
+    {
+        // TODO: Implement configPath() method.
+    }
+
+    public function databasePath($path = '')
+    {
+        // TODO: Implement databasePath() method.
+    }
+
+    public function environmentPath()
+    {
+        // TODO: Implement environmentPath() method.
+    }
+
+    public function resourcePath($path = '')
+    {
+        // TODO: Implement resourcePath() method.
+    }
+
+    public function storagePath()
+    {
+        // TODO: Implement storagePath() method.
+    }
+
+    public function runningUnitTests()
+    {
+        // TODO: Implement runningUnitTests() method.
+    }
+
+    public function resolveProvider($provider)
+    {
+        // TODO: Implement resolveProvider() method.
+    }
+
+    public function bootstrapWith(array $bootstrappers)
+    {
+        // TODO: Implement bootstrapWith() method.
+    }
+
+    public function configurationIsCached()
+    {
+        // TODO: Implement configurationIsCached() method.
+    }
+
+    public function detectEnvironment(Closure $callback)
+    {
+        // TODO: Implement detectEnvironment() method.
+    }
+
+    public function environmentFile()
+    {
+        // TODO: Implement environmentFile() method.
+    }
+
+    public function environmentFilePath()
+    {
+        // TODO: Implement environmentFilePath() method.
+    }
+
+    public function getCachedConfigPath()
+    {
+        // TODO: Implement getCachedConfigPath() method.
+    }
+
+    public function getCachedRoutesPath()
+    {
+        // TODO: Implement getCachedRoutesPath() method.
+    }
+
+    public function getLocale()
+    {
+        // TODO: Implement getLocale() method.
+    }
+
+    public function getNamespace()
+    {
+        // TODO: Implement getNamespace() method.
+    }
+
+    public function getProviders($provider)
+    {
+        // TODO: Implement getProviders() method.
+    }
+
+    public function hasBeenBootstrapped()
+    {
+        // TODO: Implement hasBeenBootstrapped() method.
+    }
+
+    public function loadDeferredProviders()
+    {
+        // TODO: Implement loadDeferredProviders() method.
+    }
+
+    public function loadEnvironmentFrom($file)
+    {
+        // TODO: Implement loadEnvironmentFrom() method.
+    }
+
+    public function routesAreCached()
+    {
+        // TODO: Implement routesAreCached() method.
+    }
+
+    public function setLocale($locale)
+    {
+        // TODO: Implement setLocale() method.
+    }
+
+    public function shouldSkipMiddleware()
+    {
+        // TODO: Implement shouldSkipMiddleware() method.
+    }
+
+    public function terminate()
+    {
+        // TODO: Implement terminate() method.
+    }
+
+
 }
 
 function base_path()
