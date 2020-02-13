@@ -43,22 +43,22 @@ return [
     'right_delimiter'                     => '}',
 
     // path info
-    'template_path'                       => base_path() . '/resources/views',
+    'template_path'                       => base_path('resources/views'),
 
     // smarty cache directory
-    'cache_path'                          => storage_path() . '/framework/smarty/cache',
+    'cache_path'                          => storage_path('framework/smarty/cache'),
 
     // smarty template compiler
-    'compile_path'                        => storage_path() . '/framework/smarty/compile',
+    'compile_path'                        => storage_path('framework/smarty/compile'),
 
     // smarty plugins
     'plugins_paths'                       => [
-        base_path() . '/resources/smarty/plugins',
+        base_path('resources/smarty/plugins'),
     ],
 
     // smarty configure
     'config_paths'                        => [
-        base_path() . '/resources/smarty/config',
+        base_path('resources/smarty/config'),
     ],
 
     /**
