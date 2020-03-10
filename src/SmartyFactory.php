@@ -13,7 +13,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2017 Yuuki Takezawa
+ * Copyright (c) 2014-2019 Yuuki Takezawa
  *
  */
 
@@ -24,6 +24,7 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\ViewFinderInterface;
+use Illuminate\Support\Arr;
 use ReflectionClass;
 use Ytake\LaravelSmarty\Cache\Storage;
 use Ytake\LaravelSmarty\Engines\SmartyTemplate;
@@ -40,7 +41,7 @@ class SmartyFactory extends Factory
     /**
      * @var string  version
      */
-    const VERSION = '2.2.0';
+    const VERSION = '2.6.0';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -196,19 +197,18 @@ class SmartyFactory extends Factory
     public function setSmartyConfigure()
     {
         $config = $this->config->get('ytake-laravel-smarty');
-
         $smarty = $this->smarty;
 
-        $smarty->setTemplateDir(array_get($config, 'template_path'));
-        $smarty->setCompileDir(array_get($config, 'compile_path'));
-        $smarty->setCacheDir(array_get($config, 'cache_path'));
-        $smarty->setConfigDir(array_get($config, 'config_paths'));
+        $smarty->setTemplateDir(Arr::get($config, 'template_path'));
+        $smarty->setCompileDir(Arr::get($config, 'compile_path'));
+        $smarty->setCacheDir(Arr::get($config, 'cache_path'));
+        $smarty->setConfigDir(Arr::get($config, 'config_paths'));
 
-        foreach (array_get($config, 'plugins_paths', []) as $plugins) {
+        foreach (Arr::get($config, 'plugins_paths', []) as $plugins) {
             $smarty->addPluginsDir($plugins);
         }
 
-        $smarty->error_reporting = array_get($config, 'error_reporting', E_ALL & ~E_NOTICE);
+        $smarty->error_reporting = Arr::get($config, 'error_reporting', E_ALL & ~E_NOTICE);
         // SmartyTemplate class for laravel
         $smarty->template_class = SmartyTemplate::class;
         foreach ($config as $key => $value) {
@@ -217,10 +217,10 @@ class SmartyFactory extends Factory
             }
         }
 
-        if (array_get($config, 'enable_security')) {
+        if (Arr::get($config, 'enable_security')) {
             $smarty->enableSecurity();
             $securityPolicy = $smarty->security_policy;
-            $securityConfig = array_get($config, 'security_policy', []);
+            $securityConfig = Arr::get($config, 'security_policy', []);
             foreach ($securityConfig as $key => $value) {
                 if (in_array($key, $this->securityPolicyConfigKeys)) {
                     $securityPolicy->{$key} = $value;
@@ -242,8 +242,9 @@ class SmartyFactory extends Factory
      * @param $name
      * @param $arguments
      *
-     * @throws MethodNotFoundException
      * @return mixed
+     * @throws \ReflectionException
+     * @throws MethodNotFoundException
      */
     public function __call($name, $arguments)
     {

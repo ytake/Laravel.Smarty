@@ -2,7 +2,6 @@
 
 class SmartyManagerFactory extends SmartyTestCase
 {
-
     public function testInstance()
     {
         $this->assertInstanceOf("Ytake\\LaravelSmarty\\SmartyFactory", $this->factory);
@@ -22,10 +21,11 @@ class SmartyManagerFactory extends SmartyTestCase
         }
     }
 
-
+    /**
+     * @expectedException \Ytake\LaravelSmarty\Exception\MethodNotFoundException
+     */
     public function testUndefinedFunction()
     {
-        $this->setExpectedException('Ytake\LaravelSmarty\Exception\MethodNotFoundException');
         $this->factory->hello();
         $this->factory->assing();
         $this->factory->smarty([1 => 2]);

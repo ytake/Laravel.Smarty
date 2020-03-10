@@ -1,7 +1,7 @@
 # Laravel.Smarty
 
 Smarty Template Engine for Laravel  
-(Support for Laravel5.x and Lumen)
+(Support for Laravel5.x|Laravel6.x and Lumen)
 
 [![Build Status](http://img.shields.io/travis/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://travis-ci.org/ytake/Laravel.Smarty)
 [![Coverage Status](http://img.shields.io/coveralls/ytake/Laravel.Smarty/master.svg?style=flat-square)](https://coveralls.io/r/ytake/Laravel.Smarty?branch=master)
