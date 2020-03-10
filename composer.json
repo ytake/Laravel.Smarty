@@ -1,5 +1,5 @@
 {
-  "name": "dariusiii/laravel-smarty",
+  "name": "ytake/laravel-smarty",
   "description": "Smarty template engine for Laravel and Lumen",
   "keywords": [
     "laravel",
@@ -18,26 +18,26 @@
   "license": "MIT",
   "require": {
     "php": ">=7.0.0",
-    "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "illuminate/view": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "illuminate/config": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "illuminate/console": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "illuminate/events": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "smarty/smarty": "^3.1.31"
+    "illuminate/support": "^5.5|^6.0",
+    "illuminate/view": "^5.5|^6.0",
+    "illuminate/config": "^5.5|^6.0",
+    "illuminate/console": "^5.5|^6.0",
+    "illuminate/events": "^5.5|^6.0",
+    "smarty/smarty": "^3.1.33"
   },
   "require-dev": {
-    "predis/predis": "~1.0",
-    "symfony/framework-bundle": "^3.0",
-    "symfony/console": "^3.0",
-    "phpunit/phpunit": "^5.0",
+    "predis/predis": "^1.0",
+    "symfony/framework-bundle": "^3.0|^4.0",
+    "symfony/console": "^3.0|^4.0",
+    "phpunit/phpunit": "^6.0|^7.0",
     "satooshi/php-coveralls": "*",
     "phpmd/phpmd": "@stable",
-    "squizlabs/php_codesniffer": "~2.7",
-    "friendsofphp/php-cs-fixer": "^1.11.6",
+    "squizlabs/php_codesniffer": "^3.4.2",
+    "friendsofphp/php-cs-fixer": "^2.15.3",
     "sebastian/phpcpd": "*",
     "phploc/phploc": "*",
-    "pdepend/pdepend" : "^2.2.4",
-    "sensiolabs/security-checker": "^4.0.0"
+    "pdepend/pdepend" : "^2.5.2",
+    "sensiolabs/security-checker": "^5.0|^6.0"
   },
   "suggest": {
     "ext-memcached": "memcached Template Cache Driver",
