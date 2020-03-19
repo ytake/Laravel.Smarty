@@ -4,7 +4,7 @@ class CacheClearCommandTest extends SmartyTestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\CacheClearCommand */
     protected $command;
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->command = new \Ytake\LaravelSmarty\Console\CacheClearCommand(

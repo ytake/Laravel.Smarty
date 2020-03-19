@@ -5,7 +5,7 @@ class SmartyEngineTest extends SmartyTestCase
     /** @var \Ytake\LaravelSmarty\Engines\SmartyEngine */
     protected $engine;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->engine = new \Ytake\LaravelSmarty\Engines\SmartyEngine(

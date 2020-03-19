@@ -5,7 +5,7 @@ class CompiledCommandTest extends SmartyTestCase
     /** @var \Ytake\LaravelSmarty\Console\OptimizeCommand */
     protected $command;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->command = new \Ytake\LaravelSmarty\Console\OptimizeCommand(

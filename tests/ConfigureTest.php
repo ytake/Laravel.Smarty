@@ -2,7 +2,7 @@
 
 class ConfigureTest extends SmartyTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $filesystem = new \Illuminate\Filesystem\Filesystem;
