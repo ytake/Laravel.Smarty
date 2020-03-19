@@ -18,7 +18,7 @@ class SmartyTestCase extends TestCase
     /** @var Illuminate\Events\Dispatcher */
     protected $events;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->config = new \Illuminate\Config\Repository();
         $filesystem = new \Illuminate\Filesystem\Filesystem;

@@ -5,7 +5,7 @@ class CompiledCommandTest extends SmartyTestCase
     /** @var \Ytake\LaravelSmarty\Console\OptimizeCommand */
     protected $command;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->command = new \Ytake\LaravelSmarty\Console\OptimizeCommand(
@@ -14,12 +14,12 @@ class CompiledCommandTest extends SmartyTestCase
         $this->command->setLaravel(new MockApplication());
     }
 
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf("Ytake\LaravelSmarty\Console\OptimizeCommand", $this->command);
     }
 
-    public function testCommand()
+    public function testCommand(): void
     {
         $this->command->run(
             new \Symfony\Component\Console\Input\ArrayInput([]),
@@ -29,7 +29,7 @@ class CompiledCommandTest extends SmartyTestCase
         $this->assertNotNull($this->command->getSynopsis());
     }
 
-    public function testCleaCompile()
+    public function testCleaCompile(): void
     {
         $smarty = $this->factory->getSmarty();
         $smarty->force_compile = false;
@@ -53,7 +53,7 @@ class CompiledCommandTest extends SmartyTestCase
         $this->removeCompileFiles();
     }
 
-    protected function removeCompileFiles()
+    protected function removeCompileFiles(): void
     {
         $command = new \Ytake\LaravelSmarty\Console\ClearCompiledCommand(
             $this->factory

@@ -2,18 +2,18 @@
 
 class SmartyManagerFactory extends SmartyTestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf("Ytake\\LaravelSmarty\\SmartyFactory", $this->factory);
     }
 
-    public function testSmarty()
+    public function testSmarty(): void
     {
         $this->assertInstanceOf("Smarty", $this->factory->getSmarty());
         $this->assertNotTrue($this->factory->getVersion());
     }
 
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $smarty = $this->factory->getSmarty();
         foreach($smarty->getTemplateDir() as $dir) {
@@ -24,20 +24,20 @@ class SmartyManagerFactory extends SmartyTestCase
     /**
      * @expectedException \Ytake\LaravelSmarty\Exception\MethodNotFoundException
      */
-    public function testUndefinedFunction()
+    public function testUndefinedFunction(): void
     {
         $this->factory->hello();
         $this->factory->assing();
         $this->factory->smarty([1 => 2]);
     }
 
-    public function testPlugins()
+    public function testPlugins(): void
     {
         $this->factory->assign('value', 'hello');
         $this->assertSame('test', $this->factory->fetch('plugin_test.tpl'));
     }
 
-    public function testClearFile()
+    public function testClearFile(): void
     {
         $smartyExtension = $this->factory->getSmarty()->ext;
         $class = $smartyExtension->clearCompiledTemplate;

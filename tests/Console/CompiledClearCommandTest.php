@@ -4,7 +4,8 @@ class CompiledClearCommandTest extends SmartyTestCase
 {
     /** @var \Ytake\LaravelSmarty\Console\ClearCompiledCommand */
     protected $command;
-    protected function setUp()
+
+    protected function setUp(): void
     {
         parent::setUp();
         $this->command = new \Ytake\LaravelSmarty\Console\ClearCompiledCommand(
@@ -12,11 +13,13 @@ class CompiledClearCommandTest extends SmartyTestCase
         );
         $this->command->setLaravel(new MockApplication());
     }
-    public function testInstance()
+
+    public function testInstance(): void
     {
         $this->assertInstanceOf("Ytake\\LaravelSmarty\\Console\\ClearCompiledCommand", $this->command);
     }
-    public function testCommand()
+
+    public function testCommand(): void
     {
         $this->command->run(
             new \Symfony\Component\Console\Input\ArrayInput([]),
@@ -26,7 +29,7 @@ class CompiledClearCommandTest extends SmartyTestCase
         $this->assertNotNull($this->command->getSynopsis());
     }
 
-    public function testClearCompile()
+    public function testClearCompile(): void
     {
         $smarty = $this->factory->getSmarty();
         $smarty->force_compile = true;
@@ -37,8 +40,8 @@ class CompiledClearCommandTest extends SmartyTestCase
         $fileCount = 0;
         $pathName = null;
         foreach ($dir as $file) {
-            if(!$file->isDot()) {
-                if($file->getFilename() != '.gitignore') {
+            if (!$file->isDot()) {
+                if ($file->getFilename() != '.gitignore') {
                     $pathName = $file->getPathname();
                     $fileCount++;
                 }
@@ -54,7 +57,7 @@ class CompiledClearCommandTest extends SmartyTestCase
         $this->assertSame('Removed 1 compiled Smarty file.', trim($output->fetch()));
     }
 
-    public function testClearCompileMultipleFiles()
+    public function testClearCompileMultipleFiles(): void
     {
         $smarty = $this->factory->getSmarty();
         $smarty->force_compile = true;
@@ -70,7 +73,7 @@ class CompiledClearCommandTest extends SmartyTestCase
         $this->assertSame('Removed 2 compiled Smarty files.', trim($output->fetch()));
     }
 
-    public function testNotExistsFiles()
+    public function testNotExistsFiles(): void
     {
         $output = new \Symfony\Component\Console\Output\BufferedOutput();
         $this->command->run(

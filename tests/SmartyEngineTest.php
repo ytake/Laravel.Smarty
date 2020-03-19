@@ -5,7 +5,7 @@ class SmartyEngineTest extends SmartyTestCase
     /** @var \Ytake\LaravelSmarty\Engines\SmartyEngine */
     protected $engine;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->engine = new \Ytake\LaravelSmarty\Engines\SmartyEngine(
@@ -13,12 +13,12 @@ class SmartyEngineTest extends SmartyTestCase
         );
     }
 
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf("Ytake\\LaravelSmarty\\Engines\\SmartyEngine", $this->engine);
     }
 
-    public function testShouldReturnSameValue()
+    public function testShouldReturnSameValue(): void
     {
         $this->assertSame('hello', $this->engine->get('test.tpl'));
         $this->assertSame('helloSmarty', $this->engine->get('test.tpl', ['value' => 'Smarty']));
@@ -27,7 +27,7 @@ class SmartyEngineTest extends SmartyTestCase
     /**
      * @expectedException \SmartyException
      */
-    public function testException()
+    public function testException(): void
     {
         $this->engine->get('testing.tpl');
     }
