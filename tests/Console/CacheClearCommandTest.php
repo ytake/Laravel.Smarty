@@ -12,12 +12,12 @@ class CacheClearCommandTest extends SmartyTestCase
         );
         $this->command->setLaravel(new MockApplication());
     }
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf("Ytake\\LaravelSmarty\\Console\\CacheClearCommand", $this->command);
     }
 
-    public function testCommand()
+    public function testCommand(): void
     {
         $smarty = $this->factory->getSmarty();
         $smarty->caching = true;
@@ -34,7 +34,7 @@ class CacheClearCommandTest extends SmartyTestCase
         $this->assertSame('Smarty cache cleared!', trim($output->fetch()));
     }
 
-    public function testCommandFile()
+    public function testCommandFile(): void
     {
         $smarty = $this->factory->getSmarty();
         $smarty->caching = true;
@@ -62,7 +62,7 @@ class CacheClearCommandTest extends SmartyTestCase
         $this->assertSame('Specified file was cache cleared!', trim($output->fetch()));
     }
 
-    public function testNoCacheFile()
+    public function testNoCacheFile(): void
     {
         $output = new \Symfony\Component\Console\Output\BufferedOutput();
         $this->command->run(

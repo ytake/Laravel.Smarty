@@ -17,12 +17,12 @@ class StorageTest extends SmartyTestCase
         );
     }
 
-    public function testInstance()
+    public function testInstance(): void
     {
         $this->assertInstanceOf("Ytake\\LaravelSmarty\\Cache\\Storage", $this->storage);
     }
 
-    public function testRedisDriver()
+    public function testRedisDriver(): void
     {
         $reflection = $this->getProtectMethod($this->storage, 'redisStorage');
         $this->assertInstanceOf("Ytake\\LaravelSmarty\\Cache\\Redis", $reflection->invoke($this->storage));
@@ -34,7 +34,7 @@ class StorageTest extends SmartyTestCase
         $this->assertInstanceOf("Ytake\\LaravelSmarty\\Cache\\Memcached", $reflection->invoke($this->storage));
     }
 
-    public function testCacheableTemplate()
+    public function testCacheableTemplate(): void
     {
         $smarty = new Smarty();
         $this->config->set('ytake-laravel-smarty.cache_driver', 'redis');

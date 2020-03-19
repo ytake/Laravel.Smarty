@@ -5,7 +5,7 @@
  */
 class SmartyComposerTest extends SmartyTestCase
 {
-    public function testShouldDispatchViewComposerCaseAlwaysCompile()
+    public function testShouldDispatchViewComposerCaseAlwaysCompile(): void
     {
         $this->factory->composer('include', function (\Illuminate\View\View $view) {
             $view->with('value', 'dispatch view composer');
@@ -13,7 +13,7 @@ class SmartyComposerTest extends SmartyTestCase
         $this->assertContains('dispatch view composer', $this->factory->make('include_test')->render());
     }
 
-    public function testShouldDispatchViewComposerCaseOnceCompile()
+    public function testShouldDispatchViewComposerCaseOnceCompile(): void
     {
         $this->config->set('ytake-laravel-smarty.force_compile', false);
         $this->factory->setSmartyConfigure();
@@ -29,7 +29,7 @@ class SmartyComposerTest extends SmartyTestCase
     }
 
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $smartyExtension = $this->factory->getSmarty()->ext;
         $class = $smartyExtension->clearCompiledTemplate;

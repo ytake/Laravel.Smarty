@@ -11,7 +11,7 @@ class ConfigureTest extends SmartyTestCase
         $this->config->set('ytake-laravel-smarty', $items);
     }
 
-    public function testHasConfigure()
+    public function testHasConfigure(): void
     {
         $this->assertInternalType('array', $this->config->all());
         $config = $this->config->get('ytake-laravel-smarty');
