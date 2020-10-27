@@ -14,7 +14,7 @@ class CacheClearCommandTest extends SmartyTestCase
     }
     public function testInstance(): void
     {
-        $this->assertInstanceOf("Ytake\\LaravelSmarty\\Console\\CacheClearCommand", $this->command);
+        $this->assertInstanceOf('Ytake\\LaravelSmarty\\Console\\CacheClearCommand', $this->command);
     }
 
     public function testCommand(): void
@@ -30,7 +30,7 @@ class CacheClearCommandTest extends SmartyTestCase
             $output
         );
         $this->assertSame('ytake:smarty-clear-cache', $this->command->getName());
-        $this->assertSame("Flush the Smarty cache.", $this->command->getDescription());
+        $this->assertSame('Flush the Smarty cache.', $this->command->getDescription());
         $this->assertSame('Smarty cache cleared!', trim($output->fetch()));
     }
 
@@ -45,8 +45,8 @@ class CacheClearCommandTest extends SmartyTestCase
         $fileCount = 0;
         $pathName = null;
         foreach ($dir as $file) {
-            if(!$file->isDot()) {
-                if($file->getFilename() != '.gitignore') {
+            if (! $file->isDot()) {
+                if ($file->getFilename() != '.gitignore') {
                     $pathName = $file->getPathname();
                     $fileCount++;
                 }
@@ -58,7 +58,7 @@ class CacheClearCommandTest extends SmartyTestCase
             new \Symfony\Component\Console\Input\ArrayInput(['--file' => 'test.tpl']),
             $output
         );
-        $this->assertFileNotExists($pathName);
+        $this->assertFileDoesNotExist($pathName);
         $this->assertSame('Specified file was cache cleared!', trim($output->fetch()));
     }
 
