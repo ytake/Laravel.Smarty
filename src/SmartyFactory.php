@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,7 +14,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
@@ -21,14 +22,23 @@ namespace Ytake\LaravelSmarty;
 
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
+use Illuminate\Support\Arr;
 use Illuminate\View\Engines\EngineResolver;
 use Illuminate\View\Factory;
 use Illuminate\View\ViewFinderInterface;
-use Illuminate\Support\Arr;
 use ReflectionClass;
+use SmartyException;
 use Ytake\LaravelSmarty\Cache\Storage;
 use Ytake\LaravelSmarty\Engines\SmartyTemplate;
 use Ytake\LaravelSmarty\Exception\MethodNotFoundException;
+
+use function call_user_func_array;
+use function in_array;
+use function sprintf;
+
+use const E_ALL;
+use const E_NOTICE;
+use const E_WARNING;
 
 /**
  * Class SmartyManager
@@ -38,10 +48,7 @@ use Ytake\LaravelSmarty\Exception\MethodNotFoundException;
  */
 class SmartyFactory extends Factory
 {
-    /**
-     * @var string  version
-     */
-    const VERSION = '2.6.0';
+    public const VERSION = '5.1.0';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -149,11 +156,11 @@ class SmartyFactory extends Factory
     protected $smartyFileExtension;
 
     /**
-     * @param EngineResolver      $engines
+     * @param EngineResolver $engines
      * @param ViewFinderInterface $finder
-     * @param DispatcherContract  $events
-     * @param Smarty              $smarty
-     * @param ConfigContract      $config
+     * @param DispatcherContract $events
+     * @param Smarty $smarty
+     * @param ConfigContract $config
      */
     public function __construct(
         EngineResolver $engines,
@@ -183,7 +190,7 @@ class SmartyFactory extends Factory
         return self::VERSION;
     }
 
-    public function resolveSmartyCache()
+    public function resolveSmartyCache(): void
     {
         $cacheStorage = new Storage($this->getSmarty(), $this->config);
         $cacheStorage->cacheStorageManaged();
@@ -192,13 +199,12 @@ class SmartyFactory extends Factory
     /**
      * smarty configure
      *
-     * @throws \SmartyException
+     * @throws SmartyException
      */
-    public function setSmartyConfigure()
+    public function setSmartyConfigure(): void
     {
         $config = $this->config->get('ytake-laravel-smarty');
         $smarty = $this->smarty;
-
         $smarty->setTemplateDir(Arr::get($config, 'template_path'));
         $smarty->setCompileDir(Arr::get($config, 'compile_path'));
         $smarty->setCacheDir(Arr::get($config, 'cache_path'));
@@ -207,8 +213,8 @@ class SmartyFactory extends Factory
         foreach (Arr::get($config, 'plugins_paths', []) as $plugins) {
             $smarty->addPluginsDir($plugins);
         }
-
-        $smarty->error_reporting = Arr::get($config, 'error_reporting', E_ALL & ~E_NOTICE);
+        // for php8 / E_ALL & ~E_WARNING & ~E_NOTICE
+        $smarty->error_reporting = Arr::get($config, 'error_reporting', E_ALL & ~E_WARNING & ~E_NOTICE);
         // SmartyTemplate class for laravel
         $smarty->template_class = SmartyTemplate::class;
         foreach ($config as $key => $value) {
@@ -239,20 +245,21 @@ class SmartyFactory extends Factory
     }
 
     /**
-     * @param $name
-     * @param $arguments
+     * @param string $method
+     * @param array $parameters
      *
      * @return mixed
-     * @throws \ReflectionException
      * @throws MethodNotFoundException
      */
-    public function __call($name, $arguments)
+    public function __call($method, $parameters)
     {
         $reflectionClass = new ReflectionClass($this->smarty);
-        if (!$reflectionClass->hasMethod($name)) {
-            throw new MethodNotFoundException("{$name} : Method Not Found");
+        if (!$reflectionClass->hasMethod($method)) {
+            throw new MethodNotFoundException(
+                sprintf('%s : Method Not Found', $method)
+            );
         }
 
-        return call_user_func_array([$this->smarty, $name], $arguments);
+        return call_user_func_array([$this->smarty, $method], $parameters);
     }
 }

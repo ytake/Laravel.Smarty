@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 class ConfigureTest extends SmartyTestCase
 {
     protected function setUp(): void

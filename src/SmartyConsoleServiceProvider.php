@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,12 +14,13 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
 namespace Ytake\LaravelSmarty;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -27,14 +29,11 @@ use Illuminate\Support\ServiceProvider;
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class SmartyConsoleServiceProvider extends ServiceProvider
+class SmartyConsoleServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /** @var bool  */
-    protected $defer = true;
-
     /**
      */
-    public function boot()
+    public function boot(): void
     {
         // register commands
         $this->registerCommands();
@@ -43,14 +42,12 @@ class SmartyConsoleServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
     }
 
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function provides()
     {
@@ -64,11 +61,11 @@ class SmartyConsoleServiceProvider extends ServiceProvider
 
     /**
      */
-    protected function registerCommands()
+    protected function registerCommands(): void
     {
         // Package Info command
         $this->app->singleton('command.ytake.laravel-smarty.info', function () {
-            return new Console\PackageInfoCommand;
+            return new Console\PackageInfoCommand();
         });
 
         // cache clear

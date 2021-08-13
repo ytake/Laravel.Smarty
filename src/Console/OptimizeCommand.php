@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,16 +14,23 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
 namespace Ytake\LaravelSmarty\Console;
 
-use Ytake\LaravelSmarty\Smarty;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
+use Symfony\Component\Console\Input\InputOption;
+use Ytake\LaravelSmarty\Smarty;
+
+use function is_null;
+use function ob_get_clean;
+use function ob_get_contents;
+use function ob_start;
+use function str_replace;
+use function trim;
 
 /**
  * Class OptimizeCommand
@@ -39,7 +47,7 @@ class OptimizeCommand extends Command
     protected $config;
 
     /**
-     * @param Smarty         $smarty
+     * @param Smarty $smarty
      * @param ConfigContract $config
      */
     public function __construct(Smarty $smarty, ConfigContract $config)
@@ -66,15 +74,17 @@ class OptimizeCommand extends Command
     /**
      * Execute the console command.
      *
+     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $configureFileExtension = $this->config->get('ytake-laravel-smarty.extension', 'tpl');
         $fileExtension = (is_null($this->option('extension')))
             ? $configureFileExtension : $this->option('extension');
         ob_start();
         $compileFiles = $this->smarty->compileAllTemplates(
-            $fileExtension, $this->forceCompile()
+            $fileExtension,
+            $this->forceCompile()
         );
         $contents = ob_get_contents();
         ob_get_clean();
@@ -99,7 +109,7 @@ class OptimizeCommand extends Command
     /**
      * @return bool
      */
-    protected function forceCompile()
+    protected function forceCompile(): bool
     {
         if ($this->option('force')) {
             return true;

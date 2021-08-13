@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,14 +14,18 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
 namespace Ytake\LaravelSmarty\Engines;
 
 use Illuminate\View\View;
+use Smarty_Internal_Template;
+use Smarty_Resource;
 use Ytake\LaravelSmarty\SmartyFactory;
+
+use function str_replace;
 
 /**
  * Class SmartyTemplate
@@ -28,7 +33,7 @@ use Ytake\LaravelSmarty\SmartyFactory;
  * @author  yuuki.takezawa <yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class SmartyTemplate extends \Smarty_Internal_Template
+class SmartyTemplate extends Smarty_Internal_Template
 {
     /** @var string */
     private $templateResourceName;
@@ -49,8 +54,18 @@ class SmartyTemplate extends \Smarty_Internal_Template
         $content_func = null
     ) {
         $this->templateResourceName = $template;
-        parent::_subTemplateRender($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope,
-            $forceTplCache, $uid, $content_func);
+        parent::_subTemplateRender(
+            $template,
+            $cache_id,
+            $compile_id,
+            $caching,
+            $cache_lifetime,
+            $data,
+            $scope,
+            $forceTplCache,
+            $uid,
+            $content_func
+        );
     }
 
     /**
@@ -68,7 +83,7 @@ class SmartyTemplate extends \Smarty_Internal_Template
             // @codeCoverageIgnoreEnd
         }
         if ($this->templateResourceName) {
-            $parseResourceName = \Smarty_Resource::parseResourceName(
+            $parseResourceName = Smarty_Resource::parseResourceName(
                 $this->templateResourceName,
                 $this->smarty->default_resource_type
             );
@@ -77,10 +92,10 @@ class SmartyTemplate extends \Smarty_Internal_Template
     }
 
     /**
-     * @param \Smarty_Internal_Template $template
-     * @param string                    $name
+     * @param Smarty_Internal_Template $template
+     * @param string $name
      */
-    protected function dispatch(\Smarty_Internal_Template $template, string $name)
+    protected function dispatch(Smarty_Internal_Template $template, string $name)
     {
         /** @var SmartyFactory $viewFactory */
         $viewFactory = $this->smarty->getViewFactory();
@@ -101,10 +116,10 @@ class SmartyTemplate extends \Smarty_Internal_Template
     }
 
     /**
-     * @param string        $name
+     * @param string $name
      * @param SmartyFactory $viewFactory
      *
-     * @return mixed
+     * @return array|string|string[]
      */
     protected function normalizeName(string $name, SmartyFactory $viewFactory)
     {

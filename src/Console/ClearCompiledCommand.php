@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,7 +14,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
@@ -62,7 +63,7 @@ class ClearCompiledCommand extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $removedFiles = $this->smartyFactory
             ->getSmarty()

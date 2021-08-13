@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,7 +14,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
@@ -22,6 +23,8 @@ namespace Ytake\LaravelSmarty\Console;
 use Ytake\LaravelSmarty\Smarty;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
+
+use function is_null;
 
 /**
  * Class CacheClearCommand
@@ -61,7 +64,7 @@ class CacheClearCommand extends Command
      * Execute the console command.
      *
      */
-    public function handle()
+    public function handle(): int
     {
         // clear all cache
         if (is_null($this->option('file'))) {

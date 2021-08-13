@@ -1,14 +1,27 @@
 <?php
 
-class CompiledCommandTest extends SmartyTestCase
+declare(strict_types=1);
+
+namespace Tests\Console;
+
+use DirectoryIterator;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\NullOutput;
+use Tests\MockApplication;
+use Tests\SmartyTestCase;
+use Ytake\LaravelSmarty\Console\ClearCompiledCommand;
+use Ytake\LaravelSmarty\Console\OptimizeCommand;
+
+final class CompiledCommandTest extends SmartyTestCase
 {
-    /** @var \Ytake\LaravelSmarty\Console\OptimizeCommand */
+    /** @var OptimizeCommand */
     protected $command;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->command = new \Ytake\LaravelSmarty\Console\OptimizeCommand(
+        $this->command = new OptimizeCommand(
             $this->factory->getSmarty(), $this->config
         );
         $this->command->setLaravel(new MockApplication());
@@ -16,14 +29,14 @@ class CompiledCommandTest extends SmartyTestCase
 
     public function testInstance(): void
     {
-        $this->assertInstanceOf("Ytake\LaravelSmarty\Console\OptimizeCommand", $this->command);
+        $this->assertInstanceOf(OptimizeCommand::class, $this->command);
     }
 
     public function testCommand(): void
     {
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput([]),
-            new \Symfony\Component\Console\Output\NullOutput
+            new ArrayInput([]),
+            new NullOutput()
         );
         $this->assertSame("Compile all known templates.", $this->command->getDescription());
         $this->assertNotNull($this->command->getSynopsis());
@@ -36,7 +49,6 @@ class CompiledCommandTest extends SmartyTestCase
 
         $dir = new DirectoryIterator($smarty->getCompileDir());
         $fileCount = 0;
-        $pathName = null;
         foreach ($dir as $file) {
             if (!$file->isDot()) {
                 if ($file->getFilename() != '.gitignore') {
@@ -44,9 +56,9 @@ class CompiledCommandTest extends SmartyTestCase
                 }
             }
         }
-        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $output = new BufferedOutput();
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput(['--force' => null]),
+            new ArrayInput(['--force' => null]),
             $output
         );
         $this->assertNotSame(0, $fileCount);
@@ -55,13 +67,13 @@ class CompiledCommandTest extends SmartyTestCase
 
     protected function removeCompileFiles(): void
     {
-        $command = new \Ytake\LaravelSmarty\Console\ClearCompiledCommand(
+        $command = new ClearCompiledCommand(
             $this->factory
         );
         $command->setLaravel(new MockApplication());
-        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $output = new BufferedOutput();
         $command->run(
-            new \Symfony\Component\Console\Input\ArrayInput([]),
+            new ArrayInput([]),
             $output
         );
     }

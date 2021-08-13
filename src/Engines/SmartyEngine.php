@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -20,9 +21,12 @@ declare(strict_types=1);
 namespace Ytake\LaravelSmarty\Engines;
 
 use Illuminate\Contracts\View\Engine as EngineInterface;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 use Ytake\LaravelSmarty\Smarty;
+
+use function extract;
+
+use const EXTR_SKIP;
 
 /**
  * Class SmartyEngine
@@ -45,6 +49,7 @@ class SmartyEngine implements EngineInterface
 
     /**
      * {@inheritdoc}
+     * @throws Throwable
      */
     public function get($path, array $data = [])
     {
@@ -55,43 +60,22 @@ class SmartyEngine implements EngineInterface
      * Get the evaluated contents of the view at the given path.
      *
      * @param string $path
-     * @param array  $data
+     * @param array $data
      *
-     * @throws \Exception
      * @return string
+     * @throws Throwable
      */
-    protected function evaluatePath(string $path, array $data = [])
+    protected function evaluatePath(string $path, array $data = []): string
     {
         extract($data, EXTR_SKIP);
-        try {
-            if (!$this->smarty->isCached($path)) {
-                foreach ($data as $var => $val) {
-                    $this->smarty->assign($var, $val);
-                }
+        if (!$this->smarty->isCached($path)) {
+            foreach ($data as $var => $val) {
+                $this->smarty->assign($var, $val);
             }
-            // render
-            $cacheId = isset($data['smarty.cache_id']) ? $data['smarty.cache_id'] : null;
-            $compileId = isset($data['smarty.compile_id']) ? $data['smarty.compile_id'] : null;
-
-            return $this->smarty->fetch($path, $cacheId, $compileId);
-            // @codeCoverageIgnoreStart
-        } catch (\SmartyException $e) {
-            $this->handleViewException($e);
-        } catch (Throwable $e) {
-            $this->handleViewException(new FatalThrowableError($e));
         }
-    }
-    // @codeCoverageIgnoreEnd
-
-    /**
-     * @codeCoverageIgnore
-     *
-     * @param \Exception $e
-     *
-     * @throws \Exception
-     */
-    protected function handleViewException(\Exception $e)
-    {
-        throw $e;
+        // render
+        $cacheId = $data['smarty.cache_id'] ?? null;
+        $compileId = $data['smarty.compile_id'] ?? null;
+        return $this->smarty->fetch($path, $cacheId, $compileId);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
-class SmartyManagerFactory extends SmartyTestCase
+namespace Tests;
+
+class SmartyFactoryTest extends SmartyTestCase
 {
     public function testInstance(): void
     {
@@ -41,20 +43,6 @@ class SmartyManagerFactory extends SmartyTestCase
         $class = $smartyExtension->clearCompiledTemplate;
         $class->clearCompiledTemplate($this->factory->getSmarty());
         $this->assertSame(0, count($this->scan()));
-    }
-
-    /**
-     * @param $class
-     * @param $name
-     * @return \ReflectionMethod
-     */
-    protected function getProtectMethod($class, $name)
-    {
-        $class = new \ReflectionClass($class);
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-
-        return $method;
     }
 
     public function scan()

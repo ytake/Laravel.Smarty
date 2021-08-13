@@ -1,14 +1,31 @@
 <?php
 
-class CompiledClearCommandTest extends SmartyTestCase
+declare(strict_types=1);
+
+namespace Tests\Console;
+
+use DirectoryIterator;
+use SmartyException;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\NullOutput;
+use Tests\MockApplication;
+use Tests\SmartyTestCase;
+use Ytake\LaravelSmarty\Console\ClearCompiledCommand;
+
+use function ob_get_clean;
+use function ob_start;
+use function trim;
+
+final class CompiledClearCommandTest extends SmartyTestCase
 {
-    /** @var \Ytake\LaravelSmarty\Console\ClearCompiledCommand */
+    /** @var ClearCompiledCommand */
     protected $command;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->command = new \Ytake\LaravelSmarty\Console\ClearCompiledCommand(
+        $this->command = new ClearCompiledCommand(
             $this->factory
         );
         $this->command->setLaravel(new MockApplication());
@@ -16,19 +33,22 @@ class CompiledClearCommandTest extends SmartyTestCase
 
     public function testInstance(): void
     {
-        $this->assertInstanceOf('Ytake\\LaravelSmarty\\Console\\ClearCompiledCommand', $this->command);
+        $this->assertInstanceOf(ClearCompiledCommand::class, $this->command);
     }
 
     public function testCommand(): void
     {
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput([]),
-            new \Symfony\Component\Console\Output\NullOutput
+            new ArrayInput([]),
+            new NullOutput()
         );
         $this->assertSame('Remove the compiled Smarty files.', $this->command->getDescription());
         $this->assertNotNull($this->command->getSynopsis());
     }
 
+    /**
+     * @throws SmartyException
+     */
     public function testClearCompile(): void
     {
         $smarty = $this->factory->getSmarty();
@@ -38,9 +58,9 @@ class CompiledClearCommandTest extends SmartyTestCase
         ob_get_clean();
         $dir = new DirectoryIterator($smarty->getCompileDir());
         $fileCount = 0;
-        $pathName = null;
+        $pathName = '';
         foreach ($dir as $file) {
-            if (! $file->isDot()) {
+            if (!$file->isDot()) {
                 if ($file->getFilename() != '.gitignore') {
                     $pathName = $file->getPathname();
                     $fileCount++;
@@ -48,15 +68,18 @@ class CompiledClearCommandTest extends SmartyTestCase
             }
         }
         $this->assertSame(1, $fileCount);
-        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $output = new BufferedOutput();
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput([]),
+            new ArrayInput([]),
             $output
         );
         $this->assertFileDoesNotExist($pathName);
         $this->assertSame('Removed 1 compiled Smarty file.', trim($output->fetch()));
     }
 
+    /**
+     * @throws SmartyException
+     */
     public function testClearCompileMultipleFiles(): void
     {
         $smarty = $this->factory->getSmarty();
@@ -65,9 +88,9 @@ class CompiledClearCommandTest extends SmartyTestCase
         $smarty->display('test.tpl');
         $smarty->display('test2.tpl');
         ob_get_clean();
-        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $output = new BufferedOutput();
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput([]),
+            new ArrayInput([]),
             $output
         );
         $this->assertSame('Removed 2 compiled Smarty files.', trim($output->fetch()));
@@ -75,9 +98,9 @@ class CompiledClearCommandTest extends SmartyTestCase
 
     public function testNotExistsFiles(): void
     {
-        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $output = new BufferedOutput();
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput(['--file' => 'testing']),
+            new ArrayInput(['--file' => 'testing']),
             $output
         );
         $this->assertEmpty(trim($output->fetch()));

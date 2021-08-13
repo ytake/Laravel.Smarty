@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,11 +14,15 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
 namespace Ytake\LaravelSmarty\Cache;
+
+use Smarty_CacheResource_KeyValueStore;
+
+use function sha1;
 
 /**
  * Class KeyValueStorage
@@ -25,7 +30,7 @@ namespace Ytake\LaravelSmarty\Cache;
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-abstract class KeyValueStorage extends \Smarty_CacheResource_KeyValueStore
+abstract class KeyValueStorage extends Smarty_CacheResource_KeyValueStore
 {
     /**
      * @param array $keys
@@ -34,7 +39,7 @@ abstract class KeyValueStorage extends \Smarty_CacheResource_KeyValueStore
      *
      * @return array
      */
-    protected function eachKeys(array $keys, array $map, array $lookup)
+    protected function eachKeys(array $keys, array $map, array $lookup): array
     {
         foreach ($keys as $k) {
             $hash = sha1($k);

@@ -1,22 +1,43 @@
 <?php
 
-class CacheClearCommandTest extends SmartyTestCase
+declare(strict_types=1);
+
+namespace Tests\Console;
+
+use DirectoryIterator;
+use SmartyException;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Tests\MockApplication;
+use Tests\SmartyTestCase;
+use Ytake\LaravelSmarty\Console\CacheClearCommand;
+
+use function ob_get_clean;
+use function ob_start;
+use function trim;
+
+final class CacheClearCommandTest extends SmartyTestCase
 {
-    /** @var \Ytake\LaravelSmarty\Console\CacheClearCommand */
+    /** @var CacheClearCommand */
     protected $command;
+
     protected function setUp(): void
     {
         parent::setUp();
-        $this->command = new \Ytake\LaravelSmarty\Console\CacheClearCommand(
+        $this->command = new CacheClearCommand(
             $this->factory->getSmarty()
         );
         $this->command->setLaravel(new MockApplication());
     }
+
     public function testInstance(): void
     {
-        $this->assertInstanceOf('Ytake\\LaravelSmarty\\Console\\CacheClearCommand', $this->command);
+        $this->assertInstanceOf(CacheClearCommand::class, $this->command);
     }
 
+    /**
+     * @throws SmartyException
+     */
     public function testCommand(): void
     {
         $smarty = $this->factory->getSmarty();
@@ -24,9 +45,9 @@ class CacheClearCommandTest extends SmartyTestCase
         ob_start();
         $smarty->display('test.tpl');
         ob_get_clean();
-        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $output = new BufferedOutput();
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput([]),
+            new ArrayInput([]),
             $output
         );
         $this->assertSame('ytake:smarty-clear-cache', $this->command->getName());
@@ -34,6 +55,9 @@ class CacheClearCommandTest extends SmartyTestCase
         $this->assertSame('Smarty cache cleared!', trim($output->fetch()));
     }
 
+    /**
+     * @throws SmartyException
+     */
     public function testCommandFile(): void
     {
         $smarty = $this->factory->getSmarty();
@@ -43,9 +67,9 @@ class CacheClearCommandTest extends SmartyTestCase
         ob_get_clean();
         $dir = new DirectoryIterator($smarty->getCacheDir());
         $fileCount = 0;
-        $pathName = null;
+        $pathName = '';
         foreach ($dir as $file) {
-            if (! $file->isDot()) {
+            if (!$file->isDot()) {
                 if ($file->getFilename() != '.gitignore') {
                     $pathName = $file->getPathname();
                     $fileCount++;
@@ -53,9 +77,9 @@ class CacheClearCommandTest extends SmartyTestCase
             }
         }
         $this->assertSame(1, $fileCount);
-        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $output = new BufferedOutput();
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput(['--file' => 'test.tpl']),
+            new ArrayInput(['--file' => 'test.tpl']),
             $output
         );
         $this->assertFileDoesNotExist($pathName);
@@ -64,9 +88,9 @@ class CacheClearCommandTest extends SmartyTestCase
 
     public function testNoCacheFile(): void
     {
-        $output = new \Symfony\Component\Console\Output\BufferedOutput();
+        $output = new BufferedOutput();
         $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput(['--file' => 'test.tpl']),
+            new ArrayInput(['--file' => 'test.tpl']),
             $output
         );
         $this->assertSame('Specified file not found', trim($output->fetch()));
