@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,13 +14,13 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
 namespace Ytake\LaravelSmarty\Console;
 
-use Ytake\LaravelSmarty\Smarty;
+use Smarty as SmartyAlias;
 use Illuminate\Console\Command;
 use Ytake\LaravelSmarty\SmartyFactory;
 
@@ -47,11 +48,12 @@ class PackageInfoCommand extends Command
 
     /**
      * Execute the console command.
-     *
+     * 
+     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        $this->line('<info>Smarty</info> version <comment>' . Smarty::SMARTY_VERSION . '</comment>');
+        $this->line('<info>Smarty</info> version <comment>' . SmartyAlias::SMARTY_VERSION . '</comment>');
         $this->line('<info>ytake/laravel-smarty</info> version <comment>' . SmartyFactory::VERSION . '</comment>');
         return 0;
     }

@@ -1,40 +1,46 @@
 <?php
+
 declare(strict_types=1);
 
+use Illuminate\Config\Repository;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use PHPUnit\Framework\TestCase;
 use Ytake\LaravelSmarty\Smarty;
+use Ytake\LaravelSmarty\SmartyFactory;
 
 /**
  * Class SmartyTestCase
  */
 class SmartyTestCase extends TestCase
 {
-    /** @var \Ytake\LaravelSmarty\SmartyFactory $factory */
+    /** @var SmartyFactory $factory */
     protected $factory;
 
-    /** @var \Illuminate\Config\Repository $config */
+    /** @var Repository $config */
     protected $config;
 
     /** @var Illuminate\Events\Dispatcher */
     protected $events;
 
+    /**
+     * @throws SmartyException
+     * @throws FileNotFoundException
+     */
     protected function setUp(): void
     {
-        $this->config = new \Illuminate\Config\Repository();
-        $filesystem = new \Illuminate\Filesystem\Filesystem;
-        $this->events = new \Illuminate\Events\Dispatcher;
+        $this->config = new Repository();
+        $filesystem = new \Illuminate\Filesystem\Filesystem();
+        $this->events = new \Illuminate\Events\Dispatcher();
         $items = $filesystem->getRequire(__DIR__ . '/config/config.php');
         $this->config->set("ytake-laravel-smarty", $items);
-
-        new \Illuminate\Config\Repository();
         $viewFinder = new \Illuminate\View\FileViewFinder(
             $filesystem,
             [__DIR__ . '/views'],
             ['.tpl']
         );
-        $smarty = new Smarty;
-        $this->factory = new \Ytake\LaravelSmarty\SmartyFactory(
-            new \Illuminate\View\Engines\EngineResolver,
+        $smarty = new Smarty();
+        $this->factory = new SmartyFactory(
+            new \Illuminate\View\Engines\EngineResolver(),
             $viewFinder,
             $this->events,
             $smarty,
@@ -55,8 +61,9 @@ class SmartyTestCase extends TestCase
      * @param $class
      * @param $name
      * @return \ReflectionMethod
+     * @throws ReflectionException
      */
-    protected function getProtectMethod($class, $name)
+    protected function getProtectMethod($class, $name): ReflectionMethod
     {
         $class = new \ReflectionClass($class);
         $method = $class->getMethod($name);
@@ -103,7 +110,7 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
     /**
      * Get or check the current application environment.
      *
-     * @param  mixed
+     * @param mixed
      * @return string
      */
     public function environment(...$environments)
@@ -134,9 +141,9 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
     /**
      * Register a service provider with the application.
      *
-     * @param  \Illuminate\Support\ServiceProvider|string $provider
-     * @param  array $options
-     * @param  bool $force
+     * @param \Illuminate\Support\ServiceProvider|string $provider
+     * @param array $options
+     * @param bool $force
      * @return \Illuminate\Support\ServiceProvider
      */
     public function register($provider, $options = [], $force = false)
@@ -147,8 +154,8 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
     /**
      * Register a deferred provider and service.
      *
-     * @param  string $provider
-     * @param  string $service
+     * @param string $provider
+     * @param string $service
      * @return void
      */
     public function registerDeferredProvider($provider, $service = null)
@@ -169,7 +176,7 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
     /**
      * Register a new boot listener.
      *
-     * @param  mixed $callback
+     * @param mixed $callback
      * @return void
      */
     public function booting($callback)
@@ -180,7 +187,7 @@ class MockApplication extends \Illuminate\Container\Container implements \Illumi
     /**
      * Register a new "booted" listener.
      *
-     * @param  mixed $callback
+     * @param mixed $callback
      * @return void
      */
     public function booted($callback)

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -21,6 +22,8 @@ namespace Ytake\LaravelSmarty\Cache;
 
 use Memcached as MemcachedExtension;
 
+use function sha1;
+
 /**
  * Class Memcached
  *
@@ -42,11 +45,11 @@ class Memcached extends KeyValueStorage
 
     /**
      * @param MemcachedExtension $memcached
-     * @param array              $servers
+     * @param array $servers
      *
      * @return MemcachedExtension
      */
-    protected function connection(MemcachedExtension $memcached, array $servers)
+    protected function connection(MemcachedExtension $memcached, array $servers): MemcachedExtension
     {
         foreach ($servers as $server) {
             $memcached->addServer($server['host'], $server['port'], $server['weight']);
@@ -58,14 +61,14 @@ class Memcached extends KeyValueStorage
     /**
      * Read values for a set of keys from cache
      *
-     * @param  array $keys list of keys to fetch
+     * @param array $keys list of keys to fetch
      *
      * @return array   list of values with the given keys used as indexes
      */
     protected function read(array $keys)
     {
         $map = $lookup = [];
-        list($map, $lookup) = $this->eachKeys($keys, $map, $lookup);
+        [$map, $lookup] = $this->eachKeys($keys, $map, $lookup);
         $result = [];
         $memcachedResult = $this->memcached->getMulti($map);
         foreach ($memcachedResult as $k => $v) {
@@ -77,8 +80,8 @@ class Memcached extends KeyValueStorage
     /**
      * Save values for a set of keys to cache
      *
-     * @param  array $keys list of values to save
-     * @param  int   $expire expiration time
+     * @param array $keys list of values to save
+     * @param int $expire expiration time
      *
      * @return bool true on success, false on failure
      */
@@ -94,7 +97,7 @@ class Memcached extends KeyValueStorage
     /**
      * Remove values from cache
      *
-     * @param  array $keys list of keys to delete
+     * @param array $keys list of keys to delete
      *
      * @return bool true on success, false on failure
      */

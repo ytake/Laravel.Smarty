@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,7 +14,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
@@ -53,11 +54,12 @@ class SmartyServiceProvider extends ServiceProvider
         $configPath = __DIR__ . '/config/ytake-laravel-smarty.php';
         $this->mergeConfigFrom($configPath, 'ytake-laravel-smarty');
         $this->publishes([
-            $configPath => $this->resolveConfigurePath() . DIRECTORY_SEPARATOR . 'ytake-laravel-smarty.php',
-        ]);
+                             $configPath => $this->resolveConfigurePath(
+                                 ) . DIRECTORY_SEPARATOR . 'ytake-laravel-smarty.php',
+                         ]);
 
         $this->app->singleton('smarty.view', function ($app) {
-            $smartyTemplate = new Smarty;
+            $smartyTemplate = new Smarty();
             $factory = new SmartyFactory(
                 $app['view.engine.resolver'],
                 $app['view.finder'],

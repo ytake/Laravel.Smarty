@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -13,11 +14,13 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2021 Yuuki Takezawa
  *
  */
 
 namespace Ytake\LaravelSmarty\Exception;
+
+use Exception;
 
 /**
  * Class MethodNotFoundException
@@ -25,6 +28,6 @@ namespace Ytake\LaravelSmarty\Exception;
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-final class MethodNotFoundException extends \Exception
+final class MethodNotFoundException extends Exception
 {
 }

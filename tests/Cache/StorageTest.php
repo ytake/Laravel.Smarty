@@ -13,7 +13,8 @@ class StorageTest extends SmartyTestCase
     {
         parent::setUp();
         $this->storage = new \Ytake\LaravelSmarty\Cache\Storage(
-            new Smarty(), $this->config
+            new Smarty(),
+            $this->config
         );
     }
 
