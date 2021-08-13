@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -50,7 +51,7 @@ class Redis extends KeyValueStorage
     /**
      * Read values for a set of keys from cache
      *
-     * @param  array $keys list of keys to fetch
+     * @param array $keys list of keys to fetch
      *
      * @return array   list of values with the given keys used as indexes
      */
@@ -68,8 +69,8 @@ class Redis extends KeyValueStorage
     /**
      * Save values for a set of keys to cache
      *
-     * @param  array $keys list of values to save
-     * @param  int   $expire expiration time
+     * @param array $keys list of values to save
+     * @param int $expire expiration time
      *
      * @return bool true on success, false on failure
      */
@@ -85,7 +86,7 @@ class Redis extends KeyValueStorage
     /**
      * Remove values from cache
      *
-     * @param  array $keys list of keys to delete
+     * @param array $keys list of keys to delete
      *
      * @return bool true on success, false on failure
      */
@@ -101,7 +102,7 @@ class Redis extends KeyValueStorage
     /**
      * Remove *all* values from cache
      *
-     * @return bool true on success, false on failure
+     * @return boolean true on success, false on failure
      */
     protected function purge()
     {

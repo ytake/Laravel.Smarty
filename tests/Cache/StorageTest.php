@@ -1,18 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Tests\Cache;
+
+use Illuminate\View\View;
+use ReflectionException;
+use SmartyException;
+use Tests\SmartyTestCase;
+use Throwable;
+use Ytake\LaravelSmarty\Cache\Memcached;
+use Ytake\LaravelSmarty\Cache\Redis;
+use Ytake\LaravelSmarty\Cache\Storage;
 use Ytake\LaravelSmarty\Smarty;
 
-class StorageTest extends SmartyTestCase
+final class StorageTest extends SmartyTestCase
 {
-    /** @var  \Ytake\LaravelSmarty\Cache\Storage */
+    /** @var  Storage */
     protected $storage;
-    /** @var  \Illuminate\Config\Repository */
-    protected $repositopry;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->storage = new \Ytake\LaravelSmarty\Cache\Storage(
+        $this->storage = new Storage(
             new Smarty(),
             $this->config
         );
@@ -20,40 +30,49 @@ class StorageTest extends SmartyTestCase
 
     public function testInstance(): void
     {
-        $this->assertInstanceOf("Ytake\\LaravelSmarty\\Cache\\Storage", $this->storage);
+        $this->assertInstanceOf(Storage::class, $this->storage);
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testRedisDriver(): void
     {
         $reflection = $this->getProtectMethod($this->storage, 'redisStorage');
-        $this->assertInstanceOf("Ytake\\LaravelSmarty\\Cache\\Redis", $reflection->invoke($this->storage));
+        $this->assertInstanceOf(Redis::class, $reflection->invoke($this->storage));
     }
 
-    public function testMemcachedDriver()
+    /**
+     * @throws ReflectionException
+     */
+    public function testMemcachedDriver(): void
     {
         $reflection = $this->getProtectMethod($this->storage, 'memcachedStorage');
-        $this->assertInstanceOf("Ytake\\LaravelSmarty\\Cache\\Memcached", $reflection->invoke($this->storage));
+        $this->assertInstanceOf(Memcached::class, $reflection->invoke($this->storage));
     }
 
+    /**
+     * @throws SmartyException
+     * @throws Throwable
+     */
     public function testCacheableTemplate(): void
     {
         $smarty = new Smarty();
         $this->config->set('ytake-laravel-smarty.cache_driver', 'redis');
-        $storage = new \Ytake\LaravelSmarty\Cache\Storage(
+        $storage = new Storage(
             $smarty, $this->config
         );
         $storage->cacheStorageManaged();
-        $this->assertInstanceOf("Ytake\\LaravelSmarty\\Cache\\Storage", $this->storage);
+        $this->assertInstanceOf(Storage::class, $this->storage);
         $this->assertSame($smarty->caching_type, 'redis');
 
         $this->config->set('ytake-laravel-smarty.cache_driver', 'redis');
         $this->config->set('ytake-laravel-smarty.caching', true);
         $this->factory->setSmartyConfigure();
         $this->factory->resolveSmartyCache();
-        /** @var Illuminate\View\View $view */
+        /** @var View $view */
         $view = $this->factory->make('test', ['value' => 'hello']);
         $this->assertSame('hellohello', $view->render());
-
         $smartyExtension = $this->factory->getSmarty()->ext;
         $class = $smartyExtension->clearCompiledTemplate;
         $class->clearCompiledTemplate($this->factory->getSmarty());

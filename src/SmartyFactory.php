@@ -34,6 +34,7 @@ use Ytake\LaravelSmarty\Exception\MethodNotFoundException;
 
 use function call_user_func_array;
 use function in_array;
+use function sprintf;
 
 use const E_ALL;
 use const E_NOTICE;
@@ -47,10 +48,7 @@ use const E_WARNING;
  */
 class SmartyFactory extends Factory
 {
-    /**
-     * @var string  version
-     */
-    public const VERSION = '2.6.0';
+    public const VERSION = '5.1.0';
 
     /** @var Smarty $smarty */
     protected $smarty;
@@ -207,7 +205,6 @@ class SmartyFactory extends Factory
     {
         $config = $this->config->get('ytake-laravel-smarty');
         $smarty = $this->smarty;
-        $smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $smarty->setTemplateDir(Arr::get($config, 'template_path'));
         $smarty->setCompileDir(Arr::get($config, 'compile_path'));
         $smarty->setCacheDir(Arr::get($config, 'cache_path'));
@@ -216,8 +213,8 @@ class SmartyFactory extends Factory
         foreach (Arr::get($config, 'plugins_paths', []) as $plugins) {
             $smarty->addPluginsDir($plugins);
         }
-
-        $smarty->error_reporting = Arr::get($config, 'error_reporting', E_ALL & ~E_NOTICE);
+        // for php8 / E_ALL & ~E_WARNING & ~E_NOTICE
+        $smarty->error_reporting = Arr::get($config, 'error_reporting', E_ALL & ~E_WARNING & ~E_NOTICE);
         // SmartyTemplate class for laravel
         $smarty->template_class = SmartyTemplate::class;
         foreach ($config as $key => $value) {
@@ -258,7 +255,9 @@ class SmartyFactory extends Factory
     {
         $reflectionClass = new ReflectionClass($this->smarty);
         if (!$reflectionClass->hasMethod($method)) {
-            throw new MethodNotFoundException("{$method} : Method Not Found");
+            throw new MethodNotFoundException(
+                sprintf('%s : Method Not Found', $method)
+            );
         }
 
         return call_user_func_array([$this->smarty, $method], $parameters);

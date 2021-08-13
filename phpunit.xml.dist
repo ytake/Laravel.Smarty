@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="tests/bootstrap/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-        >
-    <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./tests/</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src/</directory>
-            <exclude>
-                <directory>./src/config</directory>
-                <file>./src/SmartyServiceProvider.php</file>
-                <file>./src/SmartyCompileServiceProvider.php</file>
-                <file>./src/SmartyConsoleServiceProvider.php</file>
-                <file>./src/Cache/KeyValueStorage.php</file>
-                <file>./src/Cache/Redis.php</file>
-                <file>./src/Cache/Memcached.php</file>
-                <file>./src/Exception/MethodNotFoundException.php</file>
-            </exclude>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-        <log type="coverage-clover" target="tests/build/clover.xml"/>
-    </logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" backupStaticAttributes="false" bootstrap="tests/bootstrap/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src/</directory>
+    </include>
+    <exclude>
+      <directory>./src/config</directory>
+      <file>./src/SmartyServiceProvider.php</file>
+      <file>./src/SmartyCompileServiceProvider.php</file>
+      <file>./src/SmartyConsoleServiceProvider.php</file>
+      <file>./src/Cache/KeyValueStorage.php</file>
+      <file>./src/Cache/Redis.php</file>
+      <file>./src/Cache/Memcached.php</file>
+      <file>./src/Exception/MethodNotFoundException.php</file>
+    </exclude>
+    <report>
+      <clover outputFile="tests/build/clover.xml"/>
+      <text outputFile="php://stdout" showUncoveredFiles="false"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="Application Test Suite">
+      <directory suffix="Test.php">./tests/</directory>
+    </testsuite>
+  </testsuites>
+  <logging/>
 </phpunit>

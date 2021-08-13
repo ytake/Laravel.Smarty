@@ -33,6 +33,7 @@
     "phpmd/phpmd": "@stable",
     "squizlabs/php_codesniffer": "^3.4.2",
     "friendsofphp/php-cs-fixer": "^2.15.3",
+    "slevomat/coding-standard": "^6.4",
     "sebastian/phpcpd": "*",
     "phploc/phploc": "*",
     "pdepend/pdepend" : "^2.5.2"
@@ -43,13 +44,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Ytake\\LaravelSmarty\\": "src"
+      "Ytake\\LaravelSmarty\\": "src/"
     }
   },
   "autoload-dev": {
-    "files": [
-      "tests/SmartyTestCase.php"
-    ]
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
   },
   "scripts": {
     "md": "php ./vendor/bin/phpmd src text ./phpmd.xml",

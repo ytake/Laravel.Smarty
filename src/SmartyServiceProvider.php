@@ -20,7 +20,10 @@ declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
+
+use const DIRECTORY_SEPARATOR;
 
 /**
  * Class LaravelSmartyServiceProvider
@@ -32,6 +35,7 @@ class SmartyServiceProvider extends ServiceProvider
 {
     /**
      * boot
+     * @throws BindingResolutionException
      */
     public function boot()
     {

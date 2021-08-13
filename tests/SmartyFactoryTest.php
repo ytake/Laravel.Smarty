@@ -1,6 +1,8 @@
 <?php
 
-class SmartyManagerFactory extends SmartyTestCase
+namespace Tests;
+
+class SmartyFactoryTest extends SmartyTestCase
 {
     public function testInstance(): void
     {
