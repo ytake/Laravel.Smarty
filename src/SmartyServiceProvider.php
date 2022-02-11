@@ -64,7 +64,7 @@ class SmartyServiceProvider extends ServiceProvider
                                  . DIRECTORY_SEPARATOR
                                  . 'ytake-laravel-smarty.php',
                          ]);
-        $this->app->singleton('smarty.view', fn($app) => $this->createSmarty($app));
+        $this->app->singleton('smarty.view', fn ($app) => $this->createSmarty($app));
         $this->app->alias('smarty.view', SmartyFactory::class);
     }
 

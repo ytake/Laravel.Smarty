@@ -46,7 +46,7 @@ class OptimizeCommand extends Command
      */
     public function __construct(
         protected Smarty $smarty,
-        Protected ConfigContract $config
+        protected ConfigContract $config
     ) {
         parent::__construct();
     }
