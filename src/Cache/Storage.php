@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty\Cache;
 
@@ -31,25 +31,19 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
  */
 class Storage
 {
-    /** @var Smarty */
-    protected $smarty;
-
-    /** @var ConfigContract */
-    protected $repository;
-
     /**
      * @param Smarty $smarty
      * @param ConfigContract $repository
      */
-    public function __construct(Smarty $smarty, ConfigContract $repository)
-    {
-        $this->smarty = $smarty;
-        $this->repository = $repository;
+    public function __construct(
+        protected Smarty $smarty,
+        protected ConfigContract $repository
+    ) {
     }
 
     /**
      */
-    public function cacheStorageManaged()
+    public function cacheStorageManaged(): void
     {
         $driver = $this->repository->get('ytake-laravel-smarty.cache_driver', 'file');
         if ($driver !== 'file') {
@@ -62,7 +56,7 @@ class Storage
     /**
      * @return Redis
      */
-    protected function redisStorage()
+    protected function redisStorage(): Redis
     {
         return new Redis($this->repository->get('ytake-laravel-smarty.redis'));
     }
@@ -70,7 +64,7 @@ class Storage
     /**
      * @return Memcached
      */
-    protected function memcachedStorage()
+    protected function memcachedStorage(): Memcached
     {
         return new Memcached(
             new \Memcached(),

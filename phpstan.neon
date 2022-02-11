@@ -1,0 +1,9 @@
+parameters:
+  paths:
+    - src
+  level: 5
+  excludes_analyse:
+    - src/SmartyServiceProvider.php
+    - src/SmartyConsoleServiceProvider.php
+    - src/config/ytake-laravel-smarty.php
+    - src/Engines/SmartyTemplate.php

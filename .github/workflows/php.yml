@@ -2,16 +2,16 @@ name: Tests
 
 on:
   push:
+    branches: [ main ]
   pull_request:
-  schedule:
-    - cron: '0 0 * * *'
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['7.3', '7.4', '8.0']
+        php-versions: ['8.0', '8.1']
     name: PHP ${{ matrix.php-versions }} Test
     services:
       redis:
@@ -49,3 +49,7 @@ jobs:
       run: composer dump-autoload
     - name: Run test suite
       run: vendor/bin/phpunit
+    - name: Run cs
+      run: composer run-script phpcs
+    - name: Run analyse
+      run: composer run-script analyse

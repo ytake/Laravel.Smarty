@@ -12,7 +12,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
 
@@ -170,7 +170,6 @@ return [
      */
 
 //     'security_policy' => [
-//         'php_handling' => null,
 //         'secure_dir' => null,
 //         'trusted_dir' => null,
 //         'trusted_uri' => null,
@@ -190,5 +189,4 @@ return [
 //         'allow_super_globals' => null,
 //         'max_template_nesting' => null,
 //     ]
-
 ];

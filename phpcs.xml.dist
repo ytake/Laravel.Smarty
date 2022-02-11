@@ -12,7 +12,9 @@
     <file>src</file>
     <file>tests</file>
     <exclude-pattern>/src/*ServiceProvider.php</exclude-pattern>
-    <rule ref="PSR12"/>
+    <rule ref="PSR12">
+        <exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
+    </rule>
     <rule ref="SlevomatCodingStandard.Classes.PropertySpacing">
         <properties>
             <property name="minLinesCountBeforeWithComment" value="1"/>

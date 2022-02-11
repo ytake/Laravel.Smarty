@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty\Console;
 
@@ -32,16 +32,13 @@ use Ytake\LaravelSmarty\SmartyFactory;
  */
 class ClearCompiledCommand extends Command
 {
-    /** @var SmartyFactory */
-    protected $smartyFactory;
-
     /**
      * @param SmartyFactory $smartyFactory
      */
-    public function __construct(SmartyFactory $smartyFactory)
-    {
+    public function __construct(
+        protected SmartyFactory $smartyFactory
+    ) {
         parent::__construct();
-        $this->smartyFactory = $smartyFactory;
     }
 
     /**
@@ -81,7 +78,7 @@ class ClearCompiledCommand extends Command
      *
      * @return array
      */
-    protected function getOptions()
+    protected function getOptions(): array
     {
         return [
             ['file', 'f', InputOption::VALUE_OPTIONAL, 'Specify file'],

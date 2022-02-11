@@ -118,7 +118,6 @@ return [
      */
 
      'security_policy' => [
-         'php_handling' => \Smarty::PHP_REMOVE,
 //         'secure_dir' => null,
 //         'trusted_dir' => null,
 //         'trusted_uri' => null,

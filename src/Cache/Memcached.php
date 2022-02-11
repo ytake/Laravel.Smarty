@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty\Cache;
 
@@ -32,14 +32,13 @@ use function sha1;
  */
 class Memcached extends KeyValueStorage
 {
-    /** @var MemcachedExtension */
-    protected $memcached;
-
     /**
      * @param MemcachedExtension $memcached
      */
-    public function __construct(MemcachedExtension $memcached, array $servers)
-    {
+    public function __construct(
+        protected MemcachedExtension $memcached,
+        array $servers
+    ) {
         $this->memcached = $this->connection($memcached, $servers);
     }
 
@@ -65,7 +64,7 @@ class Memcached extends KeyValueStorage
      *
      * @return array   list of values with the given keys used as indexes
      */
-    protected function read(array $keys)
+    protected function read(array $keys): array
     {
         $map = $lookup = [];
         [$map, $lookup] = $this->eachKeys($keys, $map, $lookup);
@@ -85,7 +84,7 @@ class Memcached extends KeyValueStorage
      *
      * @return bool true on success, false on failure
      */
-    protected function write(array $keys, $expire = null)
+    protected function write(array $keys, $expire = null): bool
     {
         foreach ($keys as $k => $v) {
             $k = sha1($k);
@@ -101,7 +100,7 @@ class Memcached extends KeyValueStorage
      *
      * @return bool true on success, false on failure
      */
-    protected function delete(array $keys)
+    protected function delete(array $keys): bool
     {
         foreach ($keys as $k) {
             $k = sha1($k);
@@ -115,7 +114,7 @@ class Memcached extends KeyValueStorage
      *
      * @return bool true on success, false on failure
      */
-    protected function purge()
+    protected function purge(): bool
     {
         return $this->memcached->flush();
     }
