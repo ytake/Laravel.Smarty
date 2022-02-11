@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty;
 
@@ -48,16 +48,10 @@ use const E_WARNING;
  */
 class SmartyFactory extends Factory
 {
-    public const VERSION = '5.1.0';
-
-    /** @var Smarty $smarty */
-    protected $smarty;
-
-    /** @var ConfigContract $config */
-    protected $config;
+    public const VERSION = '56.0.0';
 
     /** @var array valid config keys */
-    protected $configKeys = [
+    protected array $configKeys = [
         'auto_literal',
         'error_unassigned',
         'use_include_path',
@@ -130,7 +124,7 @@ class SmartyFactory extends Factory
     ];
 
     /** @var array valid security policy config keys */
-    protected $securityPolicyConfigKeys = [
+    protected array $securityPolicyConfigKeys = [
         'php_handling',
         'secure_dir',
         'trusted_dir',
@@ -152,8 +146,8 @@ class SmartyFactory extends Factory
         'max_template_nesting',
     ];
 
-    /** @var string  smarty template file extension */
-    protected $smartyFileExtension;
+    /** @var string|null  smarty template file extension */
+    protected ?string $smartyFileExtension = null;
 
     /**
      * @param EngineResolver $engines
@@ -166,12 +160,10 @@ class SmartyFactory extends Factory
         EngineResolver $engines,
         ViewFinderInterface $finder,
         DispatcherContract $events,
-        Smarty $smarty,
-        ConfigContract $config
+        protected Smarty $smarty,
+        protected ConfigContract $config
     ) {
         parent::__construct($engines, $finder, $events);
-        $this->smarty = $smarty;
-        $this->config = $config;
     }
 
     /**
@@ -251,7 +243,7 @@ class SmartyFactory extends Factory
      * @return mixed
      * @throws MethodNotFoundException
      */
-    public function __call($method, $parameters)
+    public function __call($method, $parameters): mixed
     {
         $reflectionClass = new ReflectionClass($this->smarty);
         if (!$reflectionClass->hasMethod($method)) {

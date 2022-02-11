@@ -22,7 +22,7 @@ or composer.json
 
 ```json
 "require": {
-  "ytake/laravel-smarty": "^2.2"
+  "ytake/laravel-smarty": "^6.0"
 },
 ```
 

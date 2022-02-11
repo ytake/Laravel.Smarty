@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty\Cache;
 
@@ -34,7 +34,7 @@ use function sha1;
 class Redis extends KeyValueStorage
 {
     /** @var Client */
-    protected $redis;
+    protected Client $redis;
 
     /**
      * @param array $servers
@@ -55,7 +55,7 @@ class Redis extends KeyValueStorage
      *
      * @return array   list of values with the given keys used as indexes
      */
-    protected function read(array $keys)
+    protected function read(array $keys): array
     {
         $map = $lookup = [];
         list($map, $lookup) = $this->eachKeys($keys, $map, $lookup);
@@ -74,7 +74,7 @@ class Redis extends KeyValueStorage
      *
      * @return bool true on success, false on failure
      */
-    protected function write(array $keys, $expire = 1)
+    protected function write(array $keys, $expire = 1): bool
     {
         foreach ($keys as $k => $v) {
             $k = sha1($k);
@@ -90,7 +90,7 @@ class Redis extends KeyValueStorage
      *
      * @return bool true on success, false on failure
      */
-    protected function delete(array $keys)
+    protected function delete(array $keys): bool
     {
         foreach ($keys as $k) {
             $k = sha1($k);
@@ -102,10 +102,11 @@ class Redis extends KeyValueStorage
     /**
      * Remove *all* values from cache
      *
-     * @return boolean true on success, false on failure
+     * @return bool true on success, false on failure
      */
-    protected function purge()
+    protected function purge(): bool
     {
         $this->redis->flushdb();
+        return true;
     }
 }

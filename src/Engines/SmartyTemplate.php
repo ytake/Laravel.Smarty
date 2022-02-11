@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,15 +12,18 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty\Engines;
 
 use Illuminate\View\View;
 use Smarty_Internal_Template;
 use Smarty_Resource;
+use Ytake\LaravelSmarty\Smarty;
 use Ytake\LaravelSmarty\SmartyFactory;
 
 use function str_replace;
@@ -35,8 +36,8 @@ use function str_replace;
  */
 class SmartyTemplate extends Smarty_Internal_Template
 {
-    /** @var string */
-    private $templateResourceName;
+    /** @var string|null  */
+    private ?string $templateResourceName = null;
 
     /**
      * {@inheritdoc}
@@ -52,7 +53,7 @@ class SmartyTemplate extends Smarty_Internal_Template
         $forceTplCache,
         $uid = null,
         $content_func = null
-    ) {
+    ): void {
         $this->templateResourceName = $template;
         parent::_subTemplateRender(
             $template,
@@ -71,7 +72,7 @@ class SmartyTemplate extends Smarty_Internal_Template
     /**
      * {@inheritdoc}
      */
-    public function _subTemplateRegister()
+    public function _subTemplateRegister(): void
     {
         foreach ($this->compiled->includes as $name => $count) {
             // @codeCoverageIgnoreStart
@@ -95,8 +96,10 @@ class SmartyTemplate extends Smarty_Internal_Template
      * @param Smarty_Internal_Template $template
      * @param string $name
      */
-    protected function dispatch(Smarty_Internal_Template $template, string $name)
-    {
+    protected function dispatch(
+        Smarty_Internal_Template $template,
+        string $name
+    ): void {
         /** @var SmartyFactory $viewFactory */
         $viewFactory = $this->smarty->getViewFactory();
         $name = $this->normalizeName($name, $viewFactory);
@@ -119,10 +122,12 @@ class SmartyTemplate extends Smarty_Internal_Template
      * @param string $name
      * @param SmartyFactory $viewFactory
      *
-     * @return array|string|string[]
+     * @return string|string[]
      */
-    protected function normalizeName(string $name, SmartyFactory $viewFactory)
-    {
+    protected function normalizeName(
+        string $name,
+        SmartyFactory $viewFactory
+    ): array|string {
         $name = str_replace('.' . $viewFactory->getSmartyFileExtension(), '', $name);
 
         return str_replace('/', '.', $name);

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty;
 
@@ -31,12 +31,12 @@ use Illuminate\Contracts\View\Factory;
 final class Smarty extends \Smarty
 {
     /** @var Factory */
-    protected $viewFactory;
+    protected Factory $viewFactory;
 
     /**
      * @param Factory $factory
      */
-    public function setViewFactory(Factory $factory)
+    public function setViewFactory(Factory $factory): void
     {
         $this->viewFactory = $factory;
     }

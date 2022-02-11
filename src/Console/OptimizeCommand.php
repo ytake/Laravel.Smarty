@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty\Console;
 
@@ -40,21 +40,15 @@ use function trim;
  */
 class OptimizeCommand extends Command
 {
-    /** @var Smarty */
-    protected $smarty;
-
-    /** @var ConfigContract */
-    protected $config;
-
     /**
      * @param Smarty $smarty
      * @param ConfigContract $config
      */
-    public function __construct(Smarty $smarty, ConfigContract $config)
-    {
+    public function __construct(
+        protected Smarty $smarty,
+        Protected ConfigContract $config
+    ) {
         parent::__construct();
-        $this->smarty = $smarty;
-        $this->config = $config;
     }
 
     /**
@@ -98,7 +92,7 @@ class OptimizeCommand extends Command
      *
      * @return array
      */
-    protected function getOptions()
+    protected function getOptions(): array
     {
         return [
             ['extension', 'e', InputOption::VALUE_OPTIONAL, 'Specified smarty file extension'],

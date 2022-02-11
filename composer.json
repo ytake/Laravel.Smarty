@@ -17,26 +17,27 @@
   ],
   "license": "MIT",
   "require": {
-    "php": "^7.3 | ^8.0",
-    "illuminate/support": "^8.0",
-    "illuminate/view": "^8.0",
-    "illuminate/config": "^8.0",
-    "illuminate/console": "^8.0",
-    "illuminate/events": "^8.0",
-    "smarty/smarty": "^3.1.33"
+    "php": "^8.0.2",
+    "illuminate/support": "^9.0",
+    "illuminate/view": "^9.0",
+    "illuminate/config": "^9.0",
+    "illuminate/console": "^9.0",
+    "illuminate/events": "^9.0",
+    "smarty/smarty": "^4.1.0"
   },
   "require-dev": {
     "predis/predis": "^1.0",
-    "symfony/framework-bundle": "^5.0",
-    "symfony/console": "^5.0",
-    "phpunit/phpunit": "^9.0",
+    "symfony/framework-bundle": "^6.0",
+    "symfony/console": "^6.0",
+    "phpunit/phpunit": "^9.5.10",
     "phpmd/phpmd": "@stable",
-    "squizlabs/php_codesniffer": "^3.4.2",
-    "friendsofphp/php-cs-fixer": "^2.15.3",
-    "slevomat/coding-standard": "^6.4",
+    "squizlabs/php_codesniffer": "^3.6.2",
+    "friendsofphp/php-cs-fixer": "^3.6.0",
+    "slevomat/coding-standard": "^7.0.18",
     "sebastian/phpcpd": "*",
     "phploc/phploc": "*",
-    "pdepend/pdepend" : "^2.5.2"
+    "pdepend/pdepend" : "^2.10.2",
+    "phpstan/phpstan": "^1.4"
   },
   "suggest": {
     "ext-memcached": "memcached Template Cache Driver",
@@ -53,16 +54,14 @@
     }
   },
   "scripts": {
-    "md": "php ./vendor/bin/phpmd src text ./phpmd.xml",
     "quality-assurance": [
       "php ./vendor/bin/phpunit",
       "php ./vendor/bin/phpcpd src/"
     ],
     "pdepend": "php ./vendor/bin/pdepend  --summary-xml=tests/build/summary.xml --jdepend-chart=tests/quality-assurance/jdepend.svg --overview-pyramid=tests/quality-assurance/pyramid.svg src/",
     "loc": "php ./vendor/bin/phploc src/ --log-xml=tests/quality-assurance/phploc.xml",
-    "cs": "php ./vendor/bin/php-cs-fixer fix",
-    "phpcs": "./vendor/bin/phpcs src/ --report-full --report-source --standard=PSR2 --colors",
-    "sc": "security-checker security:check ./composer.lock"
+    "phpcs": "./vendor/bin/phpcs src/ --report-full --report-source --colors",
+    "analyse": "./vendor/bin/phpstan analyse -c phpstan.neon"
   },
   "extra": {
     "laravel": {

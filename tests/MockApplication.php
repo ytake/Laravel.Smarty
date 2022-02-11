@@ -172,9 +172,19 @@ class MockApplication extends Container implements Application
         // TODO: Implement resourcePath() method.
     }
 
-    public function storagePath()
+    public function storagePath($path = '')
     {
         // TODO: Implement storagePath() method.
+    }
+
+    public function maintenanceMode()
+    {
+        // TODO: Implement maintenanceMode() method.
+    }
+
+    public function terminating($callback)
+    {
+        // TODO: Implement terminating() method.
     }
 
     public function runningUnitTests()

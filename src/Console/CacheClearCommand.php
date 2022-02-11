@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty\Console;
 
@@ -34,16 +34,13 @@ use function is_null;
  */
 class CacheClearCommand extends Command
 {
-    /** @var Smarty */
-    protected $smarty;
-
     /**
      * @param Smarty $smarty
      */
-    public function __construct(Smarty $smarty)
-    {
+    public function __construct(
+        protected Smarty $smarty
+    ) {
         parent::__construct();
-        $this->smarty = $smarty;
     }
 
     /**
@@ -68,13 +65,13 @@ class CacheClearCommand extends Command
     {
         // clear all cache
         if (is_null($this->option('file'))) {
-            $this->smarty->clearAllCache($this->option('time'));
+            $this->smarty->clearAllCache((int) $this->option('time'));
             $this->info('Smarty cache cleared!');
 
             return 0;
         }
         // file specified
-        if (!$this->smarty->clearCache($this->option('file'), $this->option('cache_id'), null, $this->option('time'))) {
+        if (!$this->smarty->clearCache($this->option('file'), $this->option('cache_id'), null, (int) $this->option('time'))) {
             $this->error('Specified file not found');
 
             return 1;
@@ -89,7 +86,7 @@ class CacheClearCommand extends Command
      *
      * @return array
      */
-    protected function getOptions()
+    protected function getOptions(): array
     {
         return [
             ['file', 'f', InputOption::VALUE_OPTIONAL, 'Specify file'],

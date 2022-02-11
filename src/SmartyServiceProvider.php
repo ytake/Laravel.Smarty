@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,14 +12,18 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2021 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use SmartyException;
 
 use const DIRECTORY_SEPARATOR;
 
@@ -37,7 +39,7 @@ class SmartyServiceProvider extends ServiceProvider
      * boot
      * @throws BindingResolutionException
      */
-    public function boot()
+    public function boot(): void
     {
         // add Smarty Extension
         $extension = $this->app['config']->get('ytake-laravel-smarty.extension', 'tpl');
@@ -53,35 +55,16 @@ class SmartyServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $configPath = __DIR__ . '/config/ytake-laravel-smarty.php';
         $this->mergeConfigFrom($configPath, 'ytake-laravel-smarty');
         $this->publishes([
-                             $configPath => $this->resolveConfigurePath(
-                                 ) . DIRECTORY_SEPARATOR . 'ytake-laravel-smarty.php',
+                             $configPath => $this->resolveConfigurePath()
+                                 . DIRECTORY_SEPARATOR
+                                 . 'ytake-laravel-smarty.php',
                          ]);
-
-        $this->app->singleton('smarty.view', function ($app) {
-            $smartyTemplate = new Smarty();
-            $factory = new SmartyFactory(
-                $app['view.engine.resolver'],
-                $app['view.finder'],
-                $app['events'],
-                $smartyTemplate,
-                $this->app['config']
-            );
-            // Pass the container to the factory so it can be used to resolve view composers.
-            $factory->setContainer($app);
-            $factory->share('app', $app);
-            // resolve cache storage
-            $factory->resolveSmartyCache();
-            // smarty configure(use ytake-laravel-smarty.php)
-            $factory->setSmartyConfigure();
-            $smartyTemplate->setViewFactory($factory);
-
-            return $factory;
-        });
+        $this->app->singleton('smarty.view', fn($app) => $this->createSmarty($app));
         $this->app->alias('smarty.view', SmartyFactory::class);
     }
 
@@ -92,5 +75,31 @@ class SmartyServiceProvider extends ServiceProvider
     {
         return (isset($this->app['path.config']))
             ? (string)$this->app['path.config'] : $this->app->basePath() . DIRECTORY_SEPARATOR . 'config';
+    }
+
+    /**
+     * @param Application $app
+     * @return SmartyFactory
+     * @throws SmartyException
+     */
+    public function createSmarty(Application $app): SmartyFactory
+    {
+        $smartyTemplate = new Smarty();
+        $factory = new SmartyFactory(
+            $app['view.engine.resolver'],
+            $app['view.finder'],
+            $app['events'],
+            $smartyTemplate,
+            $this->app['config']
+        );
+        // Pass the container to the factory so it can be used to resolve view composers.
+        $factory->setContainer($app);
+        $factory->share('app', $app);
+        // resolve cache storage
+        $factory->resolveSmartyCache();
+        // smarty configure(use ytake-laravel-smarty.php)
+        $factory->setSmartyConfigure();
+        $smartyTemplate->setViewFactory($factory);
+        return $factory;
     }
 }

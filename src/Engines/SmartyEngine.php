@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,9 +12,11 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2014-2019 Yuuki Takezawa
+ * Copyright (c) 2014-2022 Yuuki Takezawa
  *
  */
+
+declare(strict_types=1);
 
 namespace Ytake\LaravelSmarty\Engines;
 
@@ -36,22 +36,19 @@ use const EXTR_SKIP;
  */
 class SmartyEngine implements EngineInterface
 {
-    /** @var Smarty $smarty */
-    protected $smarty;
-
     /**
      * @param Smarty $smarty
      */
-    public function __construct(Smarty $smarty)
-    {
-        $this->smarty = $smarty;
+    public function __construct(
+        protected Smarty $smarty
+    ) {
     }
 
     /**
      * {@inheritdoc}
      * @throws Throwable
      */
-    public function get($path, array $data = [])
+    public function get($path, array $data = []): string
     {
         return $this->evaluatePath($path, $data);
     }
