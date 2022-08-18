@@ -57,7 +57,7 @@ or composer.json
 
 register Laravel.Smarty Service Providers
 
-your bootstrap/app.php 
+your [bootstrap](https://www.scaler.com/topics/css/bootstrap/)/app.php 
 ```php
 $app->configure('ytake-laravel-smarty');
 $app->register(Ytake\LaravelSmarty\SmartyServiceProvider::class);
