@@ -1,75 +1,78 @@
 {
-    "name": "ytake/laravel-smarty",
-    "description": "Smarty template engine for Laravel and Lumen",
-    "keywords": [
-        "laravel",
-        "smarty",
-        "template",
-        "view",
-        "cache",
-        "lumen"
+  "name": "ytake/laravel-smarty",
+  "description": "Smarty template engine for Laravel and Lumen",
+  "keywords": [
+    "laravel",
+    "smarty",
+    "template",
+    "view",
+    "cache",
+    "lumen"
+  ],
+  "authors": [
+    {
+      "name": "Yuuki Takezawa",
+      "email": "yuuki.takezawa@comnect.jp.net"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^8.1",
+    "illuminate/support": "^10.0",
+    "illuminate/view": "^10.0",
+    "illuminate/config": "^10.0",
+    "illuminate/console": "^10.0",
+    "illuminate/events": "^10.0",
+    "smarty/smarty": "^4.3"
+  },
+  "require-dev": {
+    "predis/predis": "^2.1",
+    "symfony/framework-bundle": "^6.0",
+    "symfony/console": "^6.0",
+    "phpunit/phpunit": "^9.5.10",
+    "phpmd/phpmd": "^2.13",
+    "squizlabs/php_codesniffer": "^3.7",
+    "friendsofphp/php-cs-fixer": "^3.14",
+    "slevomat/coding-standard": "^8.8",
+    "sebastian/phpcpd": "*",
+    "phploc/phploc": "*",
+    "pdepend/pdepend": "^2.12",
+    "phpstan/phpstan": "^1.9"
+  },
+  "suggest": {
+    "ext-memcached": "memcached Template Cache Driver",
+    "predis/predis": "Redis Template Cache Driver"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ytake\\LaravelSmarty\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "quality-assurance": [
+      "php ./vendor/bin/phpunit",
+      "php ./vendor/bin/phpcpd src/"
     ],
-    "authors": [
-        {
-            "name": "Yuuki Takezawa",
-            "email": "yuuki.takezawa@comnect.jp.net"
-        }
-    ],
-    "license": "MIT",
-    "require": {
-        "php": "^8.1",
-        "illuminate/support": "^10.0",
-        "illuminate/view": "^10.0",
-        "illuminate/config": "^10.0",
-        "illuminate/console": "^10.0",
-        "illuminate/events": "^10.0",
-        "smarty/smarty": "^4.3"
-    },
-    "require-dev": {
-        "predis/predis": "^2.1",
-        "symfony/framework-bundle": "^6.0",
-        "symfony/console": "^6.0",
-        "phpunit/phpunit": "^9.5.10",
-        "phpmd/phpmd": "^2.13",
-        "squizlabs/php_codesniffer": "^3.7",
-        "friendsofphp/php-cs-fixer": "^3.14",
-        "slevomat/coding-standard": "^8.8",
-        "sebastian/phpcpd": "*",
-        "phploc/phploc": "*",
-        "pdepend/pdepend": "^2.12",
-        "phpstan/phpstan": "^1.9"
-    },
-    "suggest": {
-        "ext-memcached": "memcached Template Cache Driver",
-        "predis/predis": "Redis Template Cache Driver"
-    },
-    "autoload": {
-        "psr-4": {
-            "Ytake\\LaravelSmarty\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "quality-assurance": [
-            "php ./vendor/bin/phpunit",
-            "php ./vendor/bin/phpcpd src/"
-        ],
-        "pdepend": "php ./vendor/bin/pdepend  --summary-xml=tests/build/summary.xml --jdepend-chart=tests/quality-assurance/jdepend.svg --overview-pyramid=tests/quality-assurance/pyramid.svg src/",
-        "loc": "php ./vendor/bin/phploc src/ --log-xml=tests/quality-assurance/phploc.xml",
-        "phpcs": "./vendor/bin/phpcs src/ --report-full --report-source --colors",
-        "analyse": "./vendor/bin/phpstan analyse -c phpstan.neon"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Ytake\\LaravelSmarty\\SmartyServiceProvider",
-                "Ytake\\LaravelSmarty\\SmartyConsoleServiceProvider"
-            ]
-        }
-    },
-    "minimum-stability": "stable"
+    "pdepend": "php ./vendor/bin/pdepend  --summary-xml=tests/build/summary.xml --jdepend-chart=tests/quality-assurance/jdepend.svg --overview-pyramid=tests/quality-assurance/pyramid.svg src/",
+    "loc": "php ./vendor/bin/phploc src/ --log-xml=tests/quality-assurance/phploc.xml",
+    "phpcs": "./vendor/bin/phpcs src/ --report-full --report-source --colors",
+    "analyse": "./vendor/bin/phpstan analyse -c phpstan.neon"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ytake\\LaravelSmarty\\SmartyServiceProvider",
+        "Ytake\\LaravelSmarty\\SmartyConsoleServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "stable",
+  "allow-plugins": {
+    "dealerdirect/phpcodesniffer-composer-installer": true
+  }
 }
