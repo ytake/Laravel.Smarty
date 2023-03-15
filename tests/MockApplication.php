@@ -19,6 +19,21 @@ class MockApplication extends Container implements Application
         // TODO: Implement getCachedPackagesPath() method.
     }
 
+    public function langPath($path = '')
+    {
+        // TODO: Implement langPath() method.
+    }
+
+    public function publicPath($path = '')
+    {
+        // TODO: Implement publicPath() method.
+    }
+
+    public function hasDebugModeEnabled()
+    {
+        // TODO: Implement hasDebugModeEnabled() method.
+    }
+
     /**
      * Get the version number of the application.
      *
@@ -26,7 +41,7 @@ class MockApplication extends Container implements Application
      */
     public function version()
     {
-        // TODO: Implement version() method.
+        return '';
     }
 
     /**
@@ -37,7 +52,7 @@ class MockApplication extends Container implements Application
      */
     public function environment(...$environments)
     {
-        // TODO: Implement environment() method.
+        return '';
     }
 
     /**
@@ -47,7 +62,7 @@ class MockApplication extends Container implements Application
      */
     public function isDownForMaintenance()
     {
-        // TODO: Implement isDownForMaintenance() method.
+        return false;
     }
 
     /**
