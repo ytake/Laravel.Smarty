@@ -65,7 +65,10 @@ class SmartyEngine implements EngineInterface
     protected function evaluatePath(string $path, array $data = []): string
     {
         extract($data, EXTR_SKIP);
+
         if (!$this->smarty->isCached($path)) {
+            $this->smarty->clearAllAssign();
+
             foreach ($data as $var => $val) {
                 $this->smarty->assign($var, $val);
             }
