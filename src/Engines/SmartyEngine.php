@@ -65,14 +65,19 @@ class SmartyEngine implements EngineInterface
     protected function evaluatePath(string $path, array $data = []): string
     {
         extract($data, EXTR_SKIP);
-        if (!$this->smarty->isCached($path)) {
-            foreach ($data as $var => $val) {
-                $this->smarty->assign($var, $val);
-            }
-        }
-        // render
+
         $cacheId = $data['smarty.cache_id'] ?? null;
         $compileId = $data['smarty.compile_id'] ?? null;
-        return $this->smarty->fetch($path, $cacheId, $compileId);
+
+        if ($this->smarty->isCached($path)) {
+            return $this->smarty->fetch($path, $cacheId, $compileId);
+        }
+
+        $scopedData = $this->smarty->createData();
+        foreach ($data as $var => $val) {
+            $scopedData->assign($var, $val);
+        }
+
+        return $this->smarty->createTemplate($path, $scopedData)->fetch(null, $cacheId, $compileId);
     }
 }
